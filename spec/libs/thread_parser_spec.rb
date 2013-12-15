@@ -10,7 +10,7 @@ describe ThreadParser do
 
     context "given post url" do
       let(:object) { ThreadParser.new(url: "http://forum.hard-core.pl/viewtopic.php?p=1182059#p1182059") }
-      it { expect{ object.id }.to raise_error }
+      it { expect{ object.id }.to raise_error(WrongUrl) }
     end
 
     context "given thread id" do
@@ -20,7 +20,7 @@ describe ThreadParser do
 
     context "given no id or url params" do
       let(:object) { ThreadParser.new() }
-      it { expect{ object }.to raise_error }
+      it { expect{ object }.to raise_error(ArgumentError) }
     end
   end
 end

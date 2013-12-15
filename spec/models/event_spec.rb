@@ -49,4 +49,9 @@ describe Event do
     expect(@event).to be_valid
   end
 
+  it "is valid without a bands" do
+    @event.band_list = nil
+    expect(@event).to be_valid
+  end
+
 end

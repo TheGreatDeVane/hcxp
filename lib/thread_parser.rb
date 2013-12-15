@@ -28,6 +28,7 @@ class ThreadParser
 
   private
 
+  # Determine link type (single post or thread)
   def discover_type
     params = Rack::Utils.parse_query URI(@url).query
     
@@ -40,6 +41,7 @@ class ThreadParser
     end
   end
 
+  # Generate thread url using thread ID
   def generate_url
     "http://forum.hard-core.pl/viewtopic.php?t=#{@id}"
   end
