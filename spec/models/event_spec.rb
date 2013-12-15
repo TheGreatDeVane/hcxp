@@ -54,4 +54,14 @@ describe Event do
     expect(@event).to be_valid
   end
 
+  it "is valid without a poster" do
+    @event.poster = nil
+    expect(@event).to be_valid
+  end
+
+  it "is invalid without an author" do
+    @event.user_id = nil
+    expect(@event).to_not be_valid
+  end
+
 end
