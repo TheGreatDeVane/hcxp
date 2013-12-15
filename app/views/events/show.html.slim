@@ -1,0 +1,36 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @event.title
+p
+  strong Poster:
+  = @event.poster
+p
+  strong User:
+  = @event.user_id
+p
+  strong Description:
+  = @event.description
+p
+  strong Beginning at:
+  = @event.beginning_at
+p
+  strong Beginning at time:
+  = @event.beginning_at_time
+p
+  strong Ending at:
+  = @event.ending_at
+p
+  strong Ending at time:
+  = @event.ending_at_time
+p
+  strong Price:
+  = @event.price
+p
+  strong Address:
+  = @event.address
+
+= link_to 'Edit', edit_event_path(@event)
+'|
+= link_to 'Back', events_path
