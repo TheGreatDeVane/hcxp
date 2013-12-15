@@ -33,6 +33,9 @@ gem "slim-rails"
 # Tagging
 gem 'acts-as-taggable-on'
 
+# Geocoding
+gem "geocoder"
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
