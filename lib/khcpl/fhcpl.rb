@@ -39,7 +39,7 @@ module Khcpl
       profile_link = Nokogiri::HTML(page.body).at('.gensmall a:contains("m.b.")').attributes['href'].value
       Rails.logger.info 'Profile link obtained'
 
-      user_id = profile_link.scan(/\d/).join('').to_i
+      user_id = profile_link.scan(/\d/).join('')
       Rails.logger.info "Profile ID obtained (#{user_id})"
 
       return { user_name: user_name, user_email: user_email, user_id: user_id, provider: 'khcpl' }
