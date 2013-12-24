@@ -4,12 +4,12 @@ class UsersController < ApplicationController
   def saves
     @events       = current_user.saved_events.order(:beginning_at)
     @event_months = @events.group_by { |e| e.beginning_at.beginning_of_day }
-    @cities       = Venue.all.group(:city)
+    @cities       = Venue.select('DISTINCT(city)')
   end
 
   def events
     @events       = current_user.events.order(:beginning_at)
     @event_months = @events.group_by { |e| e.beginning_at.beginning_of_day }
-    @cities       = Venue.all.group(:city)
+    @cities       = Venue.select('DISTINCT(city)')
   end
 end
