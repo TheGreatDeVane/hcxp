@@ -7,7 +7,7 @@ class EventsController < ApplicationController
   def index
     @events = Event.all.order(:beginning_at)
     @event_months = @events.group_by { |e| e.beginning_at.beginning_of_day }
-    @cities = Venue.all.group('venues.city')
+    @cities = Venue.select('DISTINCT(city)')
   end
 
   # GET /events/1
