@@ -20,4 +20,4 @@ config/initializers/secret_token.rb
 
 /public/uploads
 
-/config/initializers/azure.rb.example
+/config/initializers/azure.rb
