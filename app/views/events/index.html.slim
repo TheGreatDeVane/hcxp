@@ -1,37 +1,19 @@
-h1 Listing events
+.container
+  .row
+    .col-md-10
 
-table
-  tr
-    th Title
-    th Poster
-    th User
-    th Description
-    th Beginning at
-    th Beginning at time
-    th Ending at
-    th Ending at time
-    th Price
-    th Address
-    th
-    th
-    th
+      .events-list
+        - @event_months.each do |month, events|
+          h2.month-title
+            = event_date_to_words month
 
-  - @events.each do |event|
-    tr
-      td = event.title
-      td = event.poster
-      td = event.user_id
-      td = event.description
-      td = event.beginning_at
-      td = event.beginning_at_time
-      td = event.ending_at
-      td = event.ending_at_time
-      td = event.price
-      td = event.address
-      td = link_to 'Show', event
-      td = link_to 'Edit', edit_event_path(event)
-      td = link_to 'Destroy', event, :confirm => 'Are you sure?', :method => :delete
+            - if !month.today? && !(month+1.day).today? && !(month.-1.day).today?
+              small<= distance_of_time_in_words_to_now month
 
-br
+          .month-events
+            = render events
 
-= link_to 'New Event', new_event_path
+    .col-md-2
+      h3 Cities
+      - @cities.each do |city|
+        li= link_to city.city, search_index_path(q: city.city)

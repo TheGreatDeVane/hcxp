@@ -1,0 +1,39 @@
+.row class="event event-#{event.id}" class="#{'faved' if try(:current_user).try(:saved_events).try(:include?, event)}"
+  .inner
+    .col-md-1
+      strong
+        = event.beginning_at_time.try(:strftime, '%H:%M') || '&ndash;'.html_safe
+      
+    .col-md-9
+      .media
+        = link_to event, class: 'pull-left' do
+          = image_tag event.poster, size: '70x70'
+
+        .media-body
+          - if user_signed_in?
+            = link_to toggle_event_saves_path(event, from: 'list'), remote: true, method: :post do
+              - if try(:current_user).saved_events.include? event
+                i.glyphicon.glyphicon-star.pull-right
+              - else
+                i.glyphicon.glyphicon-star-empty.pull-right
+
+          - if event.title.present?
+            h3.media-heading
+              = link_to event.title, event
+
+            p.text-muted= event.bands.map{ |b| b.name }.join(', ')
+
+          - else
+            h3.media-heading
+              = link_to event.bands.map{ |b| b.name }.join(', '), event
+
+            p.text-muted= excerpt(event).to_s.truncate(170)
+
+    .col-md-2.text-right
+      - if event.venue.present?
+        strong = event.venue.name
+        br
+        small.text-muted
+          = event.venue.street
+          br
+          = "#{event.venue.city}, #{event.venue.country_name}"

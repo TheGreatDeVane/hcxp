@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @band.name
+p
+  strong Location:
+  = @band.location
+p
+  strong City:
+  = @band.city
+p
+  strong Country name:
+  = @band.country_name
+p
+  strong Country code:
+  = @band.country_code
+
+= link_to 'Edit', edit_band_path(@band)
+'|
+= link_to 'Back', bands_path

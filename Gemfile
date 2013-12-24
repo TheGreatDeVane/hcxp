@@ -23,6 +23,7 @@ gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+gem 'jquery-turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -35,6 +36,46 @@ gem 'acts-as-taggable-on'
 
 # Geocoding
 gem "geocoder"
+
+# Authentication
+gem 'devise'
+
+# Bootstrap for assets pipeline
+gem 'bootstrap-sass-rails'
+
+# jquery.timeago
+gem 'rails-timeago', '~> 2.0'
+
+# file uploads
+gem 'carrierwave'
+gem 'carrierwave-azure'
+
+# nested forms
+gem "nested_form"
+
+# markdown parser
+gem 'redcarpet'
+
+# html parsing
+gem 'nokogiri'
+
+# Removing html tags from strings
+# gem 'sanitize'
+
+# elasticsearch bindings
+gem "searchkick"
+
+# typehead.js
+gem 'twitter-typeahead-rails', :git => "git://github.com/yourabi/twitter-typeahead-rails.git"
+
+# select2
+gem 'select2-rails'
+
+# json templates
+gem 'rabl'
+
+gem 'mechanize'
+gem 'watir'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

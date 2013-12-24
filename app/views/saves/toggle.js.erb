@@ -1,0 +1,7 @@
+<% if params[:from] == 'single' %>
+  $('.event-<%= @event.id %>-save').replaceWith('<%=j render "events/save_button", event: @event %>')
+<% end %>
+
+<% if params[:from] == 'list' %>
+  $('.event-<%= @event.id %>').replaceWith('<%=j render "events/event", event: @event %>')
+<% end %>

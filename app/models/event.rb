@@ -1,24 +1,27 @@
 class Event < ActiveRecord::Base
-  # Plugins
-  geocoded_by :address do |obj, results|
-    if geo = results.first
-      obj.latitude     = geo.latitude
-      obj.longitude    = geo.longitude
-      obj.city         = geo.city
-      obj.country_name = geo.country
-      obj.street       = "#{geo.address_components[1]['long_name']} #{geo.address_components[0]['long_name']}"
-    end
-  end
-  acts_as_ordered_taggable_on :bands
+  searchkick autocomplete: [:title]
+  
+  has_many :event_bands
+  has_many :bands, through: :event_bands
+  belongs_to :venue, counter_cache: true
 
-  # Callbacks
-  before_validation :geocode, if: :address_changed?
+  mount_uploader :poster, PosterUploader
 
   # Validations
   validates :user_id, presence: true
-  with_options if: Proc.new { |e| e.address.present? } do |geo|
-    geo.validates :country_name, presence: true
-    geo.validates :city, presence: true
-    geo.validates :street, presence: true
+
+  accepts_nested_attributes_for :bands, allow_destroy: true, 
+                                        reject_if: :all_blank
+  accepts_nested_attributes_for :venue, allow_destroy: false, 
+                                        reject_if: :all_blank,
+                                        limit: 1
+
+  def search_data
+    {
+      title: title,
+      description: description,
+      bands: bands.map(&:name).join(' '),
+      venue: venue
+    }
   end
 end

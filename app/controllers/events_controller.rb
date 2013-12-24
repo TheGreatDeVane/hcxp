@@ -1,15 +1,24 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:edit, :update, :new, :create]
 
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
+    @events = Event.all.order(:beginning_at)
+    @event_months = @events.group_by { |e| e.beginning_at.beginning_of_day }
+    @cities = Venue.all.group(:city)
   end
 
   # GET /events/1
   # GET /events/1.json
   def show
+  end
+
+  # GET /events/autocomplete
+  # GET /events/autocomplete.json
+  def autocomplete
+    render json: Event.search(params[:q], autocomplete: true, limit: 10).map(&:title)
   end
 
   # GET /events/new
@@ -25,6 +34,7 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(event_params)
+    @event.user_id = current_user.id
 
     respond_to do |format|
       if @event.save
@@ -51,16 +61,6 @@ class EventsController < ApplicationController
     end
   end
 
-  # DELETE /events/1
-  # DELETE /events/1.json
-  def destroy
-    @event.destroy
-    respond_to do |format|
-      format.html { redirect_to events_url }
-      format.json { head :no_content }
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
@@ -69,6 +69,15 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :poster, :user_id, :description, :beginning_at, :beginning_at_time, :ending_at, :ending_at_time, :price, :address)
+      # Transform select2 text field to reails-friendly input
+      bands                     = params[:event][:band_ids].to_s.split(';')
+      params[:event][:band_ids] = (bands.length) ? bands.each.map { |b| b.split(':')[0] } : nil
+      
+      params.require(:event).permit(:title, :remote_poster_url, :user_id, :description, 
+                                    :beginning_at, :beginning_at_time, :ending_at, 
+                                    :ending_at_time, :price, :address, {band_ids: []},
+                                    :venue_id, :remove_poster,
+                                    bands_attributes: [:id, :name, :location, :_destroy],
+                                    venue_attributes: [:id, :name, :address])
     end
 end

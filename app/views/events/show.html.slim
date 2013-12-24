@@ -1,36 +1,55 @@
-p#notice = notice
+.container
+  .row
+    .col-md-12
+      p#notice = notice
+      .row
+        .col-md-4
+          = image_tag @event.poster, width: '100%'
 
-p
-  strong Title:
-  = @event.title
-p
-  strong Poster:
-  = @event.poster
-p
-  strong User:
-  = @event.user_id
-p
-  strong Description:
-  = @event.description
-p
-  strong Beginning at:
-  = @event.beginning_at
-p
-  strong Beginning at time:
-  = @event.beginning_at_time
-p
-  strong Ending at:
-  = @event.ending_at
-p
-  strong Ending at time:
-  = @event.ending_at_time
-p
-  strong Price:
-  = @event.price
-p
-  strong Address:
-  = @event.address
+        .col-md-8
+          - if user_signed_in?
+            .btn-group.pull-right
+              = link_to edit_event_path(@event), class: 'btn btn-default'
+                i.glyphicon.glyphicon-pencil
+              a.btn.btn-default
+                i.glyphicon.glyphicon-flag
+              = render 'save_button', event: @event
+            
+          h1
+            - if @event.title.present?
+              = @event.title
+            - else
+              = @event.bands.join(', ')
 
-= link_to 'Edit', edit_event_path(@event)
-'|
-= link_to 'Back', events_path
+          ul.list-unstyled.text-muted
+            li
+              i.glyphicon.glyphicon-time>
+              = @event.try(:beginning_at).try(:strftime, '%d.%m.%Y')
+              |  
+              = @event.try(:beginning_at_time).try(:strftime, '%H:%M')
+
+              - if @event.ending_at.present? && @event.ending_at != @event.beginning_at
+                i.glyphicon.glyphicon-arrow-right<>
+                = @event.ending_at.strftime('%d.%m.%Y')
+                |  
+                = @event.ending_at_time.strftime('%H:%M')
+            li
+              i.glyphicon.glyphicon-map-marker>
+              = @event.venue
+
+            - if @event.price.present?
+              li
+                i.glyphicon.glyphicon-usd>
+                = @event.price
+          hr
+          .row
+            .col-md-10
+              p
+                == markdown @event.description
+
+            .col-md-2.tabs-right
+              ul.nav.nav-tabs
+                li.active: a Description
+                li: a Social
+                li: a Bands
+                li: a History

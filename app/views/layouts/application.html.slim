@@ -1,0 +1,44 @@
+doctype html
+html
+  head
+    title KHCPL
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+
+  body
+    nav.navbar.navbar-default
+      .container
+        .navbar-header
+          = link_to 'khcpl', root_path, class: 'navbar-brand'
+
+        .collapse.navbar-collapse
+
+          form.navbar-form.navbar-left#search-form action=search_index_path
+            .input-group
+              input.form-control name="q" type="text" placeholder="Search for a city, country, band, venue or anything else..."
+              span.input-group-btn
+                button type="submit" class="btn btn-default"
+                  i.glyphicon.glyphicon-search
+
+          div.nav.navbar-nav.navbar-right
+            - if user_signed_in?
+              .btn-group
+                = link_to saves_user_path(current_user), class: 'btn btn-default navbar-btn', title: 'Faved events' do
+                  i.glyphicon.glyphicon-star
+                = link_to events_user_path(current_user), class: 'btn btn-default navbar-btn', title: 'Your events' do
+                  i.glyphicon.glyphicon-user
+                = link_to new_event_path, class: 'btn btn-default navbar-btn', title: 'Add event' do
+                  i.glyphicon.glyphicon-plus
+                = link_to destroy_user_session_path, method: :delete, class: 'btn btn-default navbar-btn' do
+                  i.glyphicon.glyphicon-cog
+
+            - else
+              = link_to 'Sign in', new_user_session_path, class: 'btn btn-default navbar-btn'
+
+    = yield
+
+    footet
+      hr
+      .container
+        p: small: i.text-muted DIY or DIE

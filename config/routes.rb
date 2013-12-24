@@ -1,11 +1,38 @@
 Khcpl::Application.routes.draw do
-  resources :events
+  resources :venues do
+    get :autocomplete, on: :collection
+  end
+
+  resources :bands do
+    get :autocomplete, on: :collection
+  end
+
+  devise_for :users, controllers: {
+    sessions: "sessions"
+  }
+  
+  resources :users do
+    get :saves, on: :member
+    get :events, on: :member
+  end
+
+  resources :events do
+    get :autocomplete, on: :collection
+
+    resources :saves do
+      post :toggle, on: :collection
+    end
+  end
+
+  resources :search do
+    get 'bands', on: :collection
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'events#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

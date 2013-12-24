@@ -11,4 +11,25 @@ require 'spec_helper'
 #   end
 # end
 describe EventsHelper do
+  describe "event_date_to_words" do
+    it "returns Yesterday when needed" do
+      date = DateTime.now - 1.day
+      expect(helper.event_date_to_words date).to eq 'Yesterday'
+    end
+
+    it "returns Tomorrow when needed" do
+      date = DateTime.now + 1.day
+      expect(helper.event_date_to_words date).to eq 'Tomorrow'
+    end
+
+    it "returns Tomorrow when needed" do
+      date = DateTime.now
+      expect(helper.event_date_to_words date).to eq 'Today'
+    end
+
+    it "returns a date if needed" do
+      date = DateTime.now + 10.days
+      expect(helper.event_date_to_words date).to eq date.strftime('%d.%m.%Y')
+    end
+  end
 end

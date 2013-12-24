@@ -24,7 +24,7 @@ guard 'rspec', :version => 2 do
 
   begin
     require 'active_support/inflector'
-    watch(%r{^spec/factories/(.+)_factory\.rb$})      { |m| ["app/models/#{m[1].singularize}.rb", "spec/models/#{m[1].singularize}_spec.rb"] }
+    watch(%r{^spec/factories/(.+)\.rb$})      { |m| ["app/models/#{m[1].singularize}.rb", "spec/models/#{m[1].singularize}_spec.rb"] }
   rescue LoadError
   end
 end
