@@ -44,12 +44,16 @@
           hr
           .row
             .col-md-10
-              p
-                == markdown @event.description
+              .tab-content
+                #description.tab-pane.active
+                  == markdown @event.description
+
+                #bands.tab-pane
+                  | bands
 
             .col-md-2.tabs-right
               ul.nav.nav-tabs
-                li.active: a Description
+                li.active: a href="#description" data-toggle="tab" Description
+                li: a href="#bands" data-toggle="tab" Bands
                 li: a Social
-                li: a Bands
                 li: a History
