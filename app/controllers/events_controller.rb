@@ -76,7 +76,7 @@ class EventsController < ApplicationController
       params.require(:event).permit(:title, :remote_poster_url, :user_id, :description, 
                                     :beginning_at, :beginning_at_time, :ending_at, 
                                     :ending_at_time, :price, :address, {band_ids: []},
-                                    :venue_id, :remove_poster,
+                                    :venue_id, :remove_poster, :poster,
                                     bands_attributes: [:id, :name, :location, :_destroy],
                                     venue_attributes: [:id, :name, :address])
     end

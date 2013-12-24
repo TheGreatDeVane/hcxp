@@ -1,4 +1,4 @@
-= nested_form_for @event, html: {class: ''} do |f|
+= nested_form_for @event, html: {class: ''}, :multipart => true do |f|
   .container
     .row
       .col-md-12
@@ -12,6 +12,7 @@
                 = f.label :poster, 'Poster URL', class: 'control-label col-md-4'
                 .col-md-8
                   = f.text_field :remote_poster_url, class: 'form-control', placeholder: 'http://...'
+                  = f.file_field :poster, class: 'form-control'
                   
               - if f.object.poster.present?
                 .form-group
