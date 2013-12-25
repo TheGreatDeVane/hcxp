@@ -21,5 +21,6 @@ config/initializers/secret_token.rb
 /public/uploads
 
 /config/initializers/azure.rb
+/config/initializers/lastfm.rb
 
 /config/deploy.rb
