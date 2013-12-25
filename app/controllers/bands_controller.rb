@@ -45,7 +45,7 @@ class BandsController < ApplicationController
 
   # PATCH/PUT /bands/1
   # PATCH/PUT /bands/1.json
-  def update
+  def update 
     respond_to do |format|
       if @band.update(band_params)
         format.html { redirect_to @band, notice: 'Band was successfully updated.' }
@@ -75,6 +75,9 @@ class BandsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def band_params
-      params.require(:band).permit(:name, :location, :city, :country_name, :country_code)
+      params.require(:band).permit(
+        :name, :location, :city, :country_name, :country_code,
+        resources_attributes: [:id, :resource_type, :url, :user_id, :_destroy]
+      )
     end
 end

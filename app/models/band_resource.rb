@@ -2,12 +2,17 @@ class BandResource < ActiveRecord::Base
   belongs_to :band
   belongs_to :user
 
+  cattr_accessor :account
+
   serialize :data, Hash
 
   validates :url, presence: true
   validates :resource_type, presence: true
-  validates :user_id, presence: true
   validates :band_id, presence: true
+
+  # TODO: I'am not able to set user_id on band controller.
+  # http://stackoverflow.com/q/20773853/552936
+  # validates :user_id, presence: true
 
   scope :bandcamp, -> { where(resource_type: 'bandcamp') }
 
