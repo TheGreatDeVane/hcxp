@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131223231234) do
+ActiveRecord::Schema.define(version: 20131225002411) do
+
+  create_table "band_resources", force: true do |t|
+    t.integer  "band_id"
+    t.string   "resource_type"
+    t.text     "url"
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  add_index "band_resources", ["band_id"], name: "index_band_resources_on_band_id"
 
   create_table "bands", force: true do |t|
     t.string   "name"

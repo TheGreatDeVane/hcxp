@@ -1,5 +1,8 @@
 class Band < ActiveRecord::Base
   searchkick autocomplete: [:name]
+
+  has_many :resources, class_name: 'BandResource'
+
   validates :name, presence: true
   validates :location, presence: true
 
