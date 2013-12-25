@@ -21,11 +21,11 @@ class BandResource < ActiveRecord::Base
   def populate_data
     case self.resource_type
     when 'bandcamp'
-      bandcamp  = Khcpl::Player::Bandcamp.new self.url
+      bandcamp  = SocialServices::Bandcamp.new self.url
       self.data = { album_id: bandcamp.album_id }
     end
 
-  rescue Khcpl::Player::NoEmbedLinkFound
+  rescue SocialServices::NoEmbedLinkFound
     looger.info "No album id found for #{self.id}"
   rescue => e
     logger.error "Something went wrong while obtaining album id (url: #{self.url})"
