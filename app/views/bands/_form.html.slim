@@ -1,16 +1,43 @@
-= form_for @band do |f|
-  - if @band.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@band.errors.count, "error")} prohibited this band from being saved:"
-      ul
-        - @band.errors.full_messages.each do |message|
-          li = message
+= nested_form_for @band, html: {class: ''}, multipart: true do |f|
+  .container
+    .row
+      .col-md-12
+        .row
+          .col-md-4
+            p
+              = image_tag 'http://placehold.it/100x100', width: '100%'
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :location
-    = f.text_field :location
-    
-  .actions = f.submit 'Save'
+          .col-md-8
+            - if @band.errors.any?
+              #error_explanation
+                h2 = "#{pluralize(@band.errors.count, "error")} prohibited this band from being saved:"
+                ul
+                  - @band.errors.full_messages.each do |message|
+                    li = message
+
+            .form-group
+              = f.label :name, 'Band name', class: 'control-label'
+              = f.text_field :name, class: 'form-control input-lg', placeholder: 'Band name'
+
+            .form-group.row
+              .col-md-4
+                = f.label :location, class: 'control-label'
+                = f.text_field :location, class: 'form-control', placeholder: 'City, Country'
+
+            hr
+
+            h4 Resources
+            p.text-muted Resources are used to populate band's infos in a various places all over the website. For example, <strong>Bandcamp</strong> links are used to display band's players on event page and <strong>Last.fm</strong> resources handles band thumbnails. Apart of that, they are also a good way to provide a basic information about a band. Please keep'em clean!
+
+            = f.fields_for :resources do |ff|
+              .row
+                .form-group.col-md-3
+                  = ff.select :resource_type, {:'Bandstand' => 'bandstand', :'Last.fm' => 'lastfm'}, { include_blank: 'Select type' }, class: 'form-control'
+                .form-group.col-md-8
+                  = ff.text_field :url, class: 'form-control'
+                .form-group.col-md-1
+                        = ff.link_to_remove "&times;".html_safe, class: 'btn btn-default pull-right'
+
+            = f.link_to_add "Add another", :resources, class: 'btn btn-default'
+              
+            .actions = f.submit 'Save'

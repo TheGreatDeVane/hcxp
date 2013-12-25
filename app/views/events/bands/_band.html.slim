@@ -1,7 +1,7 @@
 .media
   a.pull-left= image_tag 'http://placehold.it/50x50'
   .media-body
-    h3.media-heading= band
+    h3.media-heading= link_to band, band
     p.text-muted= band.location
 
 = embed_player band

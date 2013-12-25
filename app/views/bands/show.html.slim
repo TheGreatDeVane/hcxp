@@ -1,21 +1,23 @@
-p#notice = notice
+.container
+  .row
+    .col-md-12
+      p#notice = notice
+      .row
+        .col-md-4
+          = image_tag 'http://placehold.it/100x100', width: '100%'
 
-p
-  strong Name:
-  = @band.name
-p
-  strong Location:
-  = @band.location
-p
-  strong City:
-  = @band.city
-p
-  strong Country name:
-  = @band.country_name
-p
-  strong Country code:
-  = @band.country_code
+        .col-md-8
+          - if user_signed_in?
+            .btn-group.pull-right
+              = link_to edit_band_path(@band), class: 'btn btn-default'
+                i.glyphicon.glyphicon-pencil
 
-= link_to 'Edit', edit_band_path(@band)
-'|
-= link_to 'Back', bands_path
+          h1
+            = @band.name
+
+          ul.list-unstyled.text-muted
+            li
+              i.glyphicon.glyphicon-map-marker>
+              = @band.location
+
+          hr

@@ -15,6 +15,9 @@ class Band < ActiveRecord::Base
     end
   end
 
+  accepts_nested_attributes_for :resources, allow_destroy: true, 
+                                            reject_if: :all_blank
+
   # Callbacks
   before_validation :geocode, if: :location_changed?
 
