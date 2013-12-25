@@ -8,33 +8,41 @@
               = image_tag 'http://placehold.it/100x100', width: '100%'
 
           .col-md-8
-            - if @band.errors.any?
-              #error_explanation
-                h2 = "#{pluralize(@band.errors.count, "error")} prohibited this band from being saved:"
-                ul
-                  - @band.errors.full_messages.each do |message|
-                    li = message
+            = render 'shared/form_errors', resource: @band
 
             .form-group
               = f.label :name, 'Band name', class: 'control-label'
-              = f.text_field :name, class: 'form-control input-lg', placeholder: 'Band name'
+              = f.text_field :name, class: 'form-control input-lg', 
+                                    placeholder: 'Band name'
 
             .form-group.row
               .col-md-4
                 = f.label :location, class: 'control-label'
-                = f.text_field :location, class: 'form-control', placeholder: 'City, Country'
+                = f.text_field :location, class: 'form-control', 
+                                          placeholder: 'City, Country'
 
             hr
 
             h4 Resources
-            p.text-muted Resources are used to populate band's infos in a various places all over the website. For example, <strong>Bandcamp</strong> links are used to display band's players on event page and <strong>Last.fm</strong> resources handles band thumbnails. Apart of that, they are also a good way to provide a basic information about a band. Please keep'em clean!
+            p.text-muted 
+              | Resources are used to populate band's infos in
+                a various places all over the website. For example, 
+                <strong>Bandcamp</strong> links are used to display 
+                band's players on event page and <strong>Last.fm</strong> 
+                resources handles band thumbnails. Apart of that, they 
+                are also a good way to provide a basic information about 
+                a band. Please keep'em clean!
 
             = f.fields_for :resources do |ff|
               .row
                 .form-group.col-md-3
-                  = ff.select :resource_type, {:'Bandstand' => 'bandstand', :'Last.fm' => 'lastfm'}, { include_blank: 'Select type' }, class: 'form-control'
+                  = ff.select :resource_type, {:'Bandcamp' => 'bandcamp', :'Last.fm' => 'lastfm'}, 
+                                              { include_blank: 'Select type' }, 
+                                              class: 'form-control'
+
                 .form-group.col-md-8
                   = ff.text_field :url, class: 'form-control'
+
                 .form-group.col-md-1
                         = ff.link_to_remove "&times;".html_safe, class: 'btn btn-default pull-right'
 
