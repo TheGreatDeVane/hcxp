@@ -9,6 +9,8 @@ class BandResource < ActiveRecord::Base
   validates :user_id, presence: true
   validates :band_id, presence: true
 
+  scope :bandcamp, -> { where(resource_type: 'bandcamp') }
+
   before_save :populate_data, if: :url_changed?
 
   def populate_data
