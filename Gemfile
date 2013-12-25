@@ -77,7 +77,11 @@ gem 'rabl'
 gem 'mechanize'
 gem 'watir'
 
+# postgreSQL
 gem 'pg'
+
+# Friendly IDs
+gem 'friendly_id', '~> 5.0.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

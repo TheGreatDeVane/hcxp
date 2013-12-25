@@ -1,5 +1,8 @@
 class Band < ActiveRecord::Base
+  extend FriendlyId
   searchkick autocomplete: [:name]
+
+  friendly_id :name, use: :slugged
 
   has_many :resources, class_name: 'BandResource'
 
