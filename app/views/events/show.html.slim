@@ -45,24 +45,16 @@
           .row
             .col-md-10
               .tab-content
-                #description.tab-pane.active
-                  == markdown @event.description
-
-                #bands.tab-pane
+                #bands.tab-pane.active
                   - @event.bands.each do |band|
-                    .media
-                      a.pull-left= image_tag 'http://placehold.it/50x50'
-                      .media-body
-                        h3.media-heading= band
-                        p.text-muted= band.location
+                    = render 'events/bands/band', band: band
 
-                    = embed_player band
-
-                    hr
+                #description.tab-pane
+                  == markdown @event.description
 
             .col-md-2.tabs-right
               ul.nav.nav-tabs
-                li.active: a href="#description" data-toggle="tab" Description
-                li: a href="#bands" data-toggle="tab" Bands
+                li.active: a href="#bands" data-toggle="tab" Bands
+                li: a href="#description" data-toggle="tab" Description
                 li: a Social
                 li: a History
