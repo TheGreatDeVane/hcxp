@@ -33,21 +33,16 @@ module Khcpl
 
         agent = Mechanize.new
         page = agent.get(@url)
-        Rails.logger.info "Page loaded: #{@url}"
         
         og_video_element = Nokogiri::HTML(page.body).css('meta[property="og:video"]')
         
         if og_video_element.any?
           embed_link = og_video_element.first.attributes['content'].value
-          Rails.logger.info "Profile embed link obtained: #{embed_link}"
         else
           raise Khcpl::Player::NoEmbedLinkFound
         end
 
-        album_id = embed_link[/album=\d+/][/\d+/]
-        Rails.logger.info "Album id obtained: #{album_id}"
-
-        return album_id
+        return embed_link[/album=\d+/][/\d+/]
       end
 
     end

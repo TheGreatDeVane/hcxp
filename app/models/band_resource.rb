@@ -27,5 +27,9 @@ class BandResource < ActiveRecord::Base
 
   rescue Khcpl::Player::NoEmbedLinkFound
     looger.info "No album id found for #{self.id}"
+  rescue => e
+    logger.error "Something went wrong while obtaining album id (url: #{self.url})"
+    logger.info  e.message
+    logger.debug e.backtrace
   end
 end
