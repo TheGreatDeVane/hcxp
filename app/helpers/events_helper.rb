@@ -17,4 +17,8 @@ module EventsHelper
     noko      = Nokogiri::HTML(html_body)
     return noko.css('p').first.try(:content)
   end
+
+  def band_thumb_url(band, size = :large_s)
+    band.images[size] if band.images
+  end
 end

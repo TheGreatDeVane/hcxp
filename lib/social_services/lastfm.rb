@@ -34,7 +34,7 @@ module SocialServices
       result  = result['artist']
 
       @result = {
-        name:   result['name'],
+        name:   result['name'] || nil,
         mbid:   result['mbid'],
         url:    result['url'],
         images: factor_images(result),

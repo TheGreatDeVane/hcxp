@@ -28,6 +28,11 @@ class Band < ActiveRecord::Base
     name
   end
 
+  def images
+    lastfm_resources = self.resources.lastfm
+    self.resources.lastfm.first.data[:images] if lastfm_resources.any? && lastfm_resources.first.data.present?
+  end
+
   def search_data
     {
       name: name,

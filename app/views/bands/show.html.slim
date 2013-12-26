@@ -4,7 +4,7 @@
       p#notice = notice
       .row
         .col-md-4
-          = image_tag 'http://placehold.it/100x100', width: '100%'
+          = image_tag band_thumb_url(@band, :mega), width: '100%'
 
         .col-md-8
           - if user_signed_in?

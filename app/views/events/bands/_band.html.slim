@@ -1,5 +1,5 @@
 .media
-  a.pull-left= image_tag 'http://placehold.it/50x50'
+  a.pull-left= image_tag band_thumb_url(band, :medium_s), size: '50x50'
   .media-body
     h3.media-heading= link_to band, band
     p.text-muted= band.location
