@@ -15,6 +15,7 @@ class BandResource < ActiveRecord::Base
   # validates :user_id, presence: true
 
   scope :bandcamp, -> { where(resource_type: 'bandcamp') }
+  scope :lastfm,   -> { where(resource_type: 'lastfm') }
 
   before_save :populate_data, if: :url_changed?
 
@@ -23,12 +24,16 @@ class BandResource < ActiveRecord::Base
     when 'bandcamp'
       bandcamp  = SocialServices::Bandcamp.new self.url
       self.data = { album_id: bandcamp.album_id }
+    when 'lastfm'
+      lastfm  = SocialServices::Lastfm.new self.url
+      self.data = lastfm.result
     end
 
-  rescue SocialServices::NoEmbedLinkFound
+  rescue SocialServices::Exceptions::NoEmbedLinkFound
     looger.info "No album id found for #{self.id}"
+
   rescue => e
-    logger.error "Something went wrong while obtaining album id (url: #{self.url})"
+    logger.error "Something went wrong (url: #{self.url})"
     logger.info  e.message
     logger.debug e.backtrace
   end

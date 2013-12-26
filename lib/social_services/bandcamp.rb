@@ -16,7 +16,7 @@ module SocialServices
     end
 
     def embed_url(size = 'medium')
-      raise SocialServices::UnknownAlbumId if @album_id.nil?
+      raise SocialServices::Exceptions::UnknownAlbumId if @album_id.nil?
 
       "http://bandcamp.com/EmbeddedPlayer/album=#{@album_id}/size=#{size}/bgcol=ffffff/linkcol=0687f5/transparent=true/"
     end
@@ -24,7 +24,7 @@ module SocialServices
     private
 
     def fetch_album_id
-      raise SocialServices::NoUrlGiven if @url.nil?
+      raise SocialServices::Exceptions::NoUrlGiven if @url.nil?
 
       agent = Mechanize.new
       page = agent.get(@url)
@@ -34,7 +34,7 @@ module SocialServices
       if og_video_element.any?
         embed_link = og_video_element.first.attributes['content'].value
       else
-        raise SocialServices::NoEmbedLinkFound
+        raise SocialServices::Exceptions::NoEmbedLinkFound
       end
 
       return embed_link[/album=\d+/][/\d+/]

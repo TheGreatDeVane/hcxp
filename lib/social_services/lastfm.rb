@@ -1,8 +1,8 @@
 require 'open-uri'
 require 'nokogiri'
 
-module Khcpl
-  class LastfmAPI
+module SocialServices
+  class Lastfm
 
     def initialize(url)
       # Set variables
@@ -48,12 +48,12 @@ module Khcpl
       images = {}
 
       # Recreate images array to more friendly form.
-      original_result['image'].each { |i| images[i['size']] = i['#text'] }
+      original_result['image'].each { |i| images[i['size'].to_sym] = i['#text'] }
       
       # Add a square image versions
-      images[:small_s]  = images['small'].gsub('/34/', '/34s/')
-      images[:medium_s] = images['medium'].gsub('/64/', '/64s/')
-      images[:large_s]  = images['large'].gsub('/126/', '/126s/')
+      images[:small_s]  = images[:small].gsub('/34/', '/34s/')
+      images[:medium_s] = images[:medium].gsub('/64/', '/64s/')
+      images[:large_s]  = images[:large].gsub('/126/', '/126s/')
       
       return images
     end
