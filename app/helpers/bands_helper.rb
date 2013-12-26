@@ -6,4 +6,8 @@ module BandsHelper
                               seamless: true if band.resources.bandcamp.first
   end
 
+  def band_thumb_url(band, size = :large_s)
+    band.images[size] if band.images
+  end
+
 end
