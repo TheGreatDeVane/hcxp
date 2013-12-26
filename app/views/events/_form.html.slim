@@ -1,117 +1,115 @@
 = nested_form_for @event, html: {class: ''}, :multipart => true do |f|
   .container
-    .row
-      .col-md-12
-        .row
-          .col-md-4
-            p
-              = image_tag f.object.poster, width: '100%'
+    .row#main
+      .col-md-4
+        p
+          = image_tag f.object.poster, width: '100%'
 
-            .form-horizontal
-              .form-group
-                = f.label :poster, 'Poster URL', class: 'control-label col-md-4'
-                .col-md-8
-                  = f.text_field :remote_poster_url, class: 'form-control', placeholder: 'http://...'
-                  = f.file_field :poster, class: 'form-control'
-                  
-              - if f.object.poster.present?
-                .form-group
-                  .col-md-offset-4.col-sm-10
-                    .checkbox
-                      label
-                        = f.check_box :remove_poster
-                        | Remove poster
+        .form-horizontal
+          .form-group
+            = f.label :poster, 'Poster URL', class: 'control-label col-md-4'
+            .col-md-8
+              = f.text_field :remote_poster_url, class: 'form-control', placeholder: 'http://...'
+              = f.file_field :poster, class: 'form-control'
+              
+          - if f.object.poster.present?
+            .form-group
+              .col-md-offset-4.col-sm-10
+                .checkbox
+                  label
+                    = f.check_box :remove_poster
+                    | Remove poster
 
-          .col-md-6
-            = render 'shared/form_errors', resource: @event
+      .col-md-6
+        = render 'shared/form_errors', resource: @event
 
-            .tab-content
-              #general.tab-pane.active
-                .form-group
-                  = f.label :title, class: 'control-label' do
-                    | Title
-                    small.text-muted< You can leave it blank
-                  = f.text_field :title, class: 'form-control input-lg'
+        .tab-content
+          #general.tab-pane.active
+            .form-group
+              = f.label :title, class: 'control-label' do
+                | Title
+                small.text-muted< You can leave it blank
+              = f.text_field :title, class: 'form-control input-lg'
 
+            .row
+              .form-group.col-md-6
+                = f.label :beginning_at, class: 'control-label'
                 .row
-                  .form-group.col-md-6
-                    = f.label :beginning_at, class: 'control-label'
-                    .row
-                      .col-md-7
-                        = f.date_field :beginning_at, class: 'form-control'
-                      .col-md-5
-                        = f.time_field :beginning_at_time, class: 'form-control', 
-                                                           value: (@event.beginning_at_time.blank? ? '' : @event.beginning_at_time.strftime('%H:%M'))
+                  .col-md-7
+                    = f.date_field :beginning_at, class: 'form-control'
+                  .col-md-5
+                    = f.time_field :beginning_at_time, class: 'form-control', 
+                                                       value: (@event.beginning_at_time.blank? ? '' : @event.beginning_at_time.strftime('%H:%M'))
 
 
-                  .form-group.col-md-6
-                    = f.label :ending_at, class: 'control-label'
-                    .row
-                      .col-md-7
-                        = f.date_field :ending_at, class: 'form-control'
-                      .col-md-5
-                        = f.time_field :ending_at_time, class: 'form-control', value: (@event.ending_at_time.blank? ? '' : @event.ending_at_time.strftime('%H:%M'))
-
+              .form-group.col-md-6
+                = f.label :ending_at, class: 'control-label'
                 .row
-                  .form-group.col-md-6
-                    = f.label :price, class: 'control-label'
-                    = f.text_field :price, class: 'form-control'
+                  .col-md-7
+                    = f.date_field :ending_at, class: 'form-control'
+                  .col-md-5
+                    = f.time_field :ending_at_time, class: 'form-control', value: (@event.ending_at_time.blank? ? '' : @event.ending_at_time.strftime('%H:%M'))
 
-                hr
+            .row
+              .form-group.col-md-6
+                = f.label :price, class: 'control-label'
+                = f.text_field :price, class: 'form-control'
 
-                h5 Bands
-                p: input.bands-list type="hidden" style="width: 100%" name="event[band_ids]" value=f.object.bands.map{|b| "#{b.id}:#{b.name}"}.join(';')
-
-                p.text-muted 
-                  | Can't find a band? It's probably because it's not in our database.
-                  a< id="show-fields-for-bands" href="#" Add it &rarr;
-
-                .hidden#fields-for-bands
-                  = f.fields_for :bands, Band.new do |ff|
-                    .row
-                      .form-group.col-md-6
-                        = ff.text_field :name, disabled: ff.object.persisted?, class: 'form-control', placeholder: 'Band name'
-                      .form-group.col-md-5
-                        = ff.text_field :location, disabled: ff.object.persisted?, class: 'form-control', placeholder: 'City, Country'
-                      .form-group.col-md-1
-                        = ff.link_to_remove "&times;".html_safe, class: 'btn btn-default pull-right'
-
-                  = f.link_to_add "Add a band", :bands, class: 'btn btn-default'
-
-                hr
-
-                .row
-                  .col-md-6
-                    = f.label :venue_id, 'Search for venue', class: 'control-label'
-                    = f.select :venue_id, Venue.all.collect { |e| [e.name, e.id] },{include_blank: true}, { class: 'form-control' }
-
-                  .col-md-6
-                    label.control-label Or create a new one
-                    = f.fields_for :venue, Venue.new do |ff|
-                      .form-horizontal
-                        .form-group
-                          = ff.label :name, class: 'control-label col-sm-4'
-                          .col-md-8
-                            = ff.text_field :name, class: 'form-control'
-
-                        .form-group
-                          = ff.label :address, class: 'control-label col-sm-4'
-                          .col-md-8
-                            = ff.text_field :address, class: 'form-control', placeholder: 'City, Country'
-
-              #description.tab-pane
-                .form-group
-                  = f.label :description, class: 'control-label sr-only'
-                  = f.text_area :description, class: 'form-control', rows: 24
-
-          .col-md-2.tabs-right
-            ul.nav.nav-tabs
-              li.active: a href="#general" data-toggle="tab" General
-              li: a href="#description" data-toggle="tab" Description
-              li: a Authors
-              li: a Revisions
-
-        .row
-          .col-md-10
             hr
-            = f.submit 'Save event', class: 'btn btn-default btn-primary pull-right'
+
+            h5 Bands
+            p: input.bands-list type="hidden" style="width: 100%" name="event[band_ids]" value=f.object.bands.map{|b| "#{b.id}:#{b.name}"}.join(';')
+
+            p.text-muted 
+              | Can't find a band? It's probably because it's not in our database.
+              a< id="show-fields-for-bands" href="#" Add it &rarr;
+
+            .hidden#fields-for-bands
+              = f.fields_for :bands, Band.new do |ff|
+                .row
+                  .form-group.col-md-6
+                    = ff.text_field :name, disabled: ff.object.persisted?, class: 'form-control', placeholder: 'Band name'
+                  .form-group.col-md-5
+                    = ff.text_field :location, disabled: ff.object.persisted?, class: 'form-control', placeholder: 'City, Country'
+                  .form-group.col-md-1
+                    = ff.link_to_remove "&times;".html_safe, class: 'btn btn-default pull-right'
+
+              = f.link_to_add "Add a band", :bands, class: 'btn btn-default'
+
+            hr
+
+            .row
+              .col-md-6
+                = f.label :venue_id, 'Search for venue', class: 'control-label'
+                = f.select :venue_id, Venue.all.collect { |e| [e.name, e.id] },{include_blank: true}, { class: 'form-control' }
+
+              .col-md-6
+                label.control-label Or create a new one
+                = f.fields_for :venue, Venue.new do |ff|
+                  .form-horizontal
+                    .form-group
+                      = ff.label :name, class: 'control-label col-sm-4'
+                      .col-md-8
+                        = ff.text_field :name, class: 'form-control'
+
+                    .form-group
+                      = ff.label :address, class: 'control-label col-sm-4'
+                      .col-md-8
+                        = ff.text_field :address, class: 'form-control', placeholder: 'City, Country'
+
+          #description.tab-pane
+            .form-group
+              = f.label :description, class: 'control-label sr-only'
+              = f.text_area :description, class: 'form-control', rows: 24
+
+      .col-md-2.tabs-right
+        ul.nav.nav-tabs
+          li.active: a href="#general" data-toggle="tab" General
+          li: a href="#description" data-toggle="tab" Description
+          li: a Authors
+          li: a Revisions
+
+    .row
+      .col-md-10
+        hr
+        = f.submit 'Save event', class: 'btn btn-default btn-primary pull-right'

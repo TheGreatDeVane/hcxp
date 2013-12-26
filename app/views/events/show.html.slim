@@ -1,5 +1,5 @@
 .container
-  .row
+  .row#main
     .col-md-12
       p#notice = notice
       .row
@@ -7,41 +7,42 @@
           = image_tag @event.poster, width: '100%'
 
         .col-md-8
-          - if user_signed_in?
-            .btn-group.pull-right
-              = link_to edit_event_path(@event), class: 'btn btn-default'
-                i.glyphicon.glyphicon-pencil
-              a.btn.btn-default
-                i.glyphicon.glyphicon-flag
-              = render 'save_button', event: @event
-            
-          h1
-            - if @event.title.present?
-              = @event.title
-            - else
-              = @event.bands.join(', ')
+          .event-heading
+            - if user_signed_in?
+              .btn-group.pull-right.event-controls
+                = link_to edit_event_path(@event), class: 'btn btn-default'
+                  i.glyphicon.glyphicon-pencil
+                a.btn.btn-default
+                  i.glyphicon.glyphicon-flag
+                = render 'save_button', event: @event
+              
+            h1
+              - if @event.title.present?
+                = @event.title
+              - else
+                = @event.bands.join(', ')
 
-          ul.list-unstyled.text-muted
-            li
-              i.glyphicon.glyphicon-time>
-              = @event.try(:beginning_at).try(:strftime, '%d.%m.%Y')
-              |  
-              = @event.try(:beginning_at_time).try(:strftime, '%H:%M')
-
-              - if @event.ending_at.present? && @event.ending_at != @event.beginning_at
-                i.glyphicon.glyphicon-arrow-right<>
-                = @event.ending_at.strftime('%d.%m.%Y')
-                |  
-                = @event.ending_at_time.strftime('%H:%M')
-            li
-              i.glyphicon.glyphicon-map-marker>
-              = @event.venue
-
-            - if @event.price.present?
+            ul.list-unstyled.text-muted.event-meta
               li
-                i.glyphicon.glyphicon-usd>
-                = @event.price
-          hr
+                i.glyphicon.glyphicon-time>
+                = @event.try(:beginning_at).try(:strftime, '%d.%m.%Y')
+                |  
+                = @event.try(:beginning_at_time).try(:strftime, '%H:%M')
+
+                - if @event.ending_at.present? && @event.ending_at != @event.beginning_at
+                  i.glyphicon.glyphicon-arrow-right<>
+                  = @event.ending_at.strftime('%d.%m.%Y')
+                  |  
+                  = @event.ending_at_time.strftime('%H:%M')
+              li
+                i.glyphicon.glyphicon-map-marker>
+                = @event.venue
+
+              - if @event.price.present?
+                li
+                  i.glyphicon.glyphicon-usd>
+                  = @event.price
+          
           .row
             .col-md-10
               .tab-content
@@ -49,7 +50,7 @@
                   - @event.bands.each do |band|
                     = render 'events/bands/band', band: band
 
-                #description.tab-pane
+                #description.tab-pane.wiki
                   == markdown @event.description
 
             .col-md-2.tabs-right

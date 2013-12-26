@@ -1,9 +1,10 @@
-.media
-  a.pull-left= image_tag band_thumb_url(band, :medium_s), size: '50x50'
-  .media-body
-    h3.media-heading= link_to band, band
-    p.text-muted= band.location
+.panel.panel-default.panel-band-player
+  .panel-heading
+    .media.band-info
+      a.pull-left= image_tag band_thumb_url(band, :medium_s), size: '50x50'
+      .media-body
+        h3.media-heading = link_to band, band
+        p.text-muted.location = band.location
 
-= embed_player band
-
-hr
+  .panel-body
+    = embed_player band
