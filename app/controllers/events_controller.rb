@@ -1,14 +1,14 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:edit, :update, :new, :create]
+  before_action :get_events_with_timed_scope, only: :index
 
   # GET /events
   # GET /events.json
   def index
-    pp params
-    @events = Event.all.order(:beginning_at).from_the_future
+    @events       = @events.order(:beginning_at)
     @event_months = @events.group_by { |e| e.beginning_at.beginning_of_day }
-    @cities = Venue.select('DISTINCT(city)')
+    @cities       = Venue.select('DISTINCT(city)')
   end
 
   # GET /events/1
@@ -63,6 +63,14 @@ class EventsController < ApplicationController
   end
 
   private
+    def get_events_with_timed_scope
+      if params[:archive_prefix]
+        @events = Event.from_the_past
+      else
+        @events = Event.from_the_future
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
