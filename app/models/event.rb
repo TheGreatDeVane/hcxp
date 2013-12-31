@@ -1,6 +1,10 @@
 class Event < ActiveRecord::Base
   include PgSearch
-  pg_search_scope :search, against: [:title, :beginning_at], 
+  pg_search_scope :search, against: [:title, :beginning_at],
+                           associated_against: {
+                             bands: [:name],
+                             venue: [:name, :address]
+                           },
                            using: { 
                              tsearch: { prefix: true } 
                            }
@@ -19,4 +23,12 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :venue, allow_destroy: false, 
                                         reject_if: :all_blank,
                                         limit: 1
+
+  def title_or_bands
+    if title.present?
+      title
+    else
+      bands.join(', ')
+    end
+  end
 end

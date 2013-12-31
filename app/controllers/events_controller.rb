@@ -18,7 +18,7 @@ class EventsController < ApplicationController
   # GET /events/autocomplete
   # GET /events/autocomplete.json
   def autocomplete
-    render json: Event.search(params[:q]).map(&:title)
+    render json: Event.search(params[:q]).limit(10).map(&:title_or_bands)
   end
 
   # GET /events/new
