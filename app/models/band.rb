@@ -1,7 +1,5 @@
 class Band < ActiveRecord::Base
   extend FriendlyId
-  searchkick autocomplete: [:name]
-
   friendly_id :name, use: :slugged
 
   has_many :resources, class_name: 'BandResource'
@@ -31,12 +29,5 @@ class Band < ActiveRecord::Base
   def images
     lastfm_resources = self.resources.lastfm
     self.resources.lastfm.first.data[:images] if lastfm_resources.any? && lastfm_resources.first.data.present?
-  end
-
-  def search_data
-    {
-      name: name,
-      location: location
-    }
   end
 end

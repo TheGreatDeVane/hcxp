@@ -1,5 +1,4 @@
 class Venue < ActiveRecord::Base
-  searchkick autocomplete: [:name]
   has_many :events
   
   # Plugins
@@ -28,12 +27,5 @@ class Venue < ActiveRecord::Base
 
   def to_s
     "#{name} - #{street}, #{city}, #{country_name}"
-  end
-
-  def search_data
-    {
-      name: name,
-      address: address
-    }
   end
 end
