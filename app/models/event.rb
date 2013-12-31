@@ -1,4 +1,10 @@
 class Event < ActiveRecord::Base
+  include PgSearch
+  pg_search_scope :search, against: [:title, :beginning_at], 
+                           using: { 
+                             tsearch: { prefix: true } 
+                           }
+
   has_many :event_bands
   has_many :bands, through: :event_bands
   belongs_to :venue, counter_cache: true

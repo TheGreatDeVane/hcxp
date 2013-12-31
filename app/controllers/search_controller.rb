@@ -1,8 +1,8 @@
 class SearchController < ApplicationController
   def index
-    @events = Event.search params[:q]
+    @events       = Event.search params[:q]
     @event_months = @events.group_by { |e| e.beginning_at.beginning_of_day }
-    @cities = Venue.select('DISTINCT(city)')
+    @cities       = Venue.select('DISTINCT(city)')
     render 'events/index'
   end
 

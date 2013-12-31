@@ -1,6 +1,12 @@
 class Venue < ActiveRecord::Base
+  include PgSearch
+  pg_search_scope :search, against: [:name, :address], 
+                           using: {
+                             tsearch: { prefix: true }
+                           }
+
   has_many :events
-  
+
   # Plugins
   geocoded_by :address do |obj, results|
     if geo = results.first

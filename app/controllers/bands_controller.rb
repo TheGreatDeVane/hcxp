@@ -20,7 +20,7 @@ class BandsController < ApplicationController
   # GET /bands/autocomplete
   # GET /bands/autocomplete.json
   def autocomplete
-    render json: Band.search(params[:q], autocomplete: true, limit: 10).map(&:name)
+    render json: Band.search(params[:q]).map(&:name)
   end
 
   # GET /bands/1/edit

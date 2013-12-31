@@ -74,8 +74,11 @@ gem 'rabl'
 gem 'mechanize'
 gem 'watir'
 
-# postgreSQL
+# PostgreSQL
 gem 'pg'
+
+# PostgreSQL full-text search
+gem 'pg_search'
 
 # Friendly IDs
 gem 'friendly_id', '~> 5.0.0'

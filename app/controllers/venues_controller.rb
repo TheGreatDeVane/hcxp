@@ -20,7 +20,7 @@ class VenuesController < ApplicationController
   # GET /events/autocomplete
   # GET /events/autocomplete.json
   def autocomplete
-    render json: Venue.search(params[:q], autocomplete: true, limit: 10).map(&:name)
+    render json: Venue.search(params[:q]).map(&:name)
   end
 
   # GET /venues/1/edit

@@ -1,6 +1,11 @@
 class Band < ActiveRecord::Base
   extend FriendlyId
+  include PgSearch
   friendly_id :name, use: :slugged
+  pg_search_scope :search, against: [:name, :location], 
+                           using: {
+                             tsearch: { prefix: true }
+                           }
 
   has_many :resources, class_name: 'BandResource'
 
