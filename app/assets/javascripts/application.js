@@ -24,20 +24,19 @@
 $(document).ready(function() {
   $('#search-form input').typeahead([
   	{
-  		name: 'events', 
+  		name:   'events', 
       remote: "/events/autocomplete?q=%QUERY",
-      // header: '<h3>Events</h3>',
-      
+      header: '<h3>Events</h3>',
   	},
     {
-      name: 'venues',
+      name:   'venues',
       remote: '/venues/autocomplete?q=%QUERY',
-      // header: '<h3>Venues</h3>'
+      header: '<h3>Venues</h3>'
     },
     {
-      name: 'bands',
+      name:   'bands',
       remote: '/bands/autocomplete?q=%QUERY',
-      // header: '<h3>Bands</h3>'
+      header: '<h3>Bands</h3>'
     },
   ]);
 
