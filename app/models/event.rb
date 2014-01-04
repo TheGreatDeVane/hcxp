@@ -37,4 +37,9 @@ class Event < ActiveRecord::Base
       bands.join(', ')
     end
   end
+
+  # Does event have any social links set?
+  def has_any_social_links?
+    self.social_link_fb.present? || self.social_link_lfm.present? || self.social_link_hcpl.present?
+  end
 end

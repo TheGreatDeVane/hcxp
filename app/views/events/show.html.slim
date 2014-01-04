@@ -42,6 +42,12 @@
                 li
                   i.glyphicon.glyphicon-usd>
                   = @event.price
+
+            - if @event.has_any_social_links?
+              .btn-group.btn-group-justified.social-links
+                = link_to 'Facebook', @event.social_link_fb, class: 'btn btn-primary'       if @event.social_link_fb.present?
+                = link_to 'Last.fm', @event.social_link_lfm, class: 'btn btn-danger'        if @event.social_link_lfm.present?
+                = link_to 'hard-core.pl', @event.social_link_hcpl, class: 'btn btn-default' if @event.social_link_hcpl.present?
           
           .row
             .col-md-10
@@ -56,6 +62,7 @@
             .col-md-2.tabs-right
               ul.nav.nav-tabs
                 li.active: a href="#bands" data-toggle="tab" Bands
-                li: a href="#description" data-toggle="tab" Description
-                li: a Social
-                li: a History
+                - if @event.description.present?
+                  li: a href="#description" data-toggle="tab" Description
+                li.hide: a Social
+                li.hide: a History

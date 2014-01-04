@@ -112,19 +112,19 @@
 
             .form-horizontal
               .form-group
-                label.control-label.col-md-3 Facebook
+                = f.label :social_link_fb, 'Facebook', class: 'control-label col-md-3'
                 .col-md-9
-                  input.form-control type="text"
+                  = f.text_field :social_link_fb, class: 'form-control', placeholder: 'http://facebook.com/events/...'
 
               .form-group
-                label.control-label.col-md-3 Last.fm
+                = f.label :social_link_lfm, 'Last.fm', class: 'control-label col-md-3'
                 .col-md-9
-                  input.form-control type="text"
+                  = f.text_field :social_link_lfm, class: 'form-control', placeholder: 'http://last.fm/events/...'
 
               .form-group
-                label.control-label.col-md-3 hard-core.pl
+                = f.label :social_link_hcpl, 'hard-core.pl', class: 'control-label col-md-3'
                 .col-md-9
-                  input.form-control type="text"
+                  = f.text_field :social_link_hcpl, class: 'form-control', placeholder: 'http://forum.hard-core.pl/...'
 
 
       .col-md-2.tabs-right

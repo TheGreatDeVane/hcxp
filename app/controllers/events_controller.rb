@@ -85,6 +85,7 @@ class EventsController < ApplicationController
                                     :beginning_at, :beginning_at_time, :ending_at, 
                                     :ending_at_time, :price, :address, {band_ids: []},
                                     :venue_id, :remove_poster, :poster,
+                                    :social_link_fb, :social_link_lfm, :social_link_hcpl,
                                     bands_attributes: [:id, :name, :location, :_destroy],
                                     venue_attributes: [:id, :name, :address])
     end
