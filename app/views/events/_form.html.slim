@@ -101,6 +101,9 @@
             .form-group
               = f.label :description, class: 'control-label sr-only'
               = f.text_area :description, class: 'form-control', rows: 24
+              p.help-block 
+                | Event description is used only for informational purposes and is not searchable
+                  (users are not able to search for your event by it's description keywords).
 
           #social.tab-pane
             p 
