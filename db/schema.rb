@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131231082859) do
+ActiveRecord::Schema.define(version: 20140104092513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,12 +60,15 @@ ActiveRecord::Schema.define(version: 20131231082859) do
     t.time     "beginning_at_time"
     t.date     "ending_at"
     t.time     "ending_at_time"
-    t.string   "price"
+    t.string   "price",             limit: 30
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "venue_id"
+    t.string   "social_link_fb"
+    t.string   "social_link_lfm"
+    t.string   "social_link_hcpl"
   end
 
   create_table "friendly_id_slugs", force: true do |t|
