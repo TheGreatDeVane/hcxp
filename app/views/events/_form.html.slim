@@ -102,12 +102,38 @@
               = f.label :description, class: 'control-label sr-only'
               = f.text_area :description, class: 'form-control', rows: 24
 
+          #social.tab-pane
+            p 
+              | Here you can provide a links to events created on a different social media portals.
+                They'll be visible on your event's main page and can be helpfull for anyone to find
+                what they're looking for.
+
+            hr
+
+            .form-horizontal
+              .form-group
+                label.control-label.col-md-3 Facebook
+                .col-md-9
+                  input.form-control type="text"
+
+              .form-group
+                label.control-label.col-md-3 Last.fm
+                .col-md-9
+                  input.form-control type="text"
+
+              .form-group
+                label.control-label.col-md-3 hard-core.pl
+                .col-md-9
+                  input.form-control type="text"
+
+
       .col-md-2.tabs-right
         ul.nav.nav-tabs
           li.active: a href="#general" data-toggle="tab" General
           li: a href="#description" data-toggle="tab" Description
-          li: a Authors
-          li: a Revisions
+          li: a href="#social" data-toggle="tab" Social
+          li.hide: a Authors
+          li.hide: a Revisions
 
     .row
       .col-md-10
