@@ -29,6 +29,8 @@ class Event < ActiveRecord::Base
   scope :from_the_future, -> { where('beginning_at >= ?', Date.today) }
   scope :from_the_past,   -> { where('beginning_at < ?', Date.today) }
 
+  after_save :puts_changes
+
   # Return title or bands list
   def title_or_bands
     if title.present?
@@ -41,5 +43,9 @@ class Event < ActiveRecord::Base
   # Does event have any social links set?
   def has_any_social_links?
     self.social_link_fb.present? || self.social_link_lfm.present? || self.social_link_hcpl.present?
+  end
+
+  def puts_changes
+    puts self.changes
   end
 end
