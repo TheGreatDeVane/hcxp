@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20131231082859) do
     t.time     "beginning_at_time"
     t.date     "ending_at"
     t.time     "ending_at_time"
-    t.string   "price",             limit: 30
+    t.string   "price"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "latitude"
