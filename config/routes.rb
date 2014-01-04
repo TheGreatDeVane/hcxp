@@ -24,6 +24,12 @@ Khcpl::Application.routes.draw do
     end
   end
 
+  # Archived events
+  scope '(:archive_prefix)', archive_prefix: /archive/ do
+    root 'events#index', as: 'archive_root'
+    resources :events
+  end
+
   resources :search do
     get 'bands', on: :collection
   end
