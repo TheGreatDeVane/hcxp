@@ -16,15 +16,14 @@
 //= require turbolinks
 //= require rails-timeago-all
 //= require jquery_nested_form
-//= require twitter/bootstrap
 //= require twitter/typeahead
-//= require select2   
+//= require select2
 //= require_tree .
 
 $(document).ready(function() {
   $('#search-form input').typeahead([
   	{
-  		name:   'events', 
+  		name:   'events',
       remote: "/events/autocomplete?q=%QUERY",
       header: '<h3>Events</h3>',
   	},

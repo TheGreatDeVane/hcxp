@@ -10,4 +10,6 @@ class ApplicationController < ActionController::Base
   def get_cities
     @cities = Venue.select('DISTINCT(city), country_code')
   end
+
+  def style_guide; end
 end

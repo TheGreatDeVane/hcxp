@@ -10,7 +10,7 @@ Khcpl::Application.routes.draw do
   devise_for :users, controllers: {
     sessions: "sessions"
   }
-  
+
   resources :users do
     get :saves, on: :member
     get :events, on: :member
@@ -33,6 +33,8 @@ Khcpl::Application.routes.draw do
   resources :search do
     get 'bands', on: :collection
   end
+
+  get 'style_guide' => 'application#style_guide'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
