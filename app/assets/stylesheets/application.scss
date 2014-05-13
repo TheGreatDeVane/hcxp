@@ -11,7 +11,7 @@
  *= require select2
  *= require_tree ./vendor
  *= require_tree ./components
- *= require_tree ./application
+ * require_tree ./application
  *= require_self
  */
 
@@ -19,3 +19,6 @@
 @import "bootstrap-variables";
 @import "bootstrap-custom";
 @import "bootstrap-overwrites";
+
+@import "application/events";
+@import "application/misc";

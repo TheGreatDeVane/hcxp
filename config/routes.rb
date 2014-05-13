@@ -22,6 +22,10 @@ Khcpl::Application.routes.draw do
     resources :saves do
       post :toggle, on: :collection
     end
+
+    get :bands, on: :member
+    get :links, on: :member
+    get :resources, on: :member
   end
 
   # Archived events

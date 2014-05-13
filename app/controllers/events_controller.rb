@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :bands]
   before_action :authenticate_user!, only: [:edit, :update, :new, :create]
   before_action :get_events_with_timed_scope, only: :index
 
@@ -13,6 +13,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    @tab_content_partial = 'description'
   end
 
   # GET /events/autocomplete
@@ -61,6 +62,11 @@ class EventsController < ApplicationController
     end
   end
 
+  def bands
+    @tab_content_partial = 'bands'
+    render action: :show
+  end
+
   private
     def get_events_with_timed_scope
       if params[:archive_prefix]
@@ -80,9 +86,9 @@ class EventsController < ApplicationController
       # Transform select2 text field to reails-friendly input
       bands                     = params[:event][:band_ids].to_s.split(';')
       params[:event][:band_ids] = (bands.length) ? bands.each.map { |b| b.split(':')[0] } : nil
-      
-      params.require(:event).permit(:title, :remote_poster_url, :user_id, :description, 
-                                    :beginning_at, :beginning_at_time, :ending_at, 
+
+      params.require(:event).permit(:title, :remote_poster_url, :user_id, :description,
+                                    :beginning_at, :beginning_at_time, :ending_at,
                                     :ending_at_time, :price, :address, {band_ids: []},
                                     :venue_id, :remove_poster, :poster,
                                     :social_link_fb, :social_link_lfm, :social_link_hcpl,

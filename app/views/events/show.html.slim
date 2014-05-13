@@ -52,29 +52,10 @@
   .col-md-12
     hr
     .tabs-left
-      ul.nav.nav-tabs.nav-stacked
-          li.active data-toggle="tooltip" data-placement="right" title="Description"
-            a href="#tab1" data-toggle="tab"
-              i.glyphicon.glyphicon-info-sign
-          li
-            a href="#tab1" data-toggle="tooltip" data-placement="right" title="Bands"
-              i.glyphicon.glyphicon-play
-          li
-            a href="#tab1" data-toggle="tooltip" data-placement="right" title="Links"
-              i.glyphicon.glyphicon-link
-          li
-            a href="#tab1" data-toggle="tooltip" data-placement="right" title="Resources"
-              i.glyphicon.glyphicon-paperclip
+      = render 'nav'
 
       .tab-content: .tab-pane.active
-
-        == markdown @event.description
-
-        p Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit. Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.
-
-        p Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit. Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.
-
-        p Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit. Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.
+        = render @tab_content_partial
 
   / .col-md-4
   /   = image_tag @event.poster, width: '100%'

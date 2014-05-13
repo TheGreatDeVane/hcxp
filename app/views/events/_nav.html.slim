@@ -1,0 +1,17 @@
+ul.nav.nav-tabs.nav-stacked
+
+  li class=('active' if @tab_content_partial == 'description')
+    a href=event_path(@event) data-toggle="tooltip" data-placement="right" title="Description"
+      i.glyphicon.glyphicon-info-sign
+
+  li class=('active' if @tab_content_partial == 'bands')
+    a href=bands_event_path(@event) data-toggle="tooltip" data-placement="right" title="Bands"
+      i.glyphicon.glyphicon-play
+
+  li class=('active' if @tab_content_partial == 'links')
+    a href=links_event_path(@event) data-toggle="tooltip" data-placement="right" title="Links"
+      i.glyphicon.glyphicon-link
+
+  li class=('active' if @tab_content_partial == 'resources')
+    a href=resources_event_path(@event) data-toggle="tooltip" data-placement="right" title="Resources"
+      i.glyphicon.glyphicon-paperclip

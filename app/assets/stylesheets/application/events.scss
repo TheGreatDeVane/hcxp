@@ -1,0 +1,48 @@
+@import "bootstrap-variables";
+
+.band-thumb {
+  position: relative;
+  height: 210px;
+  display: block;
+  margin-bottom: 30px;
+  overflow: hidden;
+  background: $gray-lighter;
+
+  .thumb-container {
+    position: absolute;
+    top: 0;
+    z-index: 10;
+  }
+
+  .thumb-heading {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 20;
+
+    h4 {
+      padding: 10px;
+      background: #000;
+      color: #fff;
+      margin-bottom: -6px;
+      margin-top: 0;
+
+      a {
+        color: #fff;
+      }
+    }
+
+    .location {
+      background: #fff;
+      padding: 0 3px;
+      margin-left: 10px;
+    }
+  }
+
+  .thumb-player {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 30;
+  }
+}
