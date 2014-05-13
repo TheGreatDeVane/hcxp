@@ -1,0 +1,33 @@
+// Colors
+$gray: #9B9B9B;
+$brand-primary: #8FA1B3;
+$brand-success: #A3BE8C;
+$brand-info: #8FB1B3;
+$brand-warning: #D7D09A;
+$brand-danger: #B88888;
+
+$gray-light: lighten(#000, 80%);
+$gray-lighter: lighten(#000, 95%);
+
+// Typography
+$font-family-monospace: 'Source Code Pro';
+$font-family-base: $font-family-monospace;
+$font-size-base: 15px;
+
+$font-size-h1: floor($font-size-base * 4);
+
+// Components
+$border-radius-base: 0;
+$border-radius-large: 2px;
+$border-radius-small: 2px;
+
+// Buttons
+$btn-font-weight: 300;
+$btn-default-bg: $gray-lighter;
+
+// Labels
+$label-default-bg: $gray-lighter;
+
+// Panels
+$panel-body-padding: 20px 0;
+$panel-default-heading-bg: #fff;

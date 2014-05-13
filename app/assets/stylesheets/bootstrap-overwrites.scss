@@ -1,0 +1,87 @@
+// Labels
+.label {
+  font-weight: normal;
+  border-radius: 0;
+}
+
+.label-default {
+  color: $gray;
+}
+
+// Tabs
+.nav-tabs {
+  margin-bottom: 15px;
+}
+
+.nav-tabs > li > a {
+  padding: 7px 14px;
+}
+
+// Buttons
+.btn {
+  border: 0;
+}
+
+// Typography
+p {
+  margin-bottom: 20px;
+}
+
+h1, .h1 {
+  font-weight: 600;
+  letter-spacing: -2px;
+}
+
+// Panels
+.panel {
+  border: 0;
+  border-bottom: 0;
+  @include box-shadow(none)
+}
+
+.panel-heading {
+  padding: 0;
+  text-transform: uppercase;
+  position: relative;
+  padding-top: 10px;
+  font-size: 14px;
+
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+    padding-right: 10px;
+    color: $gray;
+  }
+}
+
+.panel-body {
+  padding: 20px 0 0;
+}
+
+// List group
+.list-group.list-group-plused {
+  a {
+    border: 0;
+    padding: 5px 0;
+    position: relative;
+    padding-left: 20px;
+
+    &.active {
+      background: none;
+      color: $text-color;
+    }
+
+    &:hover {
+      background: none;
+      color: $brand-primary;
+    }
+
+    &::before {
+      content: "+";
+      position: absolute;
+      left: 0;
+    }
+  }
+}

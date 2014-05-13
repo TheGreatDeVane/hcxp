@@ -1,68 +1,104 @@
-.container
-  .row#main
-    .col-md-12
-      p#notice = notice
-      .row
-        .col-md-4
-          = image_tag @event.poster, width: '100%'
+.row
+  .col-md-12
+    h1
+      - if @event.title.present?
+        = @event.title.truncate(24)
+      - else
+        = @event.bands.join(', ').truncate(24)
 
-        .col-md-8
-          .event-heading
-            - if user_signed_in?
-              .btn-group.pull-right.event-controls
-                = link_to edit_event_path(@event), class: 'btn btn-default'
-                  i.glyphicon.glyphicon-pencil
-                a.btn.btn-default
-                  i.glyphicon.glyphicon-flag
-                = render 'save_button', event: @event
-              
-            h1
-              - if @event.title.present?
-                = @event.title
-              - else
-                = @event.bands.join(', ')
+    .meta.text-muted
+      = image_tag 'http://placehold.it/25x25'
+      a< beszambelan
 
-            ul.list-unstyled.text-muted.event-meta
-              li
-                i.glyphicon.glyphicon-time>
-                = @event.try(:beginning_at).try(:strftime, '%d.%m.%Y (%A)')
-                |  
-                = @event.try(:beginning_at_time).try(:strftime, '%H:%M')
+      ul.pull-right.list-inline
+        li: a Save
+        li = "/"
+        li: a Edit
 
-                - if @event.ending_at.present? && @event.ending_at != @event.beginning_at
-                  i.glyphicon.glyphicon-arrow-right<>
-                  = @event.ending_at.strftime('%d.%m.%Y (%A)')
-                  |  
-                  = @event.ending_at_time.strftime('%H:%M')
-              li
-                i.glyphicon.glyphicon-map-marker>
-                = @event.venue
+    hr
 
-              - if @event.price.present?
-                li
-                  i.glyphicon.glyphicon-usd>
-                  = @event.price
+    .row
+      .col-md-4
+        .media
+          .pull-left.text-muted
+            i.glyphicon.glyphicon-time
 
-            - if @event.has_any_social_links?
-              .btn-group.btn-group-justified.social-links
-                = link_to 'Facebook', @event.social_link_fb, class: 'btn btn-primary'       if @event.social_link_fb.present?
-                = link_to 'Last.fm', @event.social_link_lfm, class: 'btn btn-danger'        if @event.social_link_lfm.present?
-                = link_to 'hard-core.pl', @event.social_link_hcpl, class: 'btn btn-default' if @event.social_link_hcpl.present?
-          
-          .row
-            .col-md-10
-              .tab-content
-                #bands.tab-pane.active
-                  - @event.bands.each do |band|
-                    = render 'events/bands/band', band: band
+          .media-body
+            h4.media-heading = time_ago_in_words(@event.beginning_at)
+            small.text-muted
+              = @event.try(:beginning_at).try(:strftime, '%d.%m.%Y (%A) ')
+              |
+              = @event.try(:beginning_at_time).try(:strftime, '%H:%M')
 
-                #description.tab-pane.wiki
-                  == markdown @event.description
+      .col-md-4
+        .media
+          .pull-left.text-muted
+            i.glyphicon.glyphicon-map-marker
 
-            .col-md-2.tabs-right
-              ul.nav.nav-tabs
-                li.active: a href="#bands" data-toggle="tab" Bands
-                - if @event.description.present?
-                  li: a href="#description" data-toggle="tab" Description
-                li.hide: a Social
-                li.hide: a History
+          .media-body
+            h4.media-heading = link_to @event.venue.name, @event.venue
+            small.text-muted
+              | #{@event.venue.city}, #{@event.venue.country_code}
+
+      .col-md-4
+        .media
+          .pull-left.text-muted
+            i.glyphicon.glyphicon-usd
+
+          .media-body
+            h4.media-heading = @event.price
+
+.row
+  .col-md-12
+    hr
+    .tabs-left
+      ul.nav.nav-tabs.nav-stacked
+          li.active data-toggle="tooltip" data-placement="right" title="Description"
+            a href="#tab1" data-toggle="tab"
+              i.glyphicon.glyphicon-info-sign
+          li
+            a href="#tab1" data-toggle="tooltip" data-placement="right" title="Bands"
+              i.glyphicon.glyphicon-play
+          li
+            a href="#tab1" data-toggle="tooltip" data-placement="right" title="Links"
+              i.glyphicon.glyphicon-link
+          li
+            a href="#tab1" data-toggle="tooltip" data-placement="right" title="Resources"
+              i.glyphicon.glyphicon-paperclip
+
+      .tab-content: .tab-pane.active
+
+        == markdown @event.description
+
+        p Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit. Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.
+
+        p Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit. Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.
+
+        p Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit. Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.
+
+  / .col-md-4
+  /   = image_tag @event.poster, width: '100%'
+
+  .col-md-8
+    .event-heading
+      - if user_signed_in?
+        .btn-group.pull-right.event-controls
+          = link_to edit_event_path(@event), class: 'btn btn-default'
+            i.glyphicon.glyphicon-pencil
+          a.btn.btn-default
+            i.glyphicon.glyphicon-flag
+          = render 'save_button', event: @event
+
+      //- if @event.has_any_social_links?
+      //  .btn-group.btn-group-justified.social-links
+      //    = link_to 'Facebook', @event.social_link_fb, class: 'btn btn-primary'       if @event.social_link_fb.present?
+      //    = link_to 'Last.fm', @event.social_link_lfm, class: 'btn btn-danger'        if @event.social_link_lfm.present?
+      //    = link_to 'hard-core.pl', @event.social_link_hcpl, class: 'btn btn-default' if @event.social_link_hcpl.present?
+
+- content_for :sidebar do
+  .panel.panel-default
+    .panel-heading: span Similar events
+    .panel-body
+    .list-group.list-group-plused
+      - 10.times do
+        a.list-group-item = Faker::Lorem.sentence(1)

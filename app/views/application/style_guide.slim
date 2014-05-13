@@ -1,0 +1,57 @@
+
+
+h1 HCXE Style Guide
+
+h2 Typography
+p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum, lectus quis aliquam elementum, nunc est auctor sem, in mollis enim neque eu quam. Aenean congue sed tortor eget eleifend. Nam scelerisque mauris dolor, non posuere nisi mattis quis. Praesent condimentum, lacus ac sollicitudin tempor, leo nisl sollicitudin arcu, vitae accumsan mauris sapien lobortis neque. Vivamus eu leo vel nisl viverra mattis. Nunc sit amet nulla ac erat imperdiet tempor. Duis ut nisl ac nisi tempor commodo. Pellentesque adipiscing bibendum diam, non consequat tortor. Duis consectetur adipiscing elit, id rhoncus est sollicitudin laoreet. Proin ac lacus lorem. Morbi quam diam, lacinia et felis ac, condimentum varius lorem. Proin commodo elementum libero, tincidunt cursus risus ullamcorper vel. In id rutrum tellus. Aliquam iaculis erat turpis, volutpat tristique quam adipiscing vitae. Nunc vel facilisis mi.
+
+p Praesent aliquam nisl sit amet euismod bibendum. Duis scelerisque tortor sed felis ornare dignissim et feugiat lectus. Ut mollis, nisi id elementum tempor, nisi lacus condimentum arcu, a bibendum ipsum erat quis dui. Morbi fermentum dui eu metus varius venenatis. Vestibulum pharetra sapien sit amet dolor euismod, quis mollis arcu cursus. Donec eget sapien et arcu fringilla semper. In nisl massa, imperdiet quis ullamcorper pulvinar, tempor id leo. Cras risus nulla, tincidunt id mollis quis, facilisis non lorem.
+
+hr
+
+h2 Buttons
+p
+  button.btn.btn-default> Default
+  button.btn.btn-primary> Primary
+  button.btn.btn-success> Success
+  button.btn.btn-info> Info
+  button.btn.btn-warning> Warning
+  button.btn.btn-danger> Danger
+  button.btn.btn-link> Link
+
+p
+  button.btn.btn-primary.btn-lg.btn-default> Large button
+  button.btn.btn-primary.btn-default> Regular button
+  button.btn.btn-primary.btn-sm.btn-default> Small button
+  button.btn.btn-primary.btn-xs.btn-default> Small button
+
+hr
+
+h2 Labels
+span.label.label-default> Default
+span.label.label-primary> Primary
+span.label.label-success> Success
+span.label.label-info> Info
+span.label.label-warning> Warning
+span.label.label-danger> Danger
+
+hr
+
+h2 Tabs
+ul.nav.nav-tabs
+  li.active: a Tab 1
+  li: a Tab 2
+  li: a Tab 3
+
+.tab-content
+  p Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.
+
+
+- content_for :sidebar do
+
+  .panel.panel-default
+    .panel-heading: span Similar stories
+    .panel-body
+    .list-group.list-group-plused
+      - 10.times do
+        a.list-group-item = Faker::Lorem.sentence(1)

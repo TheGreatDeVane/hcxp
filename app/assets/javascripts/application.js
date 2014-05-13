@@ -18,9 +18,12 @@
 //= require jquery_nested_form
 //= require twitter/typeahead
 //= require select2
+//= require bootstrap/tooltip
 //= require_tree .
 
 $(document).ready(function() {
+  $('[data-toggle="tooltip"]').tooltip()
+
   $('#search-form input').typeahead([
   	{
   		name:   'events',

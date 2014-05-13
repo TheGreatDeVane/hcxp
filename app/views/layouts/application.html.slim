@@ -12,6 +12,22 @@ html
         .col-md-9
           = yield
 
-        .col-md-3
+        .col-md-3#sidebar
           a#logo href=root_path hcxp
+          .clearfix
+
+          .panel.panel-default
+            .panel-heading: span Hello!
+            .panel-body
+              .media
+                a.pull-left = image_tag 'http://placehold.it/50x50', size: '45x45'
+                .media-body
+                  strong: a m.b.
+
+                  p
+                    small
+                      a> Settings
+                      | /
+                      a< Sign-out
+
           = yield :sidebar
