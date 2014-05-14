@@ -30,9 +30,11 @@ $(document).ready(function() {
       scroll: true
     },
     theme: {
-      editor: '/assets/editor/epic-hcxp.css'
+      editor:  '/assets/epiceditor/editor-hcxp.css',
+      preview: '/assets/epiceditor/preview-hcxp.css'
     },
-    localStorageName: 'epiceditor_' + $('#epiceditor').data('user-id') + $('#epiceditor').data('event-id')
+    clientSideStorage: false
+    // localStorageName: 'epiceditor_' + $('#epiceditor').data('user-id') + $('#epiceditor').data('event-id')
   }).load();
 
   $('[data-toggle="tooltip"]').tooltip()
