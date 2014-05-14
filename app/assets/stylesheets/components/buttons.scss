@@ -1,0 +1,17 @@
+@import "bootstrap-variables";
+
+.btn-default {
+  .glyphicon {
+    color: $gray-light;
+  }
+
+  &:hover {
+    .glyphicon {
+      color: $gray;
+    }
+  }
+}
+
+.btn-avatar {
+  padding: 9px 12px;
+}

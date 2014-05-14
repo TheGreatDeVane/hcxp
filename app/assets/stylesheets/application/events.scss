@@ -1,5 +1,65 @@
 @import "bootstrap-variables";
 
+// Events list, day by day
+.events-list {
+  .month-title {
+    font-size: 18px;
+    border-bottom: 2px solid $gray-lighter;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    margin-top: 0;
+  }
+
+  .event {
+    margin-bottom: 20px;
+  }
+
+  .month-events {
+    margin-bottom: 30px;
+  }
+
+  .event-title {
+    font-size: 15px;
+    margin-bottom: 4px;
+
+    a {
+      color: #333;
+    }
+  }
+
+  .time {
+    width: 123px;
+    padding-right: 15px;
+
+    time {
+      display: block;
+      margin-bottom: 5px;
+    }
+  }
+
+  .media {
+    margin-top: 0;
+  }
+}
+
+// Single event view
+.events-show {
+  .event-title {
+    margin-top: 0;
+  }
+
+  .avatar {
+    margin-right: 10px;
+  }
+
+  .post-body {
+    img {
+      max-width: 100%;
+    }
+  }
+}
+
+// Band thumb. The one on event's band list
 .band-thumb {
   position: relative;
   height: 210px;
@@ -44,5 +104,6 @@
     bottom: 20px;
     left: 20px;
     z-index: 30;
+    opacity: 0.8;
   }
 }

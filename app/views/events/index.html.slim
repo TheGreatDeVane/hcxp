@@ -1,26 +1,37 @@
-.container
-  .row#main
-    .col-md-10
+.events-list
+  - @event_months.each do |month, events|
+    h2.month-title
+      = event_date_to_words month
 
-      .events-list
-        - @event_months.each do |month, events|
-          h2.month-title
-            = event_date_to_words month
+      - if !month.today? && !(month+1.day).today? && !(month.-1.day).today?
+        small<= distance_of_time_in_words_to_now month
 
-            - if !month.today? && !(month+1.day).today? && !(month.-1.day).today?
-              small<= distance_of_time_in_words_to_now month
+    .month-events
+      = render events
 
-          .month-events
-            = render events
+- content_for :sidebar do
 
-    .col-md-2
-      .panel.panel-default
-        .panel-heading
-          h3.panel-title Cities
+  .panel.panel-default
+    .panel-heading: span Your Cities
+    .panel-body
+      form
+        .input-group
+          input.form-control
+          a.input-group-addon
+            i.glyphicon.glyphicon-plus
 
-        ul.list-group
-          - @cities.each do |city|
-            li.list-group-item
-              = link_to search_index_path(q: city.city) do
-                = city.city
-                span.text-muted.pull-right= city.country_code
+      ul.list-inline
+        - Venue.all.each do |venue|
+          li: span.label.label-default.label-tag
+            = link_to venue.city, venue
+            small<: a &times;
+
+
+  .panel.panel-default
+    .panel-heading: span Bands
+    .panel-body
+      ul.list-inline
+        - Band.all.each do |band|
+          li: span.label.label-default.label-tag
+            = link_to band, band
+            small< 18

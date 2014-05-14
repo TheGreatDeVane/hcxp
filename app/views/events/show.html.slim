@@ -1,19 +1,19 @@
-.row
+.row.events-show
   .col-md-12
-    h1
+    h1.event-title
       - if @event.title.present?
         = @event.title.truncate(24)
       - else
         = @event.bands.join(', ').truncate(24)
 
     .meta.text-muted
-      = image_tag 'http://placehold.it/25x25'
-      a< beszambelan
+      = image_tag avatar_url(@event.user, size: 25), size: '25x25', class: 'avatar'
+      = link_to @event.user
 
-      ul.pull-right.list-inline
-        li: a Save
-        li = "/"
-        li: a Edit
+      .pull-right
+        = link_to 'Edit', edit_event_path(@event), class: 'btn btn-link btn-sm'
+        = " "
+        = render 'save_button', event: @event
 
     hr
 
@@ -48,7 +48,7 @@
           .media-body
             h4.media-heading = @event.price
 
-.row
+.row.events-show
   .col-md-12
     hr
     .tabs-left
@@ -60,15 +60,6 @@
   / .col-md-4
   /   = image_tag @event.poster, width: '100%'
 
-  .col-md-8
-    .event-heading
-      - if user_signed_in?
-        .btn-group.pull-right.event-controls
-          = link_to edit_event_path(@event), class: 'btn btn-default'
-            i.glyphicon.glyphicon-pencil
-          a.btn.btn-default
-            i.glyphicon.glyphicon-flag
-          = render 'save_button', event: @event
 
       //- if @event.has_any_social_links?
       //  .btn-group.btn-group-justified.social-links
@@ -78,8 +69,15 @@
 
 - content_for :sidebar do
   .panel.panel-default
+    .panel-heading: span Info
+    .panel-body
+      p: small
+        | Created <strong>2 days ago</strong> by <a href="">m.b.</a>, edited <strong>3</strong> times and viewed <strong>287</strong> times.
+
+  .panel.panel-default
     .panel-heading: span Similar events
     .panel-body
     .list-group.list-group-plused
-      - 10.times do
-        a.list-group-item = Faker::Lorem.sentence(1)
+      - @event.similar.limit(20).each do |event|
+        a.list-group-item href=event_path(event)
+          = event

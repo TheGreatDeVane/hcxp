@@ -10,4 +10,8 @@ class User < ActiveRecord::Base
   has_many :saved_events, through: :saves, source: :event
   has_many :events
   has_many :services
+
+  def to_s
+    username || email
+  end
 end
