@@ -28,7 +28,11 @@ $(document).ready(function() {
     autogrow: true,
     autogrow: {
       scroll: true
-    }
+    },
+    theme: {
+      editor: '/assets/editor/epic-hcxp.css'
+    },
+    localStorageName: 'epiceditor_' + $('#epiceditor').data('user-id') + $('#epiceditor').data('event-id')
   }).load();
 
   $('[data-toggle="tooltip"]').tooltip()

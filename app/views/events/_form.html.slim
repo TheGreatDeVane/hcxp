@@ -68,7 +68,7 @@
     = f.label :description, class: 'control-label col-sm-2'
 
     .col-sm-10
-      #epiceditor
+      #epiceditor data-user-id=current_user.id data-event-id=@event.id
       = f.text_area :description, class: 'form-control hide', rows: 10
 
 
