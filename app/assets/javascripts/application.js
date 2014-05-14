@@ -23,7 +23,13 @@
 //= require_tree .
 
 $(document).ready(function() {
-  var editor = new EpicEditor({textarea: 'event_description'}).load();
+  var editor = new EpicEditor({
+    textarea: 'event_description',
+    autogrow: true,
+    autogrow: {
+      scroll: true
+    }
+  }).load();
 
   $('[data-toggle="tooltip"]').tooltip()
 
