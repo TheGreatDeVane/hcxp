@@ -9,6 +9,7 @@ GIT
 
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     actionmailer (4.0.1)
       actionpack (= 4.0.1)
@@ -92,6 +93,8 @@ GEM
     diff-lcs (1.2.5)
     domain_name (0.5.15)
       unf (>= 0.0.5, < 1.0.0)
+    epic-editor-rails (0.2.3)
+      railties (>= 3.2, < 5.0)
     erubis (2.7.0)
     execjs (2.0.2)
     factory_girl (4.3.0)
@@ -315,6 +318,7 @@ DEPENDENCIES
   compass-rails
   database_cleaner
   devise
+  epic-editor-rails
   factory_girl_rails
   faker
   friendly_id (~> 5.0.0)

@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.1'
@@ -78,6 +79,9 @@ gem 'pg_search'
 
 # Friendly IDs
 gem 'friendly_id', '~> 5.0.0'
+
+# EpicEditor
+gem 'epic-editor-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

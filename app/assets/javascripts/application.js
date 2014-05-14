@@ -19,9 +19,12 @@
 //= require twitter/typeahead
 //= require select2
 //= require bootstrap/tooltip
+//= require epiceditor
 //= require_tree .
 
 $(document).ready(function() {
+  var editor = new EpicEditor({textarea: 'event_description'}).load();
+
   $('[data-toggle="tooltip"]').tooltip()
 
   $('#search-form input').typeahead([
