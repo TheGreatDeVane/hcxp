@@ -9,22 +9,31 @@
     .month-events
       = render events
 
+- if @event_months.empty?
+  p.lead.text-center
+    | Oups!
+  p.text-center
+    | Sorry, no events found for <strong>#{params[:q]}</strong>.
+    br
+    | Maybe you should try <a href="#{search_index_path(q: '-' + params[:q])}">searching the archives? &rarr;</a>
+
 - content_for :sidebar do
 
-  .panel.panel-default
-    .panel-heading: span Your Cities
-    .panel-body
-      form
-        .input-group
-          input.form-control
-          a.input-group-addon
-            i.glyphicon.glyphicon-plus
+  - if user_signed_in?
+    .panel.panel-default
+      .panel-heading: span Your Cities
+      .panel-body
+        form
+          .input-group
+            input.form-control
+            a.input-group-addon
+              i.glyphicon.glyphicon-plus
 
-      ul.list-inline
-        - Venue.all.each do |venue|
-          li: span.label.label-default.label-tag
-            = link_to venue.city, search_index_path(q: "#{venue.city}, #{venue.country_code}")
-            small<: a &times;
+        ul.list-inline
+          - Venue.all.each do |venue|
+            li: span.label.label-default.label-tag
+              = link_to venue.city, search_index_path(q: "#{venue.city}, #{venue.country_code}")
+              small<: a &times;
 
 
   .panel.panel-default

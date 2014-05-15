@@ -19,6 +19,7 @@
 //= require twitter/typeahead
 //= require select2
 //= require bootstrap/tooltip
+//= require bootstrap/dropdown
 //= require epiceditor
 //= require_tree .
 

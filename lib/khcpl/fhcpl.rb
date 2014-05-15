@@ -8,7 +8,7 @@ module Khcpl
   class Fhcpl
     def self.get_profile_info(user_name, user_password)
       agent = Mechanize.new
-      page  = agent.get('http://forum.hard-core.pl/')
+      page  = agent.get('http://forum.hard-core.pl/ucp.php?mode=login')
       Rails.logger.info 'Front page loaded.'
 
       sign_in_form = page.forms.second
@@ -35,7 +35,7 @@ module Khcpl
 
       page = agent.get('http://forum.hard-core.pl')
       Rails.logger.info "Going back to home page to get the ID"
-      
+
       profile_link = Nokogiri::HTML(page.body).at('.gensmall a:contains("m.b.")').attributes['href'].value
       Rails.logger.info 'Profile link obtained'
 

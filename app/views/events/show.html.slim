@@ -40,7 +40,7 @@
             i.glyphicon.glyphicon-map-marker
 
           .media-body
-            h4.media-heading = link_to @event.venue.name, @event.venue
+            h4.media-heading = link_to @event.venue.name, search_index_path(q: "#{@event.venue.name}, #{@event.venue.city}")
             small.text-muted
               | #{@event.venue.city}, #{@event.venue.country_code}
 

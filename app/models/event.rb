@@ -3,7 +3,8 @@ class Event < ActiveRecord::Base
   pg_search_scope :search, against: [:title, :beginning_at],
                            associated_against: {
                              bands: [:name],
-                             venue: [:name, :address, :city, :country_name, :country_code]
+                             venue: [:name, :address, :city, :country_name, :country_code],
+                             user:  [:username]
                            },
                            using: {
                              tsearch: { prefix: true }

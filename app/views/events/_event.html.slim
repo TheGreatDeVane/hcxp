@@ -23,7 +23,7 @@
 
             p
               - event.bands.each do |band|
-                span.label.label-default.label-tag> = link_to band.name, band
+                span.label.label-default.label-tag> = link_to band.name, search_index_path(q: band.name)
 
           - else
             h3.media-heading.event-title

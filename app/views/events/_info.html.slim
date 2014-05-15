@@ -1,11 +1,12 @@
-.post-body.description
-  == markdown @event.description
+- if @event.description.present?
+  .post-body.description
+    == markdown @event.description
 
-  .expander
-    a.btn.btn-default data-toggle="tooltip" title="Read more"
-      i.glyphicon.glyphicon-chevron-down
+    .expander
+      a.btn.btn-default data-toggle="tooltip" title="Read more"
+        i.glyphicon.glyphicon-chevron-down
 
-hr
+  hr
 
 .bands
   = render 'bands'
