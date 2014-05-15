@@ -1,0 +1,11 @@
+.post-body.description
+  == markdown @event.description
+
+  .expander
+    a.btn.btn-default data-toggle="tooltip" title="Read more"
+      i.glyphicon.glyphicon-chevron-down
+
+hr
+
+.bands
+  = render 'bands'

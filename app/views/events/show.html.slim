@@ -17,8 +17,10 @@
 
     hr
 
-    .row
-      .col-md-4
+    .btn-group.btn-group-justified
+
+      / Event timing
+      .btn-group
         .media
           .pull-left.text-muted
             i.glyphicon.glyphicon-time
@@ -30,7 +32,8 @@
               |
               = @event.try(:beginning_at_time).try(:strftime, '%H:%M')
 
-      .col-md-4
+      / Event placement
+      .btn-group
         .media
           .pull-left.text-muted
             i.glyphicon.glyphicon-map-marker
@@ -40,13 +43,15 @@
             small.text-muted
               | #{@event.venue.city}, #{@event.venue.country_code}
 
-      .col-md-4
-        .media
-          .pull-left.text-muted
-            i.glyphicon.glyphicon-usd
+      / Event price
+      .btn-group
+        - if @event.price.present?
+          .media
+            .pull-left.text-muted
+              i.glyphicon.glyphicon-usd
 
-          .media-body
-            h4.media-heading = @event.price
+            .media-body
+              h4.media-heading = @event.price
 
 .row.events-show
   .col-md-12

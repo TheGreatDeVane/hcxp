@@ -1,8 +1,10 @@
 class SearchController < ApplicationController
   def index
-    @events       = Event.search params[:q]
+    user_id       = user_signed_in? ? current_user.id : nil
+
+    @events       = Event.parse_search params[:q], user_id
     @event_months = @events.group_by { |e| e.beginning_at.beginning_of_day }
-    
+
     render 'events/index'
   end
 

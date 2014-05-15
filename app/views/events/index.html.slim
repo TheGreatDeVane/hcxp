@@ -23,7 +23,7 @@
       ul.list-inline
         - Venue.all.each do |venue|
           li: span.label.label-default.label-tag
-            = link_to venue.city, venue
+            = link_to venue.city, search_index_path(q: "#{venue.city}, #{venue.country_code}")
             small<: a &times;
 
 
@@ -33,5 +33,5 @@
       ul.list-inline
         - Band.all.each do |band|
           li: span.label.label-default.label-tag
-            = link_to band, band
+            = link_to band, search_index_path(q: band.name)
             small< 18

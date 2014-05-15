@@ -23,39 +23,42 @@
 //= require_tree .
 
 $(document).ready(function() {
-  var editor = new EpicEditor({
-    textarea: 'event_description',
-    autogrow: true,
-    autogrow: {
-      scroll: true
-    },
-    theme: {
-      editor:  '/assets/epiceditor/editor-hcxp.css',
-      preview: '/assets/epiceditor/preview-hcxp.css'
-    },
-    clientSideStorage: false
-    // localStorageName: 'epiceditor_' + $('#epiceditor').data('user-id') + $('#epiceditor').data('event-id')
-  }).load();
+
+  if ($('#epiceditor').length > 0) {
+    var editor = new EpicEditor({
+      textarea: 'event_description',
+      autogrow: true,
+      autogrow: {
+        scroll: true
+      },
+      theme: {
+        editor:  '/assets/epiceditor/editor-hcxp.css',
+        preview: '/assets/epiceditor/preview-hcxp.css'
+      },
+      clientSideStorage: false
+      // localStorageName: 'epiceditor_' + $('#epiceditor').data('user-id') + $('#epiceditor').data('event-id')
+    }).load();
+  }
 
   $('[data-toggle="tooltip"]').tooltip()
 
-  $('#search-form input').typeahead([
-  	{
-  		name:   'events',
-      remote: "/events/autocomplete?q=%QUERY",
-      header: '<h3>Events</h3>',
-  	},
-    {
-      name:   'venues',
-      remote: '/venues/autocomplete?q=%QUERY',
-      header: '<h3>Venues</h3>'
-    },
-    {
-      name:   'bands',
-      remote: '/bands/autocomplete?q=%QUERY',
-      header: '<h3>Bands</h3>'
-    },
-  ]);
+  // $('#search input').typeahead([
+  // 	{
+  // 		name:   'events',
+  //     remote: "/events/autocomplete?q=%QUERY",
+  //     header: '<h3>Events</h3>',
+  // 	},
+  //   {
+  //     name:   'venues',
+  //     remote: '/venues/autocomplete?q=%QUERY',
+  //     header: '<h3>Venues</h3>'
+  //   },
+  //   {
+  //     name:   'bands',
+  //     remote: '/bands/autocomplete?q=%QUERY',
+  //     header: '<h3>Bands</h3>'
+  //   },
+  // ]);
 
   // Apply select2 to bands list on event page
   $('.bands-list').select2({

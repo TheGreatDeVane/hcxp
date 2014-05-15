@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title KHCPL
+    title HCXP
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
@@ -14,14 +14,18 @@ html
             .media
               a.navbar-logo#logo href=root_path hcxp
               .media-body
-                form.navbar-form.navbar-left#search
+                form.navbar-form.navbar-left#search action='/search'
                   .form-group
-                    input.form-control.input-lg type="text" placeholder="Search for events, bands, venues, cities or anything..."
+                    input.form-control.input-lg type="text" value=params[:q] name="q" placeholder="Search for events, bands, venues, cities or anything..."
 
           .col-md-3
             .btn-group.nav-main
               = link_to new_event_path, class: 'btn btn-default btn-lg' do
                 i.glyphicon.glyphicon-plus
+
+              = link_to search_index_path(q: ':s'), class: 'btn btn-default btn-lg' do
+                i.glyphicon.glyphicon-star
+
               a.btn.btn-default.btn-lg.btn-avatar
                 = image_tag 'http://gravatar.com/avatar/1900c159e4b89ccab33af7f7b111b140.png?s=25&d=http%3A%2F%2Flocalhost%3A3000%2Fimages%2Fguest.png'
 

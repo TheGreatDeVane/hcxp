@@ -45,7 +45,7 @@
       = f.text_field :price, class: 'form-control'
 
     .col-sm-2
-      .checkbox
+      .checkbox data-toggle="tooltip" data-placement="bottom" title="You're the owner of that event and no one else is able to modify it"
         label
           input type="checkbox"
           | Locked
@@ -105,11 +105,11 @@
     .col-sm-10
       .row
         .col-md-6
-          = f.label :venue_id, 'Search for venue', class: 'control-label'
+          = f.label :venue_id, 'Search for venue', class: 'control-label control-label-sub'
           = f.select :venue_id, Venue.all.collect { |e| [e.name, e.id] },{include_blank: true}, { class: 'form-control' }
 
         .col-md-6
-          label.control-label Or create a new one
+          label.control-label.control-label-sub Or create a new one
           = f.fields_for :venue, Venue.new do |ff|
             .form-horizontal
               .form-group
