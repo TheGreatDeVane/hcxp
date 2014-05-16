@@ -5,39 +5,39 @@
         .row
           .col-md-4
             p
-              = image_tag 'http://placehold.it/100x100', width: '100%'
+              = image_tag band_thumb_url(@band, :mega), width: '100%'
 
           .col-md-8
             = render 'shared/form_errors', resource: @band
 
             .form-group
               = f.label :name, 'Band name', class: 'control-label'
-              = f.text_field :name, class: 'form-control input-lg', 
+              = f.text_field :name, class: 'form-control input-lg',
                                     placeholder: 'Band name'
 
             .form-group.row
               .col-md-4
                 = f.label :location, class: 'control-label'
-                = f.text_field :location, class: 'form-control', 
+                = f.text_field :location, class: 'form-control',
                                           placeholder: 'City, Country'
 
             hr
 
             h4 Resources
-            p.text-muted 
+            p.text-muted
               | Resources are used to populate band's infos in
-                a various places all over the website. For example, 
-                <strong>Bandcamp</strong> links are used to display 
-                band's players on event page and <strong>Last.fm</strong> 
-                resources handles band thumbnails. Apart of that, they 
-                are also a good way to provide a basic information about 
+                a various places all over the website. For example,
+                <strong>Bandcamp</strong> links are used to display
+                band's players on event page and <strong>Last.fm</strong>
+                resources handles band thumbnails. Apart of that, they
+                are also a good way to provide a basic information about
                 a band. Please keep'em clean!
 
             = f.fields_for :resources do |ff|
               .row
                 .form-group.col-md-3
-                  = ff.select :resource_type, {:'Bandcamp' => 'bandcamp', :'Last.fm' => 'lastfm'}, 
-                                              { include_blank: 'Select type' }, 
+                  = ff.select :resource_type, {:'Bandcamp' => 'bandcamp', :'Last.fm' => 'lastfm'},
+                                              { include_blank: 'Select type' },
                                               class: 'form-control'
 
                 .form-group.col-md-8
@@ -47,5 +47,7 @@
                         = ff.link_to_remove "&times;".html_safe, class: 'btn btn-default pull-right'
 
             = f.link_to_add "Add another", :resources, class: 'btn btn-default'
-              
-            .actions = f.submit 'Save'
+
+            hr
+
+            .actions = f.submit 'Save', class: 'btn btn-primary pull-right'
