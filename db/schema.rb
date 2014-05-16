@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140516123622) do
+ActiveRecord::Schema.define(version: 20140516155706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20140516123622) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
+    t.integer  "events_count", default: 0
   end
 
   add_index "bands", ["slug"], name: "index_bands_on_slug", unique: true, using: :btree
@@ -71,7 +72,10 @@ ActiveRecord::Schema.define(version: 20140516123622) do
     t.string   "social_link_fb"
     t.string   "social_link_lfm"
     t.string   "social_link_hcpl"
+    t.string   "short_id"
   end
+
+  add_index "events", ["short_id"], name: "index_events_on_short_id", unique: true, using: :btree
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false

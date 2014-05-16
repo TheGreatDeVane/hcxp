@@ -2,12 +2,14 @@ class Band < ActiveRecord::Base
   extend FriendlyId
   include PgSearch
   friendly_id :name, use: :slugged
-  pg_search_scope :search, against: [:name, :location], 
+  pg_search_scope :search, against: [:name, :location],
                            using: {
                              tsearch: { prefix: true }
                            }
 
   has_many :resources, class_name: 'BandResource'
+  has_many :event_bands, counter_cache: :events_count
+  has_many :events, through: :event_bands
 
   validates :name, presence: true
   validates :location, presence: true
@@ -21,7 +23,7 @@ class Band < ActiveRecord::Base
     end
   end
 
-  accepts_nested_attributes_for :resources, allow_destroy: true, 
+  accepts_nested_attributes_for :resources, allow_destroy: true,
                                             reject_if: :all_blank
 
   # Callbacks

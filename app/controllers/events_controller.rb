@@ -12,6 +12,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    redirect_to @event.path if @event.slug != params[:slug]
     @tab_content_partial = 'info'
   end
 

@@ -19,7 +19,11 @@
               .col-md-4
                 = f.label :location, class: 'control-label'
                 = f.text_field :location, class: 'form-control',
-                                          placeholder: 'City, Country'
+                                          placeholder: 'City, Country',
+                                          ng_autocomplete: '',
+                                          ng_model: 'location',
+                                          ng_init: "location='#{@band.location}'",
+                                          options: "{types: '(cities)'}"
 
             hr
 

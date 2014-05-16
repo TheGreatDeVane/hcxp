@@ -1,9 +1,9 @@
 - if @event.description.present?
-  .post-body.description
+  .post-body.description ng-init="isDescriptionExpanded=false" ng-class="{false: 'collapsed', true: 'expanded'}[isDescriptionExpanded]"
     == markdown @event.description
 
     .expander
-      a.btn.btn-default data-toggle="tooltip" title="Read more"
+      a.btn.btn-default data-toggle="tooltip" title="Read more" ng-click="isDescriptionExpanded=true"
         i.glyphicon.glyphicon-chevron-down
 
   hr

@@ -65,15 +65,6 @@
   hr
 
   .form-group
-    = f.label :description, class: 'control-label col-sm-2'
-
-    .col-sm-10
-      #epiceditor data-user-id=current_user.id data-event-id=@event.id
-      = f.text_area :description, class: 'form-control hide', rows: 10, :'ng-model' => 'event.description', :'ng-init' => "event.description='#{@event.description}'"
-
-  hr
-
-  .form-group
     label.control-label.col-sm-2 Bands
 
     .col-sm-10
@@ -89,12 +80,13 @@
             .col-md-6
               p= ff.text_field :name, disabled: ff.object.persisted?, class: 'form-control', placeholder: 'Band name'
             .col-md-5
-              p= ff.text_field :location, disabled: ff.object.persisted?, class: 'form-control', placeholder: 'City, Country'
+              p= ff.text_field :location, disabled: ff.object.persisted?,
+                                          class: 'form-control',
+                                          placeholder: 'City, Country'
             .col-md-1
               p= ff.link_to_remove "&times;".html_safe, class: 'btn btn-default pull-right'
 
         = f.link_to_add "Add a band", :bands, class: 'btn btn-default'
-
 
   hr
 
@@ -105,7 +97,7 @@
       .row
         .col-md-6
           = f.label :venue_id, 'Search for venue', class: 'control-label control-label-sub'
-          = f.select :venue_id, Venue.all.collect { |e| [e.name, e.id] },{include_blank: true}, { class: 'form-control' }
+          = f.select :venue_id, Venue.all.collect { |e| [e.name, e.id] }, {include_blank: true}, { class: 'form-control' }
 
         .col-md-6
           label.control-label.control-label-sub Or create a new one
@@ -119,7 +111,21 @@
               .form-group
                 = ff.label :address, class: 'control-label col-sm-4'
                 .col-md-8
-                  = ff.text_field :address, class: 'form-control', placeholder: 'City, Country'
+                  = ff.text_field :address, class: 'form-control',
+                                            placeholder: 'Street, City, Country',
+                                            ng_autocomplete: '',
+                                            ng_model: 'venueAddress',
+                                            ng_init:  "venueAddress='#{ff.object.address}'"
+
+  hr
+
+  .form-group
+    = f.label :description, class: 'control-label col-sm-2'
+
+    .col-sm-10
+      #epiceditor data-user-id=current_user.id data-event-id=@event.id
+      = f.text_area :description, class: 'form-control hide', rows: 10, :'ng-model' => 'event.description', :'ng-init' => "event.description='#{@event.description}'"
+
 
   /     #description.tab-pane
   /       .form-group
@@ -188,7 +194,6 @@
     .panel.panel-default ng-show="events"
       .panel-heading: span Similar events
       .panel-body
-        p Isn't that one of these?
       .list-group.list-group-plused
         a.list-group-item ng-repeat="event in events" ng-href="#{events_path}/{{ event.id }}"
           | {{ event.title_or_bands }}

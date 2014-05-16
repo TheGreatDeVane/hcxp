@@ -96,6 +96,15 @@
         color: $gray;
       }
     }
+
+    &.expanded {
+      max-height: none;
+
+      .expander {
+        opacity: 0;
+        display: none;
+      }
+    }
   }
 }
 

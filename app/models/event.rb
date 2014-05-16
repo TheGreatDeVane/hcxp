@@ -1,5 +1,7 @@
 class Event < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
   include PgSearch
+
   pg_search_scope :search, against: [:title, :beginning_at],
                            associated_against: {
                              bands: [:name],
@@ -32,6 +34,7 @@ class Event < ActiveRecord::Base
   scope :from_the_future, -> { where('beginning_at >= ?', Date.today) }
   scope :from_the_past,   -> { where('beginning_at < ?', Date.today) }
 
+  # Callbacks
   after_save :puts_changes
 
   def to_s
@@ -138,5 +141,13 @@ class Event < ActiveRecord::Base
 
   def has_passed
     beginning_at < Date.today
+  end
+
+  def slug
+    title_or_bands.downcase.strip.gsub(' ', '_').gsub(/[^\w-]/, '')
+  end
+
+  def path
+    slugged_event_path(self, self.slug)
   end
 end

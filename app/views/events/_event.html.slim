@@ -19,7 +19,7 @@
         .media-body
           - if event.title.present?
             h3.media-heading.event-title
-              = link_to event.title, event
+              = link_to event.title, event.path
 
             p
               - event.bands.each do |band|
@@ -27,7 +27,7 @@
 
           - else
             h3.media-heading.event-title
-              = link_to event.bands.map{ |b| b.name }.join(', '), event
+              = link_to event.bands.map{ |b| b.name }.join(', '), event.path
 
             p.text-muted= excerpt(event).to_s.truncate(170)
 

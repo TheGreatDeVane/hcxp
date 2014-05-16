@@ -8,7 +8,7 @@
     .panel-heading: span Bands
     .panel-body
       ul.list-inline
-        - Band.all.each do |band|
+        - Band.order('events_count DESC').each do |band|
           li: span.label.label-default.label-tag
             = link_to band, search_index_path(q: band.name)
-            small< 18
+            small< = band.events_count
