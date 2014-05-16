@@ -12,6 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require angular
+//= require underscore
+//= require restangular
+//= require ngAutocomplete
 //= require jquery.turbolinks
 //= require turbolinks
 //= require rails-timeago-all
@@ -22,6 +26,10 @@
 //= require bootstrap/dropdown
 //= require epiceditor
 //= require_tree .
+
+$(document).on('ready page:load', function() {
+  angular.bootstrap('body', ['hcxpApp'])
+})
 
 $(document).ready(function() {
 

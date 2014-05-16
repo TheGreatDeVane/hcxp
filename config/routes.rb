@@ -8,7 +8,7 @@ Khcpl::Application.routes.draw do
   end
 
   devise_for :users, controllers: {
-    sessions: "sessions"
+    sessions: 'sessions'
   }
 
   resources :users do
@@ -16,7 +16,7 @@ Khcpl::Application.routes.draw do
     get :events, on: :member
   end
 
-  resources :events do
+  resources :events, path: 'e' do
     get :autocomplete, on: :collection
 
     resources :saves do
@@ -28,17 +28,25 @@ Khcpl::Application.routes.draw do
     get :resources, on: :member
   end
 
-  # Archived events
-  scope '(:archive_prefix)', archive_prefix: /archive/ do
-    root 'events#index', as: 'archive_root'
-    resources :events
-  end
-
   resources :search do
     get 'bands', on: :collection
   end
 
   get 'style_guide' => 'application#style_guide'
+
+  namespace :api do
+    namespace :v1 do
+      resources :events do
+        get :similar_by, on: :collection
+      end
+
+      resources :users do
+        get :locations, on: :collection
+        post 'locations' => 'users#locations_create', on: :collection
+        delete 'locations' => 'users#locations_destroy', on: :collection
+      end
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

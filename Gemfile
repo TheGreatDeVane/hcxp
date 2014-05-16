@@ -111,3 +111,9 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+# Bower packages
+gem 'rails-assets-angular'
+gem 'rails-assets-restangular'
+gem 'rails-assets-underscore'
+gem 'rails-assets-ngAutocomplete'

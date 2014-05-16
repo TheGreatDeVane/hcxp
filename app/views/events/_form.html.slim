@@ -1,4 +1,4 @@
-= nested_form_for @event, html: {class: 'form-horizontal'}, :multipart => true do |f|
+= nested_form_for @event, html: {class: 'form-horizontal', ng_controller: 'EventsFormCtrl'}, :multipart => true do |f|
 
   = render 'shared/form_errors', resource: @event
 
@@ -10,7 +10,7 @@
       | Title
 
     .col-sm-10
-      = f.text_field :title, class: 'form-control input-lg'
+      = f.text_field :title, class: 'form-control input-lg', ng_model: 'event.title', ng_init: "event.title='#{@event.title}'"
       span.help-block You can leave it blank
 
   .form-group
@@ -33,7 +33,7 @@
           .row
             .col-md-7
               = f.date_field :ending_at, class: 'form-control'
-              span.help-block Ending at
+              span.help-block Ending at (optional)
 
             .col-md-5
               = f.time_field :ending_at_time, class: 'form-control', value: (@event.ending_at_time.blank? ? '' : @event.ending_at_time.strftime('%H:%M'))
@@ -47,7 +47,7 @@
     .col-sm-2
       .checkbox data-toggle="tooltip" data-placement="bottom" title="You're the owner of that event and no one else is able to modify it"
         label
-          input type="checkbox"
+          input type="checkbox" checked="checked" disabled="disabled"
           | Locked
 
     / .col-sm-3
@@ -69,8 +69,7 @@
 
     .col-sm-10
       #epiceditor data-user-id=current_user.id data-event-id=@event.id
-      = f.text_area :description, class: 'form-control hide', rows: 10
-
+      = f.text_area :description, class: 'form-control hide', rows: 10, :'ng-model' => 'event.description', :'ng-init' => "event.description='#{@event.description}'"
 
   hr
 
@@ -168,17 +167,28 @@
       hr
       = f.submit 'Save event', class: 'btn btn-default btn-primary pull-right'
 
+  script type="text/ng-template" id="help_for_title.html"
+    p Help for title
+
+  script type="text/ng-template" id="help_for_date.html"
+    p Help for date
+
 
 - content_for :sidebar do
 
-  .panel.panel-default
+  .panel.panel-default.hide
     .panel-heading: span Formatting
     .panel-body
-      p Some shit about formatting that field. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in nibh sit amet sapien bibendum elementum id aliquet libero. Nulla et nisi massa. Nunc vel massa aliquet, ultricies erat quis, feugiat diam.
+      ng-include src="'help_for_title.html'"
 
-  .panel.panel-default
-    .panel-heading: span Similar events
-    .panel-body
-    .list-group.list-group-plused
-      - @event.similar.limit(20).each do |event|
-        = link_to event, event, class: 'list-group-item'
+    script type="javasctipt/ng-template" id="help_for_title.html"
+      p Help for title
+
+  div ng-controller="SimilarEventsCtrl"
+    .panel.panel-default ng-show="events"
+      .panel-heading: span Similar events
+      .panel-body
+        p Isn't that one of these?
+      .list-group.list-group-plused
+        a.list-group-item ng-repeat="event in events" ng-href="#{events_path}/{{ event.id }}"
+          | {{ event.title_or_bands }}

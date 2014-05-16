@@ -1,0 +1,17 @@
+= render 'events/events'
+
+- content_for :sidebar do
+
+  = render 'layouts/sidebar/user_locations'
+
+  .panel.panel-default
+    .panel-heading: span Bands
+    .panel-body
+      - @bands.each do |band|
+        .media
+          a.pull-left
+            = image_tag 'http://placehold.it/45x45'
+
+          .media-body
+            h5.media-heading = band.name
+            a.btn.btn-default.btn-xs href=edit_band_path(band) Edit

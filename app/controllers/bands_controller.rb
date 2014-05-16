@@ -1,7 +1,7 @@
 class BandsController < ApplicationController
   before_action :set_band, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  
+
   # GET /bands
   # GET /bands.json
   def index
@@ -11,6 +11,7 @@ class BandsController < ApplicationController
   # GET /bands/1
   # GET /bands/1.json
   def show
+    redirect_to search_index_path(q: @band.name)
   end
 
   # GET /bands/new
@@ -46,7 +47,7 @@ class BandsController < ApplicationController
 
   # PATCH/PUT /bands/1
   # PATCH/PUT /bands/1.json
-  def update 
+  def update
     respond_to do |format|
       if @band.update(band_params)
         format.html { redirect_to @band, notice: 'Band was successfully updated.' }

@@ -1,0 +1,16 @@
+- if user_signed_in?
+  .panel.panel-default ng-controller="UserLocationsCtrl"
+    .panel-heading: span Your Cities
+    .panel-body
+      form
+        .input-group
+          input.form-control ng-autocomplete="" ng-model="autocomplete" options="{types: '(cities)'}" details="locationDetails"
+          a.input-group-addon ng-click="addLocation()"
+            i.glyphicon.glyphicon-plus
+
+      ul.list-inline
+        li ng-repeat="location in locations"
+          span.label.label-default.label-tag
+            a ng-href="#{search_index_path}?q={{ location.city }}, {{ location.country_code }}"
+              | {{ location.city }}
+            small<: a href="javascript:void(0)" ng-click="removeLocation($index)" &times;

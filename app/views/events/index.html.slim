@@ -1,40 +1,8 @@
-.events-list
-  - @event_months.each do |month, events|
-    h2.month-title
-      = event_date_to_words month
-
-      - if !month.today? && !(month+1.day).today? && !(month.-1.day).today?
-        small<= distance_of_time_in_words_to_now month
-
-    .month-events
-      = render events
-
-- if @event_months.empty?
-  p.lead.text-center
-    | Oups!
-  p.text-center
-    | Sorry, no events found for <strong>#{params[:q]}</strong>.
-    br
-    | Maybe you should try <a href="#{search_index_path(q: '-' + params[:q])}">searching the archives? &rarr;</a>
+= render 'events/events'
 
 - content_for :sidebar do
 
-  - if user_signed_in?
-    .panel.panel-default
-      .panel-heading: span Your Cities
-      .panel-body
-        form
-          .input-group
-            input.form-control
-            a.input-group-addon
-              i.glyphicon.glyphicon-plus
-
-        ul.list-inline
-          - Venue.all.each do |venue|
-            li: span.label.label-default.label-tag
-              = link_to venue.city, search_index_path(q: "#{venue.city}, #{venue.country_code}")
-              small<: a &times;
-
+  = render 'layouts/sidebar/user_locations'
 
   .panel.panel-default
     .panel-heading: span Bands
