@@ -31,7 +31,7 @@ html
 
                 a.btn.btn-default.btn-lg.btn-avatar data-toggle="dropdown"
                   = image_tag 'http://gravatar.com/avatar/1900c159e4b89ccab33af7f7b111b140.png?s=25&d=http%3A%2F%2Flocalhost%3A3000%2Fimages%2Fguest.png'
-                ul.dropdown-menu role="menu"
+                ul.dropdown-menu.dropdown-menu-right role="menu"
                   li: a href=search_index_path(q: current_user.username) Your events
                   li: a Settings
                   li.divider
