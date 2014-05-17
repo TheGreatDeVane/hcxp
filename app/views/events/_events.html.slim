@@ -13,6 +13,14 @@
   p.lead.text-center
     | Oups!
   p.text-center
-    | Sorry, no events found for <strong>#{params[:q]}</strong>.
-    br
-    | Maybe you should try <a href="#{search_index_path(q: '-' + params[:q])}">searching the archives? &rarr;</a>
+    - if params[:q]
+
+      | Sorry, no events found for <strong>#{params[:q]}</strong>.
+      br
+      | Maybe you should try <a href="#{search_index_path(q: '-' + params[:q])}">searching the archives? &rarr;</a>
+
+    - else
+
+      | Sorry, no events found.
+      br
+      | Maybe you should try <a href="#{search_index_path(q: '-')}">searching the archives? &rarr;</a>
