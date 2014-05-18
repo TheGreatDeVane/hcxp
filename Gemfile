@@ -36,6 +36,7 @@ gem "geocoder"
 
 # Authentication
 gem 'devise'
+gem 'cancancan', '~> 1.8'
 
 # jquery.timeago
 gem 'rails-timeago', '~> 2.0'

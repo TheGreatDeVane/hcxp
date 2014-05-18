@@ -11,7 +11,7 @@ class Band < ActiveRecord::Base
   has_many :event_bands, counter_cache: :events_count
   has_many :events, through: :event_bands
 
-  validates :name, presence: true
+  validates :name, presence: true, no_capslock: true
   validates :location, presence: true
 
   # Plugins

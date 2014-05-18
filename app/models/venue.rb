@@ -1,11 +1,14 @@
 class Venue < ActiveRecord::Base
   include PgSearch
-  pg_search_scope :search, against: [:name, :address], 
+  pg_search_scope :search, against: [:name, :address],
                            using: {
                              tsearch: { prefix: true }
                            }
 
   has_many :events
+
+  # Validators
+  validates :name, no_capslock: true
 
   # Plugins
   geocoded_by :address do |obj, results|

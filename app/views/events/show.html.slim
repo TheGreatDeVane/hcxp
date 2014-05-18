@@ -12,8 +12,11 @@
 
       - if user_signed_in?
         .pull-right
-          = link_to 'Edit', edit_event_path(@event), class: 'btn btn-link btn-sm'
-          = " "
+
+          - if can? :edit, @event
+            = link_to 'Edit', edit_event_path(@event), class: 'btn btn-link btn-sm'
+            = " "
+
           = render 'save_button', event: @event
 
     hr
