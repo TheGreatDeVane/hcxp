@@ -36,7 +36,7 @@ module Khcpl
       page = agent.get('http://forum.hard-core.pl')
       Rails.logger.info "Going back to home page to get the ID"
 
-      profile_link = Nokogiri::HTML(page.body).at('.gensmall a:contains("m.b.")').attributes['href'].value
+      profile_link = Nokogiri::HTML(page.body).at('.gensmall a:contains(user_name)').attributes['href'].value
       Rails.logger.info 'Profile link obtained'
 
       user_id = profile_link.scan(/\d/).join('')
