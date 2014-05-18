@@ -10,7 +10,7 @@ $gray-light: lighten(#000, 80%);
 $gray-lighter: lighten(#000, 95%);
 
 // Typography
-$font-family-monospace: 'Source Code Pro';
+$font-family-monospace: 'Source Code Pro', monospace;
 $font-family-base: $font-family-monospace;
 $font-size-base: 15px;
 
