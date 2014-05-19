@@ -3,7 +3,7 @@
 class PosterUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
-  # include CarrierWave::RMagick
+  include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
@@ -21,7 +21,7 @@ class PosterUploader < CarrierWave::Uploader::Base
   def default_url
     # For Rails 3.1+ asset pipeline compatibility:
     # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-  
+
     # "/images/fallback/" + [version_name, "default.gif"].compact.join('_')
     "http://placehold.it/360x509&text=Poster+goes+here"
   end
@@ -34,9 +34,9 @@ class PosterUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process :scale => [50, 50]
-  # end
+  version :square do
+    process :resize_to_fill => [153, 153]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

@@ -44,6 +44,7 @@ gem 'rails-timeago', '~> 2.0'
 # file uploads
 gem 'carrierwave'
 gem 'carrierwave-azure'
+gem 'rmagick'
 
 # nested forms
 gem "nested_form"

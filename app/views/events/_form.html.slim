@@ -120,6 +120,46 @@
   hr
 
   .form-group
+    = f.label :poster, class: 'control-label col-sm-2'
+
+    .col-sm-10
+      .row
+        - if @event.poster?
+          .col-md-3
+            = image_tag f.object.poster.square, width: '100%'
+
+          .col-md-9
+            = f.label :poster, 'Choose other file'
+
+            .row
+              .col-md-5
+                = f.file_field :poster, class: 'form-control'
+
+              .col-md-1
+                | or
+
+              .col-md-6
+                = f.text_field :remote_poster_url, class: 'form-control', placeholder: 'File URL'
+
+            hr
+            .checkbox
+              label
+                = f.check_box :remove_poster
+                | Remove that poster
+
+        - else
+          .col-md-5
+            = f.file_field :poster, class: 'form-control'
+
+          .col-md-1
+            | or
+
+          .col-md-6
+            = f.text_field :remote_poster_url, class: 'form-control', placeholder: 'File URL'
+
+  hr
+
+  .form-group
     = f.label :description, class: 'control-label col-sm-2'
 
     .col-sm-10

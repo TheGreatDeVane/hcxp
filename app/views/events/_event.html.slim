@@ -14,7 +14,7 @@
 
       .media
         = link_to event, class: 'pull-left' do
-          = image_tag event.poster, size: '50x50'
+          = image_tag event.poster.square, size: '50x50'
 
         .media-body
           - if event.title.present?
