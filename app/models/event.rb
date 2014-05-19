@@ -22,7 +22,6 @@ class Event < ActiveRecord::Base
   # Validations
   validates :user_id, presence: true
   validates :beginning_at, presence: true
-  validates :title, no_capslock: true
 
   # Nested attributes
   accepts_nested_attributes_for :bands, allow_destroy: true,
