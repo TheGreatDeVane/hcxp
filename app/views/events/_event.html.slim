@@ -21,9 +21,14 @@
             h3.media-heading.event-title
               = link_to event.title, event.path
 
-            p
-              - event.bands.each do |band|
-                span.label.label-default.label-tag> = link_to band.name, search_index_path(q: band.name)
+
+            - if event.bands.any?
+              p
+                - event.bands.each do |band|
+                  span.label.label-default.label-tag> = link_to band.name, search_index_path(q: band.name)
+
+            - else
+              p.text-muted= excerpt(event).to_s.truncate(170)
 
           - else
             h3.media-heading.event-title
