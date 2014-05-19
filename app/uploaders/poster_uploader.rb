@@ -38,6 +38,10 @@ class PosterUploader < CarrierWave::Uploader::Base
     process :resize_to_fill => [153, 153]
   end
 
+  version :medium do
+    process :resize_to_fit => [371, 371]
+  end
+
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list

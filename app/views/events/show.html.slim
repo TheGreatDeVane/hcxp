@@ -78,6 +78,9 @@
 
 - content_for :sidebar do
   .panel.panel-default
+    = image_tag @event.poster.medium, width: '100%'
+
+  .panel.panel-default.hide
     .panel-heading: span Info
     .panel-body
       p: small
