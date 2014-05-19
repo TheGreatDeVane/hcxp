@@ -1,0 +1,32 @@
+pl:
+  sidebar:
+    bands:
+      heading: 'Zespoły'
+
+    your_cities:
+      heading: 'Twoje miasta'
+      placeholder: 'Szukaj miasta'
+
+    similar_events:
+      heading: 'Podobne wydarzenia'
+
+  main_nav:
+    search:
+      placeholder: 'Szukaj wydarzeń, zespołów, knajp, miast lub czegokolwiek...'
+
+    user:
+      sign_in: 'Logowanie'
+      your_events: 'Twoje wydarzenia'
+      settings: 'Ustawienia'
+      sign_out: 'Wyloguj'
+
+  events:
+    save: 'Zapisz'
+    saved: 'Zapisane'
+    edit: 'Edytuj'
+
+    show:
+      nav:
+        info:      'Info'
+        links:     'Linki'
+        resources: 'Zasoby'

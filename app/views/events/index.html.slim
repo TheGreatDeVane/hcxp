@@ -5,7 +5,7 @@
   = render 'layouts/sidebar/user_locations'
 
   .panel.panel-default
-    .panel-heading: span Bands
+    .panel-heading: span = t 'sidebar.bands.heading'
     .panel-body
       ul.list-inline
         - Band.order('events_count DESC').each do |band|

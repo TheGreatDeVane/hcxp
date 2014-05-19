@@ -14,7 +14,7 @@
         .pull-right
 
           - if can? :edit, @event
-            = link_to 'Edit', edit_event_path(@event), class: 'btn btn-link btn-sm'
+            = link_to t('events.edit'), edit_event_path(@event), class: 'btn btn-link btn-sm'
             = " "
 
           = render 'save_button', event: @event
@@ -87,7 +87,7 @@
         | Created <strong>2 days ago</strong> by <a href="">m.b.</a>, edited <strong>3</strong> times and viewed <strong>287</strong> times.
 
   .panel.panel-default
-    .panel-heading: span Similar events
+    .panel-heading: span = t 'sidebar.similar_events.heading'
     .panel-body
     .list-group.list-group-plused
       - @event.similar.limit(20).each do |event|

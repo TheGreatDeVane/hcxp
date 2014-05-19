@@ -1,10 +1,10 @@
 - if user_signed_in?
   .panel.panel-default ng-controller="UserLocationsCtrl"
-    .panel-heading: span Your Cities
+    .panel-heading: span = t 'sidebar.your_cities.heading'
     .panel-body
       form
         .input-group
-          input.form-control ng-autocomplete="" ng-model="autocomplete" options="{types: '(cities)'}" details="locationDetails"
+          input.form-control ng-autocomplete="" ng-model="autocomplete" options="{types: '(cities)'}" details="locationDetails" placeholder=(t 'sidebar.your_cities.placeholder')
           a.input-group-addon ng-click="addLocation()"
             i.glyphicon.glyphicon-plus
 

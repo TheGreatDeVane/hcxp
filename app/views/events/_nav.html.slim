@@ -1,13 +1,13 @@
 ul.nav.nav-tabs.nav-stacked
 
   li class=('active' if @tab_content_partial == 'info')
-    a href=event_path(@event) data-toggle="tooltip" data-placement="right" title="Info"
+    a href=event_path(@event) data-toggle="tooltip" data-placement="right" title=(t 'events.show.nav.info')
       i.glyphicon.glyphicon-info-sign
 
   li class=('active' if @tab_content_partial == 'links')
-    a href=links_event_path(@event) data-toggle="tooltip" data-placement="right" title="Links"
+    a href=links_event_path(@event) data-toggle="tooltip" data-placement="right" title=(t 'events.show.nav.links')
       i.glyphicon.glyphicon-link
 
   li class=('active' if @tab_content_partial == 'resources')
-    a href=resources_event_path(@event) data-toggle="tooltip" data-placement="right" title="Resources"
+    a href=resources_event_path(@event) data-toggle="tooltip" data-placement="right" title=(t 'events.show.nav.resources')
       i.glyphicon.glyphicon-paperclip
