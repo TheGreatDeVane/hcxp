@@ -9,14 +9,16 @@ class SessionsController < Devise::SessionsController
   def create
     raise NotEnoughParams if !params[:user][:username].present? || !params[:user][:password].present?
 
-    user_data = Khcpl::Fhcpl.get_profile_info(params[:user][:username], params[:user][:password])
+    fhcpl     = Khcpl::Fhcpl.new(params[:user][:username], params[:user][:password])
+    user_data = fhcpl.get_profile_info
     service   = Service.find_by(uid: user_data[:user_id], provider: user_data[:provider])
 
     if service
-      flash.now[:error] = 'Signed in successfully using forum.hard-core.pl account.'
+      flash.now[:notice] = 'Signed in successfully using forum.hard-core.pl account.'
       sign_in_and_redirect service.user
+
     else
-      user = User.create(
+      user = User.create!(
         email:    user_data[:user_email],
         username: user_data[:user_name],
         password: SecureRandom.hex(10)
