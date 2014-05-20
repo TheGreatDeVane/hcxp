@@ -1,6 +1,7 @@
 hcxpApp = angular.module "hcxpApp", [
   'restangular'
   'ngAutocomplete'
+  'ui.bootstrap'
 
   'hcxpApp.controllers'
 ]
@@ -27,14 +28,24 @@ controllers.controller('EventsFormCtrl', [
   '$scope'
   '$rootScope'
   '$timeout'
+  '$modal'
   'Restangular'
 
-  ($scope, $rootScope, $timeout, Restangular) ->
+  ($scope, $rootScope, $timeout, $modal, Restangular) ->
     $scope.event = {
       title:       ''
       description: ''
       band_list:   ''
+      venue_id:    ''
     }
+
+    $scope.setVenue = () ->
+      modalInstance = $modal.open
+        templateUrl: 'setVenueModal.html'
+        controller:  'setVenueModalCtrl'
+
+      modalInstance.result.then (selectedVenueId) ->
+        $scope.event.venue_id = selectedVenueId
 
     timer = false
     $scope.$watch 'event', ((event, oldEvent) ->
@@ -45,6 +56,14 @@ controllers.controller('EventsFormCtrl', [
         $rootScope.$emit 'eventForm.changed', $scope.event
       , 1500)
     ), true
+
+    # Watch venue_id change. If it occurs, reload it's
+    # data from the api.
+    $scope.$watchCollection 'event.venue_id', (venue_id) ->
+      return if venue_id is ''
+
+      Restangular.one('venues', venue_id).get().then (venue) ->
+        $scope.venue = venue
 ])
 
 controllers.controller('SimilarEventsCtrl', [
@@ -110,5 +129,45 @@ controllers.controller('EventsShowCtrl', [
   ($scope, $rootScope) ->
 
     $scope.descriptionExpanded = false
+
+])
+
+controllers.controller('setVenueModalCtrl', [
+  '$scope'
+  '$rootScope'
+  '$modalInstance'
+  '$modal'
+  '$timeout'
+  'Restangular'
+
+  ($scope, $rootScope, $modalInstance, $modal, $timeout, Restangular) ->
+
+    $scope.search = {
+      query: ''
+    }
+
+    # Load default set of venues (recently used by current user)
+    Restangular.one('users').getList('recent_venues').then (venues) ->
+      $scope.venues = venues
+
+    # Searching events
+    timer = false
+    $scope.$watch 'search', ((query, oldQuery) ->
+      return if query is oldQuery
+      $timeout.cancel timer if timer
+
+      timer = $timeout(->
+        Restangular.one('search').getList('venues', { q: $scope.search.query }).then (venues) ->
+          $scope.venues = venues
+      , 500)
+    ), true
+
+    # Set venue action
+    $scope.selectVenue = (venueId) ->
+      $modalInstance.close(venueId)
+
+    # Cancel action
+    $scope.cancel = () ->
+      $modalInstance.dismiss('cancel')
 
 ])

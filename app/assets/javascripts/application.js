@@ -16,6 +16,8 @@
 //= require underscore
 //= require restangular
 //= require ngAutocomplete
+//= require application/vendor/ui-bootstrap-tpls.min
+//= require angular-bootstrap
 //= require jquery.turbolinks
 //= require turbolinks
 //= require rails-timeago-all

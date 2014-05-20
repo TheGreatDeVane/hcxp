@@ -28,10 +28,18 @@ Khcpl::Application.routes.draw do
         get :similar_by, on: :collection
       end
 
+      resources :venues
+
       resources :users do
         get :locations, on: :collection
         post 'locations' => 'users#locations_create', on: :collection
         delete 'locations' => 'users#locations_destroy', on: :collection
+
+        get :recent_venues, on: :collection
+      end
+
+      resources :search do
+        get :venues, on: :collection
       end
     end
   end

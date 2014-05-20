@@ -93,29 +93,19 @@
   .form-group
     label.control-label.col-sm-2 Venue
 
-    .col-sm-10
-      .row
-        .col-md-6
-          = f.label :venue_id, 'Search for venue', class: 'control-label control-label-sub'
-          = f.select :venue_id, Venue.all.collect { |e| [e.name, e.id] }, {include_blank: true}, { class: 'form-control' }
+    .col-sm-5
+      = f.hidden_field :venue_id, ng_model: 'event.venue_id', ng_init: "event.venue_id='#{f.object.venue_id}'"
 
-        .col-md-6
-          label.control-label.control-label-sub Or create a new one
-          = f.fields_for :venue, Venue.new do |ff|
-            .form-horizontal
-              .form-group
-                = ff.label :name, class: 'control-label col-sm-4'
-                .col-md-8
-                  = ff.text_field :name, class: 'form-control'
+      a.btn.btn-primary ng-click="setVenue()"
+        i.glyphicon.glyphicon-map-marker>
+        span ng-show='event.venue_id' Change venue
+        span ng-show='!event.venue_id' Set venue
 
-              .form-group
-                = ff.label :address, class: 'control-label col-sm-4'
-                .col-md-8
-                  = ff.text_field :address, class: 'form-control',
-                                            placeholder: 'Street, City, Country',
-                                            ng_autocomplete: '',
-                                            ng_model: 'venueAddress',
-                                            ng_init:  "venueAddress='#{ff.object.address}'"
+    .col-sm-5 ng-show='event.venue_id'
+      h4
+        | {{ venue.name }}
+      p.text-muted
+        | {{ venue.address }}
 
   hr
 
@@ -199,15 +189,6 @@
   /           .col-md-9
   /             = f.text_field :social_link_hcpl, class: 'form-control', placeholder: 'http://forum.hard-core.pl/...'
 
-
-  / .col-md-2.tabs-right
-  /   ul.nav.nav-tabs
-  /     li.active: a href="#general" data-toggle="tab" General
-  /     li: a href="#description" data-toggle="tab" Description
-  /     li: a href="#social" data-toggle="tab" Social
-  /     li.hide: a Authors
-  /     li.hide: a Revisions
-
   .row
     .col-md-10
       hr
@@ -220,7 +201,42 @@
     p Help for date
 
 
+
+/ Set venue modal
+script type="text/ng-template" id="setVenueModal.html"
+  .modal-header
+    h4 class="modal-title" Set venue
+  .modal-body
+    .form-group: input.form-control.input-lg type="text" ng-model="search.query" placeholder="Search for venue"
+
+    .list-group
+      a.list-group-item ng-repeat='venue in venues' ng-click='selectVenue(venue.id)'
+        h4.list-group-item-heading
+          | {{ venue.name }}
+        p.list-group-item-text.text-muted
+          | {{ venue.address }}
+
+  .modal-footer
+    button.pull-left class="btn btn-link" ng-click="cancel()" Cancel
+    button class="btn btn-success" ng-click="new()" New venue
+
+
+
+
 - content_for :sidebar do
+
+  / .panel.panel-default
+  /   ul.nav.nav-pills.nav-stacked style=""
+  /     li.active: a href="#general" data-toggle="tab" General
+  /     li: a href="#description" data-toggle="tab" Description
+  /     li: a href="#social" data-toggle="tab" Social
+  /     li.hide: a Authors
+  /     li.hide: a Revisions
+
+  /   br
+
+  /   p.text-center
+  /     a.btn.btn-success Save
 
   .panel.panel-default.hide
     .panel-heading: span Formatting
