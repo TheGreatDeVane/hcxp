@@ -22,7 +22,7 @@ Khcpl::Application.routes.draw do
 
   get 'style_guide' => 'application#style_guide'
 
-  namespace :api do
+  namespace :api, :defaults => { :format => 'json' } do
     namespace :v1 do
       resources :events do
         get :similar_by, on: :collection

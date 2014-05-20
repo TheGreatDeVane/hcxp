@@ -9,6 +9,7 @@ class Venue < ActiveRecord::Base
 
   # Validators
   validates :name, no_capslock: true
+  validates :address, presence: true
 
   # Plugins
   geocoded_by :address do |obj, results|

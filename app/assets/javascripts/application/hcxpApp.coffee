@@ -39,13 +39,16 @@ controllers.controller('EventsFormCtrl', [
       venue_id:    ''
     }
 
+    # Open venue picker modal
     $scope.setVenue = () ->
       modalInstance = $modal.open
         templateUrl: 'setVenueModal.html'
         controller:  'setVenueModalCtrl'
 
       modalInstance.result.then (selectedVenueId) ->
+        # If venue has been picked from the list
         $scope.event.venue_id = selectedVenueId
+
 
     timer = false
     $scope.$watch 'event', ((event, oldEvent) ->
@@ -127,20 +130,18 @@ controllers.controller('EventsShowCtrl', [
   '$rootScope'
 
   ($scope, $rootScope) ->
-
     $scope.descriptionExpanded = false
-
 ])
 
 controllers.controller('setVenueModalCtrl', [
   '$scope'
   '$rootScope'
   '$modalInstance'
-  '$modal'
   '$timeout'
+  '$modal'
   'Restangular'
 
-  ($scope, $rootScope, $modalInstance, $modal, $timeout, Restangular) ->
+  ($scope, $rootScope, $modalInstance, $timeout, $modal, Restangular) ->
 
     $scope.search = {
       query: ''
@@ -167,6 +168,47 @@ controllers.controller('setVenueModalCtrl', [
       $modalInstance.close(venueId)
 
     # Cancel action
+    $scope.cancel = () ->
+      $modalInstance.dismiss('cancel')
+
+    # Create new event action
+    $scope.newVenue = () ->
+      newVenueModal = $modal.open
+        templateUrl: 'newVenueModal.html'
+        controller:  'newVenueModalCtrl'
+
+      newVenueModal.result.then (venueId) ->
+        $scope.selectVenue(venueId)
+
+])
+
+controllers.controller('newVenueModalCtrl', [
+  '$scope'
+  '$modalInstance'
+  '$timeout'
+  'Restangular'
+
+  ($scope, $modalInstance, $timeout, Restangular) ->
+
+    $scope.venue = {
+      name:    ''
+      address: ''
+    }
+
+    $scope.alerts = []
+
+    $scope.closeAlert = (index) ->
+      $scope.alerts.splice(index, 1)
+
+    $scope.save = (details) ->
+      Restangular.one('venues').customPOST($scope.venue).then((result) ->
+        $modalInstance.close(result.id)
+
+      , (result) ->
+        for error in result.data.full_messages
+          $scope.alerts.push({type: 'danger', msg: error});
+      )
+
     $scope.cancel = () ->
       $modalInstance.dismiss('cancel')
 

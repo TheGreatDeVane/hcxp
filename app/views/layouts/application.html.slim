@@ -25,10 +25,10 @@ html
 
               / Menu for signed-in user
               - if user_signed_in?
-                = link_to new_event_path, class: 'btn btn-default btn-lg' do
+                = link_to new_event_path, class: 'btn btn-default btn-lg', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Add event' do
                   i.glyphicon.glyphicon-plus
 
-                = link_to search_index_path(q: ':s'), class: 'btn btn-default btn-lg' do
+                = link_to search_index_path(q: ':s'), class: 'btn btn-default btn-lg', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Saved events' do
                   i.glyphicon.glyphicon-star
 
                 a.btn.btn-default.btn-lg.btn-avatar data-toggle="dropdown"
