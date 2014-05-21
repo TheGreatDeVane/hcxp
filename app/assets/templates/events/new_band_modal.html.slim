@@ -1,0 +1,23 @@
+.modal-header
+  h4 class="modal-title" Creating new band
+
+.modal-body
+  alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"
+    | {{alert.msg}}
+
+  form.form-horizontal
+    .form-group
+      label.control-label.col-md-2 Name
+      .col-md-10
+        input.form-control type="text" ng-model="band.name"
+
+    .form-group
+      label.control-label.col-md-2 Location
+      .col-md-10
+        input.form-control type="text" placeholder="City, Country" ng-autocomplete="" ng-model="band.location" details="details" options="{types: '(cities)'}"
+
+    img ng-show='details' ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{ details.geometry.location.k }},{{ details.geometry.location.A }}&zoom=18&size=568x200&markers={{ details.geometry.location.k }},{{ details.geometry.location.A }}&sensor=false"
+
+.modal-footer
+  button.pull-left class="btn btn-link" ng-click="cancel()" Cancel
+  button class="btn btn-success" ng-click="save(details)" Save

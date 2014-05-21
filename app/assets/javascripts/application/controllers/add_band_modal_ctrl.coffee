@@ -28,20 +28,20 @@
     ), true
 
     # Set band action
-    $scope.selectBand = (index) ->
-      $modalInstance.close($scope.bands[index])
+    $scope.selectBand = (band) ->
+      $modalInstance.close(band)
 
     # Cancel action
     $scope.cancel = () ->
       $modalInstance.dismiss('cancel')
 
     # Create new event action
-    $scope.newVenue = () ->
-      newVenueModal = $modal.open
-        templateUrl: 'events/new_venue_modal.html'
-        controller:  'newVenueModalCtrl'
+    $scope.newBand = () ->
+      newBandModal = $modal.open
+        templateUrl: 'events/new_band_modal.html'
+        controller:  'newBandModalCtrl'
 
-      newVenueModal.result.then (venueId) ->
-        $scope.selectVenue(venueId)
+      newBandModal.result.then (bandId) ->
+        $scope.selectBand(bandId)
 
 ])

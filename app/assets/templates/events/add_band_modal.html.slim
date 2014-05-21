@@ -7,7 +7,7 @@
   hr ng-show='bands'
 
   .list-group ng-show='bands'
-    a.list-group-item ng-repeat='band in bands' ng-click='selectBand($index)'
+    a.list-group-item ng-repeat='band in bands' ng-click='selectBand(band)'
       .media
         img.pull-left ng-src="{{ band.images.medium_s }}" width="45" height="45"
         .media-body

@@ -67,17 +67,21 @@
   .form-group
     label.control-label.col-sm-2 Bands
 
-    .col-sm-10 ng-init="event.band_ids=[#{f.object.band_ids.join(', ')}]; reloadBands()"
-      .checkbox ng-repeat='band in event.band_ids'
-        label
-          input type="checkbox" name="event[band_ids][]" checked="checked" value="{{ band }}"
-          | {{ band }}
+    .col-sm-10 ng-init="event.event_bands=#{f.object.event_bands.select('event_bands.*, bands.name, bands.location').joins(:band).to_json}"
+      .media ng-repeat='band in event.event_bands' ng-hide='band._destroy'
 
-      .media ng-repeat='band in event.bands'
+        / Hidden fields used by rails nested attributes
+        input.hide name='event[event_bands_attributes][{{ band.index || $index }}][id]' ng-model='band.id'
+        input.hide name='event[event_bands_attributes][{{ band.index || $index }}][band_id]' ng-model='band.band_id'
+        input.hide name='event[event_bands_attributes][{{ band.index || $index }}][description]' ng-model='band.description'
+        input.hide type="checkbox" name='event[event_bands_attributes][{{ band.index || $index }}][_destroy]' ng-model='band._destroy' ng-init='band._destroy=false'
+
         img.pull-left ng-src="{{ band.images.medium_s }}" width="45" height="45"
         .media-body
           h4.media-heading.pull-left
             | {{ band.name }}
+            small<
+              | {{ band.location }}
 
           .btn-group.pull-right
             a.btn.btn-default.btn-xs ng-click="band.isEdited=true" ng-hide="band.isEdited"
@@ -86,7 +90,7 @@
             a.btn.btn-success.btn-xs ng-click="band.isEdited=false" ng-show="band.isEdited"
               i.glyphicon.glyphicon-ok>
               | done
-            a.btn.btn-danger.btn-xs ng-click="removeBand($index)" &times;
+            a.btn.btn-danger.btn-xs ng-click="band._destroy=true" &times;
 
           .clearfix
           textarea.form-control ng-model="band.description" ng-show="band.isEdited" ng-blur="band.isEdited=false"

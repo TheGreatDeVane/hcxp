@@ -83,6 +83,8 @@ class EventsController < ApplicationController
                                     :venue_id, :remove_poster, :poster,
                                     :social_link_fb, :social_link_lfm, :social_link_hcpl,
                                     bands_attributes: [:id, :name, :location, :_destroy],
-                                    venue_attributes: [:id, :name, :address])
+                                    venue_attributes: [:id, :name, :address],
+                                    event_bands_attributes: [:id, :band_id, :description, :_destroy]
+      )
     end
 end

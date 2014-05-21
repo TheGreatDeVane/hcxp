@@ -24,6 +24,8 @@ class Event < ActiveRecord::Base
   validates :beginning_at, presence: true
 
   # Nested attributes
+  accepts_nested_attributes_for :event_bands, allow_destroy: true,
+                                        reject_if: :all_blank
   accepts_nested_attributes_for :bands, allow_destroy: true,
                                         reject_if: :all_blank
   accepts_nested_attributes_for :venue, allow_destroy: false,

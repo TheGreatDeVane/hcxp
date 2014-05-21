@@ -12,6 +12,7 @@
       band_ids:    []
       venue_id:    ''
       bands:       []
+      raw_event_bands: []
     }
 
 
@@ -35,10 +36,16 @@
 
       modalInstance.result.then (band) ->
         # If band has been picked from the list
-        $scope.event.bands.push band
+        event_band = {
+          index:   Math.round(new Date().getTime() / 1000)
+          name:    band.name
+          band_id: band.id
+          images:  band.images
+        }
+        $scope.event.event_bands.push event_band
 
     $scope.removeBand = (index) ->
-      $scope.event.bands.splice(index, 1)
+      $scope.event.bands[index].destroy = true
 
 
     timer = false
