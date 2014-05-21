@@ -4,9 +4,8 @@
   '$timeout'
   '$modal'
   'Restangular'
-  'btfMarkdownDirective'
 
-  ($scope, $rootScope, $timeout, $modal, Restangular, btfMarkdownDirective) ->
+  ($scope, $rootScope, $timeout, $modal, Restangular) ->
     $scope.event = {
       title:       ''
       description: ''
