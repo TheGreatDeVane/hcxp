@@ -15,19 +15,27 @@
 //= require angular
 //= require angular-rails-templates
 //= require_tree ../templates
+//
 //= require underscore
 //= require restangular
 //= require ngAutocomplete
 //= require application/vendor/ui-bootstrap-tpls.min
 //= require angular-bootstrap
+//= require angular-sanitize
+//= require showdown
+//= require ./application/vendor/markdown
+//
 //= require jquery.turbolinks
 //= require turbolinks
 //= require rails-timeago-all
 //= require jquery_nested_form
 //= require twitter/typeahead
 //= require select2
+//
 //= require bootstrap/tooltip
 //= require bootstrap/dropdown
+// require bootstrap/affix
+//
 //= require epiceditor
 //= require ./application/hcxpApp
 

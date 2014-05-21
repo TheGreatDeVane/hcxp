@@ -17,7 +17,7 @@
         Restangular.one('events').getList('similar_by',
           'event[title]':       $scope.event.title,
           'event[description]': $scope.event.description,
-          'event[band_list]':   $scope.event.band_list
+          'event[band_list]':   $scope.event.band_ids
         ).then (events) ->
           $scope.events = events
 

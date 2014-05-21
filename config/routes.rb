@@ -30,6 +30,8 @@ Khcpl::Application.routes.draw do
 
       resources :venues
 
+      resources :bands
+
       resources :users do
         get :locations, on: :collection
         post 'locations' => 'users#locations_create', on: :collection
@@ -40,6 +42,7 @@ Khcpl::Application.routes.draw do
 
       resources :search do
         get :venues, on: :collection
+        get :bands, on: :collection
       end
     end
   end

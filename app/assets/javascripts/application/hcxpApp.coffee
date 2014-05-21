@@ -6,6 +6,7 @@ hcxpApp = angular.module "hcxpApp", [
   'ngAutocomplete'
   'ui.bootstrap'
   'templates'
+  'btford.markdown'
 
   'hcxpApp.controllers'
 ]

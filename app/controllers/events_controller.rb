@@ -77,10 +77,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      # Transform select2 text field to reails-friendly input
-      bands                     = params[:event][:band_ids].to_s.split(';')
-      params[:event][:band_ids] = (bands.length) ? bands.each.map { |b| b.split(':')[0] } : nil
-
       params.require(:event).permit(:title, :remote_poster_url, :user_id, :description,
                                     :beginning_at, :beginning_at_time, :ending_at,
                                     :ending_at_time, :price, :address, {band_ids: []},

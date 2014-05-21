@@ -67,26 +67,36 @@
   .form-group
     label.control-label.col-sm-2 Bands
 
-    .col-sm-10
-      input.bands-list type="hidden" style="width: 100%" name="event[band_ids]" value=f.object.bands.map{|b| "#{b.id}:#{b.name}"}.join(';')
+    .col-sm-10 ng-init="event.band_ids=[#{f.object.band_ids.join(', ')}]; reloadBands()"
+      .checkbox ng-repeat='band in event.band_ids'
+        label
+          input type="checkbox" name="event[band_ids][]" checked="checked" value="{{ band }}"
+          | {{ band }}
 
-      p.help-block
-        | Can't find a band? It's probably because it's not in our database.
-        a< id="show-fields-for-bands" href="#" Add it &rarr;
+      .media ng-repeat='band in event.bands'
+        img.pull-left ng-src="{{ band.images.medium_s }}" width="45" height="45"
+        .media-body
+          h4.media-heading.pull-left
+            | {{ band.name }}
 
-      .hidden#fields-for-bands
-        = f.fields_for :bands, Band.new do |ff|
-          .row
-            .col-md-6
-              p= ff.text_field :name, disabled: ff.object.persisted?, class: 'form-control', placeholder: 'Band name'
-            .col-md-5
-              p= ff.text_field :location, disabled: ff.object.persisted?,
-                                          class: 'form-control',
-                                          placeholder: 'City, Country'
-            .col-md-1
-              p= ff.link_to_remove "&times;".html_safe, class: 'btn btn-default pull-right'
+          .btn-group.pull-right
+            a.btn.btn-default.btn-xs ng-click="band.isEdited=true" ng-hide="band.isEdited"
+              i.glyphicon.glyphicon-pencil>
+              | edit
+            a.btn.btn-success.btn-xs ng-click="band.isEdited=false" ng-show="band.isEdited"
+              i.glyphicon.glyphicon-ok>
+              | done
+            a.btn.btn-danger.btn-xs ng-click="removeBand($index)" &times;
 
-        = f.link_to_add "Add a band", :bands, class: 'btn btn-default'
+          .clearfix
+          textarea.form-control ng-model="band.description" ng-show="band.isEdited" ng-blur="band.isEdited=false"
+          .text-muted.band-description ng-hide="band.isEdited" btf-markdown="band.description || 'No description'"
+
+      hr
+
+      a.btn.btn-primary ng-click='addBand()'
+        i.glyphicon.glyphicon-plus>
+        | Add band
 
   hr
 

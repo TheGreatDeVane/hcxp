@@ -49,4 +49,5 @@ html
           = yield
 
         #sidebar.col-md-3
-          = yield :sidebar
+          div data-spy="affix" data-offset-top="100" data-offset-bottom="25"
+            = yield :sidebar

@@ -1,7 +1,12 @@
 .modal-header
   h4 class="modal-title" Set venue
+
 .modal-body
-  .form-group: input.form-control.input-lg type="text" ng-model="search.query" placeholder="Search for venue"
+  .form-group: input.form-control.input-lg type="text" ng-model="search.query" placeholder="Search for venue..."
+
+  hr
+
+  h5 ng-show='showingRecent' Venues you've recently used:
 
   .list-group
     a.list-group-item ng-repeat='venue in venues' ng-click='selectVenue(venue.id)'

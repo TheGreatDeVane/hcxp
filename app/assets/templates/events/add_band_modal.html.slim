@@ -1,0 +1,21 @@
+.modal-header
+  h4 class="modal-title" Add band
+
+.modal-body
+  .form-group: input.form-control.input-lg type="text" ng-model="search.query" placeholder="Search for band..."
+
+  hr ng-show='bands'
+
+  .list-group ng-show='bands'
+    a.list-group-item ng-repeat='band in bands' ng-click='selectBand($index)'
+      .media
+        img.pull-left ng-src="{{ band.images.medium_s }}" width="45" height="45"
+        .media-body
+          h4.list-group-item-heading
+            | {{ band.name }}
+          p.list-group-item-text.text-muted
+            | {{ band.location }}
+
+.modal-footer
+  button.pull-left class="btn btn-link" ng-click="cancel()" Cancel
+  button class="btn btn-success" ng-click="newBand()" New Band
