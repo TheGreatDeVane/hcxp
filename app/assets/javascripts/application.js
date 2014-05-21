@@ -27,7 +27,7 @@
 //= require bootstrap/tooltip
 //= require bootstrap/dropdown
 //= require epiceditor
-//= require_tree .
+//= require ./application/hcxpApp
 
 $(document).on('ready page:load', function() {
   angular.bootstrap('body', ['hcxpApp'])
