@@ -17,12 +17,18 @@
     $scope.$watch 'search', ((query, oldQuery) ->
       return if query is oldQuery
 
+      if query.query is ''
+        $scope.showNoResultsInfo = false
+        $timeout.cancel timer
+        return
+
       # If there is anything typed inside search box,
       # fire a search query with delay and populate
       # venues list with results.
       $timeout.cancel timer if timer
       timer = $timeout(->
         Restangular.one('search').getList('bands', { q: $scope.search.query }).then (bands) ->
+          $scope.showNoResultsInfo = true if bands.length <= 0
           $scope.bands = bands
       , 500)
     ), true

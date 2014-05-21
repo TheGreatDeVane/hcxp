@@ -6,6 +6,16 @@
 
   hr ng-show='bands'
 
+  .text-center.text-muted ng-show="showNoResultsInfo"
+    br
+    p.lead No bands found
+    p
+      | Looks like the band you've been
+        searching for is not in our database.
+        Perhaps it's a good idea to
+      a ng-click="newBand()"  create it &rarr;
+
+
   .list-group ng-show='bands'
     a.list-group-item ng-repeat='band in bands' ng-click='selectBand(band)'
       .media

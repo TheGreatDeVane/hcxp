@@ -16,7 +16,7 @@
       .col-md-10
         input.form-control type="text" placeholder="City, Country" ng-autocomplete="" ng-model="band.location" details="details" options="{types: '(cities)'}"
 
-    img ng-show='details' ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{ details.geometry.location.k }},{{ details.geometry.location.A }}&zoom=18&size=568x200&markers={{ details.geometry.location.k }},{{ details.geometry.location.A }}&sensor=false"
+    img ng-show='details' ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{ details.geometry.location.k }},{{ details.geometry.location.A }}&zoom=12&size=568x200&markers={{ details.geometry.location.k }},{{ details.geometry.location.A }}&sensor=false"
 
 .modal-footer
   button.pull-left class="btn btn-link" ng-click="cancel()" Cancel
