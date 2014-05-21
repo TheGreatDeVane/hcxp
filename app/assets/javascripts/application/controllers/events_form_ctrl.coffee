@@ -16,7 +16,7 @@
     # Open venue picker modal
     $scope.setVenue = () ->
       modalInstance = $modal.open
-        templateUrl: 'setVenueModal.html'
+        templateUrl: 'events/set_venue_modal.html'
         controller:  'setVenueModalCtrl'
 
       modalInstance.result.then (selectedVenueId) ->

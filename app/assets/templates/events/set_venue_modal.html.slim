@@ -1,0 +1,15 @@
+.modal-header
+  h4 class="modal-title" Set venue
+.modal-body
+  .form-group: input.form-control.input-lg type="text" ng-model="search.query" placeholder="Search for venue"
+
+  .list-group
+    a.list-group-item ng-repeat='venue in venues' ng-click='selectVenue(venue.id)'
+      h4.list-group-item-heading
+        | {{ venue.name }}
+      p.list-group-item-text.text-muted
+        | {{ venue.address }}
+
+.modal-footer
+  button.pull-left class="btn btn-link" ng-click="cancel()" Cancel
+  button class="btn btn-success" ng-click="newVenue()" New venue

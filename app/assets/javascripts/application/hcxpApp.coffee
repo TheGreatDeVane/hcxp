@@ -5,6 +5,7 @@ hcxpApp = angular.module "hcxpApp", [
   'restangular'
   'ngAutocomplete'
   'ui.bootstrap'
+  'templates'
 
   'hcxpApp.controllers'
 ]

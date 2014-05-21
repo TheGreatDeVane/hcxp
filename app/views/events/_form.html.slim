@@ -202,53 +202,6 @@
 
 
 
-/ Set venue modal
-script type="text/ng-template" id="setVenueModal.html"
-  .modal-header
-    h4 class="modal-title" Set venue
-  .modal-body
-    .form-group: input.form-control.input-lg type="text" ng-model="search.query" placeholder="Search for venue"
-
-    .list-group
-      a.list-group-item ng-repeat='venue in venues' ng-click='selectVenue(venue.id)'
-        h4.list-group-item-heading
-          | {{ venue.name }}
-        p.list-group-item-text.text-muted
-          | {{ venue.address }}
-
-  .modal-footer
-    button.pull-left class="btn btn-link" ng-click="cancel()" Cancel
-    button class="btn btn-success" ng-click="newVenue()" New venue
-
-
-/ New venue modal
-script type="text/ng-template" id="newVenueModal.html"
-  .modal-header
-    h4 class="modal-title" Creating new venue
-  .modal-body
-    alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"
-      | {{alert.msg}}
-
-    form.form-horizontal
-      .form-group
-        label.control-label.col-md-2 Name
-        .col-md-10
-          input.form-control type="text" ng-model="venue.name"
-
-      .form-group
-        label.control-label.col-md-2 Address
-        .col-md-10
-          input.form-control type="text" placeholder="Street, City, Country" ng-autocomplete="" ng-model="venue.address" details="details"
-
-      img ng-show='details' ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{ details.geometry.location.k }},{{ details.geometry.location.A }}&zoom=18&size=568x200&markers={{ details.geometry.location.k }},{{ details.geometry.location.A }}&sensor=false"
-
-
-  .modal-footer
-    button.pull-left class="btn btn-link" ng-click="cancel()" Cancel
-    button class="btn btn-success" ng-click="save(details)" Save
-
-
-
 - content_for :sidebar do
 
   / .panel.panel-default

@@ -39,7 +39,7 @@
     # Create new event action
     $scope.newVenue = () ->
       newVenueModal = $modal.open
-        templateUrl: 'newVenueModal.html'
+        templateUrl: 'events/new_venue_modal.html'
         controller:  'newVenueModalCtrl'
 
       newVenueModal.result.then (venueId) ->
