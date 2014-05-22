@@ -7,6 +7,7 @@ hcxpApp = angular.module "hcxpApp", [
   'ui.bootstrap'
   'templates'
   'btford.markdown'
+  'angularMoment'
 
   'hcxpApp.controllers'
 ]

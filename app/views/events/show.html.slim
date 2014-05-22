@@ -1,4 +1,4 @@
-.row.events-show
+.row.events-show ng-controller="EventsShowCtrl" ng-init="event.id=#{@event.id}"
   .col-md-12
     h1.event-title
       - if @event.title.present?
@@ -16,6 +16,12 @@
           - if can? :edit, @event
             = link_to t('events.edit'), edit_event_path(@event), class: 'btn btn-link btn-sm'
             = " "
+
+          - if can? :promote, @event
+            a.btn.btn-sm ng-init="event.isPromoted=#{@event.is_promoted}" ng-class="{true: 'btn-success', false: 'btn-default'}[event.isPromoted]" ng-click='togglePromote()'
+              i.glyphicon.glyphicon-certificate>
+              span ng-hide='event.isPromoted' Promote
+              span ng-show='event.isPromoted' Promoted
 
           = render 'save_button', event: @event
 

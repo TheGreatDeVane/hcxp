@@ -1,5 +1,8 @@
 class Api::V1::EventsController < Api::V1Controller
   before_action :authenticate_user!
+  before_action :set_event
+  skip_before_filter :verify_authenticity_token
+  load_and_authorize_resource :event
 
   respond_to :json
 
@@ -10,5 +13,15 @@ class Api::V1::EventsController < Api::V1Controller
       bands:       params[:event][:band_list]
     ).reorder('similarity DESC')
   end
+
+  def promote
+    @event.update_attribute(:is_promoted, !@event.is_promoted)
+  end
+
+  private
+
+    def set_event
+      @event = Event.find(params[:id])
+    end
 
 end

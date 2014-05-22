@@ -5,15 +5,40 @@
 // Events list, day by day
 .events-list {
   .month-title {
-    font-size: 18px;
-    border-bottom: 2px solid $gray-lighter;
+    font-size:      18px;
+    border-bottom:  2px solid $gray-lighter;
     padding-bottom: 5px;
-    margin-bottom: 20px;
-    margin-top: 0;
+    margin-bottom:  20px;
+    margin-top:     0;
   }
 
   .event {
-    margin-bottom: 20px;
+    margin-left:  0;
+    margin-right: 0;
+    padding:      10px 0;
+    @include transition(all 0.1s ease-in);
+
+    .media-body {
+      p {
+        margin: 0;
+      }
+    }
+
+    &.is-promoted {
+      background: lighten($brand-success, 25%);
+
+      .text-muted {
+        color: lighten($brand-success, 5%);
+      }
+
+      &:hover {
+        background: lighten($brand-success, 20%);
+
+        .text-muted {
+          color: lighten($brand-success, 0%);
+        }
+      }
+    }
 
     &.has-passed {
       opacity: 0.4;
@@ -21,9 +46,11 @@
     }
 
     &:hover {
+      @include transition(all 0.1s ease-in);
+      background: #f9f9f9;
+
       &.has-passed {
         opacity: 1;
-        @include transition(all 0.1s ease-in);
       }
     }
   }
@@ -42,7 +69,7 @@
   }
 
   .time {
-    width: 123px;
+    width: 107px;
     padding-right: 15px;
 
     time {

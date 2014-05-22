@@ -13,5 +13,9 @@ class Ability
       can [:edit, :update, :new, :create], Band
       can [:edit, :update, :new, :create], Venue
     end
+
+    if user.is_admin
+      can [:promote], Event
+    end
   end
 end

@@ -24,6 +24,8 @@
 //= require angular-sanitize
 //= require showdown
 //= require ./application/vendor/markdown
+//= require moment
+//= require angular-moment
 //
 //= require jquery.turbolinks
 //= require turbolinks

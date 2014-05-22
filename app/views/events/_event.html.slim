@@ -1,4 +1,4 @@
-.row class="event event-#{event.id}" class="#{'faved' if try(:current_user).try(:saved_events).try(:include?, event)}" class=('has-passed' if event.has_passed)
+.row class="event event-#{event.id}" class="#{'faved' if try(:current_user).try(:saved_events).try(:include?, event)}" class=('has-passed' if event.has_passed) class=('is-promoted' if event.is_promoted)
   .inner
 
     .col-md-9

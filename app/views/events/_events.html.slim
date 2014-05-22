@@ -4,7 +4,7 @@
       = event_date_to_words month
 
       - if !month.today? && !(month+1.day).today? && !(month.-1.day).today?
-        small<= distance_of_time_in_words_to_now month
+        small< am-time-ago="'#{month}'"
 
     .month-events
       = render events

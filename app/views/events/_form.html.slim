@@ -108,7 +108,7 @@
     label.control-label.col-sm-2 Venue
 
     .col-sm-5
-      = f.hidden_field :venue_id, ng_model: 'event.venue_id', ng_init: "event.venue_id='#{f.object.venue_id}'"
+      = f.text_field :venue_id, ng_model: 'event.venue_id', ng_init: "event.venue_id='#{f.object.venue_id}'", class: 'hide'
 
       a.btn.btn-primary ng-click="setVenue()"
         i.glyphicon.glyphicon-map-marker>
@@ -169,6 +169,9 @@
     .col-sm-10
       #epiceditor data-user-id=current_user.id data-event-id=@event.id
       = f.text_area :description, class: 'form-control hide', rows: 10, :'ng-model' => 'event.description', :'ng-init' => "event.description='#{@event.description}'"
+      / p.help-block
+      /   | Event description is used only for informational purposes and is not searchable
+      /     (users are not able to search for your event by it's description keywords).
 
 
   /     #description.tab-pane

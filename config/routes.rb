@@ -26,6 +26,7 @@ Khcpl::Application.routes.draw do
     namespace :v1 do
       resources :events do
         get :similar_by, on: :collection
+        put :promote, on: :member
       end
 
       resources :venues
