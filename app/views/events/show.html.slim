@@ -37,19 +37,20 @@
               = @event.try(:beginning_at_time).try(:strftime, '%H:%M')
 
       / Event placement
-      .btn-group
-        .media
-          .pull-left.text-muted
-            i.glyphicon.glyphicon-map-marker
+      - if @event.venue.present?
+        .btn-group
+          .media
+            .pull-left.text-muted
+              i.glyphicon.glyphicon-map-marker
 
-          .media-body
-            h4.media-heading = link_to @event.venue.name, search_index_path(q: "#{@event.venue.name}, #{@event.venue.city}")
-            small.text-muted
-              | #{@event.venue.city}, #{@event.venue.country_code}
+            .media-body
+              h4.media-heading = link_to @event.venue.name, search_index_path(q: "#{@event.venue.name}, #{@event.venue.city}")
+              small.text-muted
+                | #{@event.venue.city}, #{@event.venue.country_code}
 
       / Event price
-      .btn-group
-        - if @event.price.present?
+      - if @event.price.present?
+        .btn-group
           .media
             .pull-left.text-muted
               i.glyphicon.glyphicon-usd
