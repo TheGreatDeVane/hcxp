@@ -96,7 +96,7 @@
           textarea.form-control ng-model="band.description" ng-show="band.isEdited" ng-blur="band.isEdited=false"
           .text-muted.band-description ng-hide="band.isEdited" btf-markdown="band.description || 'No description'"
 
-      hr
+      hr ng-show='(event.event_bands | filter: {_destroy: false})'
 
       a.btn.btn-primary ng-click='addBand()'
         i.glyphicon.glyphicon-plus>
