@@ -29,7 +29,7 @@
                   value: (@event.beginning_at_time.blank? ? '' : @event.beginning_at_time.strftime('%H:%M'))
 
 
-        .col-md-6
+        .col-md-6.hide
           .row
             .col-md-7
               = f.date_field :ending_at, class: 'form-control'
