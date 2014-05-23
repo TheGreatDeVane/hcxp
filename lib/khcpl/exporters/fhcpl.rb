@@ -144,12 +144,11 @@ module Khcpl
           date = event.beginning_at.strftime('%d.%m/%y')
           rest = event.title_or_bands
 
-          "#{city} [#{date}] #{rest}".truncate(60)
+          "#{date} [#{city}] #{rest}".truncate(60)
         end
 
         def format_message(event)
           ERB.new(File.read(File.dirname(__FILE__) + '/views/fhcpl.bbcode.erb')).result(binding)
-          # event.description.present? ? event.description : Faker::Lorem.paragraph
         end
     end
 
