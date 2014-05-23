@@ -36,7 +36,7 @@
             i.glyphicon.glyphicon-time
 
           .media-body
-            h4.media-heading = time_ago_in_words(@event.beginning_at)
+            h4.media-heading am-time-ago="'#{@event.beginning_at}'"
             small.text-muted
               = @event.try(:beginning_at).try(:strftime, '%d.%m.%Y (%A) ')
               |
