@@ -37,4 +37,12 @@ class Band < ActiveRecord::Base
     lastfm_resources = self.resources.lastfm
     self.resources.lastfm.first.data[:images] if lastfm_resources.any? && lastfm_resources.first.data.present?
   end
+
+  def foreign_profile_url(type = :bandcamp)
+    if resources.bandcamp.any?
+      resources.bandcamp.first.url.scan(/http:\/{2}\S*.bandcamp.com/).first
+    else
+      nil
+    end
+  end
 end

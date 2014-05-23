@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140522105047) do
+ActiveRecord::Schema.define(version: 20140523104255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20140522105047) do
     t.string   "social_link_hcpl"
     t.string   "short_id"
     t.boolean  "is_promoted",                  default: false
+    t.hstore   "bindings"
   end
 
   add_index "events", ["short_id"], name: "index_events_on_short_id", unique: true, using: :btree

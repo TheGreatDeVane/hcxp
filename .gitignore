@@ -26,3 +26,5 @@ config/initializers/secret_token.rb
 /config/deploy.rb
 
 /config/database.yml
+
+/config/initializers/env_variables.rb

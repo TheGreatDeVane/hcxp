@@ -40,6 +40,7 @@ class Event < ActiveRecord::Base
 
   # Callbacks
   after_save :puts_changes
+  after_save :sync
 
   def to_s
     title_or_bands
@@ -153,5 +154,15 @@ class Event < ActiveRecord::Base
 
   def path
     slugged_event_path(self, self.slug)
+  end
+
+  def sync(what = :all)
+    e = Khcpl::Exporters::Fhcpl.new
+
+    if !bindings.nil? && self.bindings['fhcpl']
+      e.update(bindings['fhcpl'], self)
+    else
+      self.update_column(:bindings, "fhcpl => #{e.create(self).to_i}")
+    end
   end
 end

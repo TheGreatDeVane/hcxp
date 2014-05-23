@@ -10,6 +10,7 @@ class VenuesController < ApplicationController
   # GET /venues/1
   # GET /venues/1.json
   def show
+    redirect_to search_index_path(q: @venue.name)
   end
 
   # GET /venues/new
