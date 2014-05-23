@@ -1,6 +1,7 @@
 [poster]<%= event.poster.medium.url %>[/poster]<%= event.description + "\n\n[hr][/hr]" if event.description.present? %><% event.event_bands.each.with_index do |event_band, index| %>[size=200][url=http://hcxp.co/bands/<%= event_band.band.slug %>]<%= event_band.band %>[/url][/size]
 <%= event_band.band.city + ', ' if event_band.band.city %><%= event_band.band.country_code %><%= "\n" + event_band.band.foreign_profile_url if event_band.band.foreign_profile_url.present? %>
-<%= event_band.description + "\n\n" if event_band.description.present? %><% end %>
+<%= event_band.description + "\n" if event_band.description.present? %>
+<% end %>
 [hr][/hr]
 [size=150]Informacje[/size]<% if event.venue %><%= "\n" %>[url=<%= 'http://hcxp.co/venues/' + event.venue.id.to_s %>][b]<%= event.venue.name %>[/b][/url]
 <%= event.venue.address %><% end %>
