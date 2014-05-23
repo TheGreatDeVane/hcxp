@@ -18,6 +18,7 @@
 
     $scope.save = (details) ->
       Restangular.one('bands').customPOST($scope.band).then((result) ->
+        $scope.band.id = result.id
         $modalInstance.close($scope.band)
 
       , (result) ->
