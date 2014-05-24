@@ -48,6 +48,7 @@ $(document).on('ready page:load', function() {
 $(document).ready(function() {
 
   // Prevent form submission using enter
+  // ng-autocomplete's sake
   $('form[ng_controller=EventsFormCtrl]').on('keyup keypress', function(e) {
     var code = e.keyCode || e.which;
     if (code  == 13) {

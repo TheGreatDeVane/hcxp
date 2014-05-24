@@ -51,3 +51,28 @@ html
         #sidebar.col-md-3
           div data-spy="affix" data-offset-top="100" data-offset-bottom="25"
             = yield :sidebar
+
+    .container#footer
+      .row
+        .col-md-4
+          p
+            | d:49 / b:<a href="">6b57fd1f7e</a>.12.03.2014
+
+        .col-md-4
+          ul.list-inline
+            li: a about
+            li: a api
+            li: a contact
+            li = "/"
+            li: a github
+            li: a twitter
+
+        .col-md-4.text-right.dropup
+          | Language:
+          a.dropdown-toggle< data-toggle="dropdown" href='javascript:void(0)'
+            = (cookies[:locale] == 'en') ? 'English' : 'Polski'
+            b.caret<
+
+          ul.dropdown-menu.dropdown-menu-right
+            li: a href='?locale=en' English
+            li: a href='?locale=pl' Polski
