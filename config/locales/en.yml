@@ -10,6 +10,9 @@ en:
     similar_events:
       heading: 'Similar events'
 
+    featured_events:
+      heading: 'Featured events'
+
   main_nav:
     search:
       placeholder: 'Search for events, bands, venues, cities or anything...'
@@ -24,9 +27,27 @@ en:
     save: 'Save'
     saved: 'Saved'
     edit: 'Edit'
+    promote: 'Promote'
+    promoted: 'Promoted'
+    timing: 'Czas'
+
+    form:
+      remove_poster: 'Remove that poster'
+      save_event: 'Save event'
+      if_you_know_the_venue: 'If you know the venue:'
+      if_you_know_only_the_city: 'If you know only the city:'
 
     show:
       nav:
         info:      'Info'
         links:     'Links'
         resources: 'Resources'
+
+  footer:
+    nav:
+      about: 'about'
+      api: 'api'
+      contact: 'contact'
+
+    language_picker:
+      language: 'Language:'

@@ -25,6 +25,7 @@
 //= require showdown
 //= require ./application/vendor/markdown
 //= require moment
+//= require_tree ./application/vendor/moment
 //= require angular-moment
 //
 //= require jquery.turbolinks

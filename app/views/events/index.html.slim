@@ -6,7 +6,9 @@
 
   - if Event.featured.any?
     .panel.panel-default
-      .panel-heading: span Featured events
+      .panel-heading: span
+        = t 'sidebar.featured_events.heading'
+
       .panel-body
         div.list-group
           - Event.featured.each do |event|

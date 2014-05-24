@@ -2,11 +2,15 @@ doctype html
 html
   head
     title HCXP
+
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"
     link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:300,400,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
+
+    javascript:
+      moment.lang('#{cookies[:locale]}')
 
   body class="#{params[:controller]}-#{params[:action]}"
     .navbar.navbar-default
@@ -60,19 +64,19 @@ html
 
         .col-md-4
           ul.list-inline
-            li: a about
-            li: a api
-            li: a contact
+            li: a =t 'footer.nav.about'
+            li: a =t 'footer.nav.api'
+            li: a =t 'footer.nav.contact'
             li = "/"
-            li: a github
+            li: a href="http://github.com/mbajur/hcxp" github
             li: a twitter
 
         .col-md-4.text-right.dropup
-          | Language:
+          =t 'footer.language_picker.language'
           a.dropdown-toggle< data-toggle="dropdown" href='javascript:void(0)'
             = (cookies[:locale] == 'en') ? 'English' : 'Polski'
             b.caret<
 
           ul.dropdown-menu.dropdown-menu-right
-            li: a href='?locale=en' English
-            li: a href='?locale=pl' Polski
+            li: a href='?locale=en' data-no-turbolink="" English
+            li: a href='?locale=pl' data-no-turbolink="" Polski

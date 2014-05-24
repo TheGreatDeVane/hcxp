@@ -7,12 +7,15 @@ pl:
       heading: 'Twoje miasta'
       placeholder: 'Szukaj miasta'
 
+    featured_events:
+      heading: 'Promowane'
+
     similar_events:
       heading: 'Podobne wydarzenia'
 
   main_nav:
     search:
-      placeholder: 'Szukaj wydarzeń, zespołów, knajp, miast lub czegokolwiek...'
+      placeholder: 'Szukaj wydarzeń, zespołów, miejsc, miast lub czegokolwiek...'
 
     user:
       sign_in: 'Logowanie'
@@ -20,13 +23,52 @@ pl:
       settings: 'Ustawienia'
       sign_out: 'Wyloguj'
 
+  footer:
+    nav:
+      about: 'info'
+      api: 'api'
+      contact: 'kontakt'
+
+    language_picker:
+      language: 'Język:'
+
+  forms:
+    help:
+      you_can_leave_it_blank: 'Możesz pozostawić to pole puste'
+
   events:
+    promote: 'Promuj'
+    promoted: 'Promowany'
     save: 'Zapisz'
     saved: 'Zapisane'
     edit: 'Edytuj'
+    timing: 'Czas'
+    editing_event: 'Edycja wydarzenia'
+
+    form:
+      bands: 'Zespoły'
+      add_band: 'Dodaj zespół'
+      venue: 'Miejsce'
+      change_venue: 'Zmień miejsce'
+      set_city: 'Ustaw miasto'
+      remove_poster: 'Usuń plakat'
+      or: 'lub'
+      file_url: 'Adres URL pliku'
+      choose_other_file: 'Wybierz inny plik'
+      save_event: 'Zapisz wydarzenie'
+      address_city_placeholder: 'Miasto, Kraj'
 
     show:
       nav:
         info:      'Info'
         links:     'Linki'
         resources: 'Zasoby'
+
+  activerecord:
+    models:
+    attributes:
+      event:
+        title: 'Tytuł'
+        price: 'Cena'
+        poster: 'Plakat'
+        description: 'Opis'

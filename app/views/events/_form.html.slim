@@ -3,18 +3,17 @@
   = render 'shared/form_errors', resource: @event
 
   .page-header.first
-      h3 Editing event
+      h3 =t 'events.editing_event'
 
   .form-group
-    = f.label :title, class: 'control-label col-sm-2' do
-      | Title
+    = f.label :title, class: 'control-label col-sm-2'
 
     .col-sm-10
       = f.text_field :title, class: 'form-control input-lg', ng_model: 'event.title', ng_init: "event.title='#{@event.title}'"
-      span.help-block You can leave it blank
+      span.help-block =t 'forms.help.you_can_leave_it_blank'
 
   .form-group
-    label.control-label.col-sm-2 Timing
+    label.control-label.col-sm-2 =t 'events.timing'
 
     .col-sm-10
       .row
@@ -22,7 +21,7 @@
           .row
             .col-md-7
               = f.date_field :beginning_at, class: 'form-control'
-              span.help-block Beginning at
+              span.help-block =t 'events.beginning_at'
 
             .col-md-5
               = f.time_field :beginning_at_time, class: 'form-control',
@@ -33,7 +32,9 @@
           .row
             .col-md-7
               = f.date_field :ending_at, class: 'form-control'
-              span.help-block Ending at (optional)
+              span.help-block
+                = t 'events.ending_at'
+                |  "(#{t 'forms.optional'})"
 
             .col-md-5
               = f.time_field :ending_at_time, class: 'form-control', value: (@event.ending_at_time.blank? ? '' : @event.ending_at_time.strftime('%H:%M'))
@@ -43,12 +44,6 @@
 
     .col-sm-3
       = f.text_field :price, class: 'form-control'
-
-    .col-sm-2
-      .checkbox data-toggle="tooltip" data-placement="bottom" title="You're the owner of that event and no one else is able to modify it"
-        label
-          input type="checkbox" checked="checked" disabled="disabled"
-          | Locked
 
     / .col-sm-3
     /   .checkbox
@@ -65,7 +60,7 @@
   hr
 
   .form-group
-    label.control-label.col-sm-2 Bands
+    label.control-label.col-sm-2 =t '.bands'
 
     .col-sm-10 ng-init="event.event_bands=#{f.object.event_bands.select('event_bands.*, bands.name, bands.location').joins(:band).to_json}"
       .media ng-repeat='band in event.event_bands' ng-hide='band._destroy'
@@ -86,10 +81,10 @@
           .btn-group.pull-right
             a.btn.btn-default.btn-xs ng-click="band.isEdited=true" ng-hide="band.isEdited"
               i.glyphicon.glyphicon-pencil>
-              | edit
+              =t 'events.edit'
             a.btn.btn-success.btn-xs ng-click="band.isEdited=false" ng-show="band.isEdited"
               i.glyphicon.glyphicon-ok>
-              | done
+              =t 'events.done'
             a.btn.btn-danger.btn-xs ng-click="band._destroy=true" &times;
 
           .clearfix
@@ -100,26 +95,26 @@
 
       a.btn.btn-primary ng-click='addBand()'
         i.glyphicon.glyphicon-plus>
-        | Add band
+        =t 'events.form.add_band'
 
   hr
 
   = f.text_field :venue_id, ng_model: 'event.venue_id', ng_init: "event.venue_id='#{f.object.venue_id}'", class: 'hide'
   .form-group
-    label.control-label.col-sm-2 Venue
+    label.control-label.col-sm-2 =t '.venue'
 
     .col-sm-5 ng-show="!event.venue_id"
 
-      p If you know the venue:
+      p =t 'events.form.if_you_know_the_venue'
       a.btn.btn-primary ng-click="setVenue()"
         i.glyphicon.glyphicon-map-marker>
-        span Set venue
+        span =t 'events.form.set_venue'
 
     .col-sm-5 ng-show="!event.venue_id"
-      p If you know only the city:
+      p =t 'events.form.if_you_know_only_the_city'
       a.btn.btn-primary ng-click="editingTBA=true" ng-hide="editingTBA"
         i.glyphicon.glyphicon-map-marker>
-        span Set city
+        span =t 'events.form.set_city'
 
       .input-group ng-show="editingTBA"
         input.form-control ng-autocomplete="" ng-model='newTBACity' details="TBADetails" options="{types: '(cities)'}"
@@ -135,15 +130,15 @@
     .col-sm-5 ng-show='event.venue_id'
       a.btn.btn-primary.btn-sm ng-click="setVenue()"
         i.glyphicon.glyphicon-map-marker>
-        span Change venue
+        span =t 'events.form.change_venue'
       br
       br
       a.btn.btn-primary.btn-sm ng-click="editingTBA=true" ng-hide="editingTBA"
         i.glyphicon.glyphicon-map-marker>
-        span Set city
+        span =t 'events.form.set_city'
 
       .input-group ng-show="editingTBA"
-        input.form-control ng-autocomplete="" ng-model='newTBACity' details="TBADetails" options="{types: '(cities)'}"
+        input.form-control ng-autocomplete="" ng-model='newTBACity' details="TBADetails" options="{types: '(cities)'}" placeholder=(t '.address_city_placeholder')
         .input-group-btn
           a.btn ng-class="{true:'btn-success', false:'btn-default disabled'}[tbaValid]" ng-click="saveTBA(TBADetails)": i.glyphicon.glyphicon-ok
 
@@ -159,33 +154,33 @@
             = image_tag f.object.poster.square, width: '100%'
 
           .col-md-9
-            = f.label :poster, 'Choose other file'
+            = f.label :poster, t('events.form.choose_other_file')
 
             .row
               .col-md-5
                 = f.file_field :poster, class: 'form-control'
 
               .col-md-1
-                | or
+                =t '.or'
 
               .col-md-6
-                = f.text_field :remote_poster_url, class: 'form-control', placeholder: 'File URL'
+                = f.text_field :remote_poster_url, class: 'form-control', placeholder: (t '.file_url')
 
             hr
             .checkbox
               label
                 = f.check_box :remove_poster
-                | Remove that poster
+                =t 'events.form.remove_poster'
 
         - else
           .col-md-5
             = f.file_field :poster, class: 'form-control'
 
           .col-md-1
-            | or
+            =t '.or'
 
           .col-md-6
-            = f.text_field :remote_poster_url, class: 'form-control', placeholder: 'File URL'
+            = f.text_field :remote_poster_url, class: 'form-control', placeholder: (t '.file_url')
 
   hr
 
@@ -195,6 +190,8 @@
     .col-sm-10
       #epiceditor data-user-id=current_user.id data-event-id=@event.id
       = f.text_area :description, class: 'form-control hide', rows: 10, :'ng-model' => 'event.description', :'ng-init' => "event.description='#{@event.description}'"
+      span.help-block =t 'forms.help.you_can_leave_it_blank'
+
       / p.help-block
       /   | Event description is used only for informational purposes and is not searchable
       /     (users are not able to search for your event by it's description keywords).
@@ -235,7 +232,7 @@
   .row
     .col-md-10
       hr
-      = f.submit 'Save event', class: 'btn btn-default btn-primary pull-right'
+      = f.submit t('.save_event'), class: 'btn btn-default btn-primary pull-right'
 
   script type="text/ng-template" id="help_for_title.html"
     p Help for title
@@ -270,7 +267,7 @@
 
   div ng-controller="SimilarEventsCtrl"
     .panel.panel-default ng-show="events"
-      .panel-heading: span Similar events
+      .panel-heading: span =t 'sidebar.similar_events.heading'
       .panel-body
       .list-group.list-group-plused
         a.list-group-item ng-repeat="event in events" ng-href="#{events_path}/{{ event.id }}"
