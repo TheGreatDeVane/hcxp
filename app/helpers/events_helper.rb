@@ -4,12 +4,12 @@ module EventsHelper
     days = (Time.zone.now - date).to_i / 1.day
 
     # Custom strings
-    return 'Yesterday' if days == 1
-    return 'Today'     if days == 0
-    return 'Tomorrow'  if days == -1
+    return t('time.yesterday') if days == 1
+    return t('time.today')     if days == 0
+    return t('time.tomorrow')  if days == -1
 
     # Default format
-    return date.strftime(format)
+    return l(date, format: format)
   end
 
   def excerpt(event)

@@ -38,7 +38,8 @@
           .media-body
             h4.media-heading am-time-ago="'#{@event.beginning_at}'"
             small.text-muted
-              = @event.try(:beginning_at).try(:strftime, '%d.%m.%Y (%A) ')
+              =l @event.beginning_at, format: '%d.%m.%Y (%A) '
+              / = @event.try(:beginning_at).try(:strftime, '%d.%m.%Y (%A) ')
               |
               = @event.try(:beginning_at_time).try(:strftime, '%H:%M')
 

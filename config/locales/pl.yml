@@ -1,4 +1,9 @@
 pl:
+  time:
+    yesterday: 'Wczoraj'
+    today: 'Dzisiaj'
+    tomorrow: 'Jutro'
+
   sidebar:
     bands:
       heading: 'Zespoły'
