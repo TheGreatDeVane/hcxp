@@ -47,6 +47,15 @@ $(document).on('ready page:load', function() {
 
 $(document).ready(function() {
 
+  // Prevent form submission using enter
+  $('form[ng_controller=EventsFormCtrl]').on('keyup keypress', function(e) {
+    var code = e.keyCode || e.which;
+    if (code  == 13) {
+      e.preventDefault();
+      return false;
+    }
+  });
+
   if ($('#epiceditor').length > 0) {
     var editor = new EpicEditor({
       textarea: 'event_description',
