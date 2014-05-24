@@ -157,6 +157,8 @@ class Event < ActiveRecord::Base
   end
 
   def sync(what = :all)
+    return unless Settings.sync.enabled
+
     e = Khcpl::Exporters::Fhcpl.new
 
     if !bindings.nil? && self.bindings['fhcpl']

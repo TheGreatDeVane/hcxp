@@ -8,7 +8,7 @@ class Venue < ActiveRecord::Base
   has_many :events
 
   # Validators
-  validates :name, no_capslock: true
+  validates :name, presence: true
   validates :address, presence: true
 
   # Plugins

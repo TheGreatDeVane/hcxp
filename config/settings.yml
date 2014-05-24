@@ -1,0 +1,5 @@
+# Synchronization settings
+sync:
+
+  # Enable/disable synchronization
+  enabled: true

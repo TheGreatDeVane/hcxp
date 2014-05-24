@@ -88,6 +88,9 @@ gem 'epic-editor-rails'
 # Use your angular templates with rails' asset pipeline
 gem 'angular-rails-templates', github: 'pitr/angular-rails-templates'
 
+# Rails settings
+gem "rails_config"
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
