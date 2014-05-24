@@ -1,7 +1,8 @@
 class Api::V1::VenuesController < Api::V1Controller
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   skip_before_filter :verify_authenticity_token
   before_action :set_venue, only: [:show]
+  # load_and_authorize_resource :event, except: [:find_or_create_tba]
 
   respond_to :json
 
@@ -30,6 +31,13 @@ class Api::V1::VenuesController < Api::V1Controller
         }
       }, status: :unprocessable_entity
     end
+  end
+
+  def tba
+    @venue = Venue.find_or_create_tba(
+      params[:venue][:city],
+      params[:venue][:country_code]
+    )
   end
 
   private

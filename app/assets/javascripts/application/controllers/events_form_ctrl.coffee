@@ -15,6 +15,8 @@
       raw_event_bands: []
     }
 
+    $scope.tbaValid = false
+
 
     # Open venue picker modal
     $scope.setVenue = () ->
@@ -44,8 +46,28 @@
         }
         $scope.event.event_bands.push event_band
 
+
+
     $scope.removeBand = (index) ->
       $scope.event.bands[index].destroy = true
+
+
+
+    $scope.saveTBA = (details) ->
+      return unless $scope.tbaValid
+      venue = {
+        city:         details.address_components[0].short_name
+        country_code: details.address_components[4].short_name
+      }
+      Restangular.one('venues').one('tba').customPOST({venue: venue}).then (result) ->
+        $scope.event.venue_id = result.id
+        $scope.editingTBA     = false
+
+
+
+    $scope.reloadBands = () ->
+      Restangular.one('bands').customGET(null, { 'id_in[]': $scope.event.band_ids }).then (bands) ->
+        $scope.event.bands = bands
 
 
     timer = false
@@ -59,6 +81,11 @@
     ), true
 
 
+    $scope.$watch 'TBADetails', (data) ->
+      return if $scope.tbaValid or data is undefined
+      $scope.tbaValid = true
+
+
     # Watch venue_id change. If it occurs, reload it's
     # data from the api.
     $scope.$watchCollection 'event.venue_id', (venue_id) ->
@@ -66,11 +93,6 @@
 
       Restangular.one('venues', venue_id).get().then (venue) ->
         $scope.venue = venue
-
-
-    $scope.reloadBands = () ->
-      Restangular.one('bands').customGET(null, { 'id_in[]': $scope.event.band_ids }).then (bands) ->
-        $scope.event.bands = bands
 
 
     # Watch bands change. If it occurs, regenerate band_ids array
@@ -85,9 +107,4 @@
       return if $scope.event.band_ids is band_ids
 
       $scope.event.band_ids = band_ids
-
-      # console.log _.difference(bandIds, oldBandIds)
-
-      # Restangular.one('bands').customGET(null, { 'id_in[]': bandIds }).then (bands) ->
-      #   $scope.event.bands = bands
 ])

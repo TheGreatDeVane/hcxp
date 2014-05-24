@@ -29,7 +29,9 @@ Khcpl::Application.routes.draw do
         put :promote, on: :member
       end
 
-      resources :venues
+      resources :venues do
+        post :tba, on: :collection
+      end
 
       resources :bands
 

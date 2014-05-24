@@ -28,6 +28,9 @@ module Khcpl
     config.autoload_paths += %W(#{config.root}/lib)
     config.eager_load_paths += %W(#{config.root}/lib)
 
-    RailsConfig.load_and_set_settings("#{Rails.root}/config/settings.yml",)
+    RailsConfig.load_and_set_settings(
+      "#{Rails.root}/config/settings.yml",
+      "#{Rails.root}/config/settings.local.yml"
+    )
   end
 end

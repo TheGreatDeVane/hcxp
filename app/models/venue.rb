@@ -19,7 +19,13 @@ class Venue < ActiveRecord::Base
       obj.city         = geo.city
       obj.country_name = geo.country
       obj.country_code = geo.country_code
-      obj.street       = "#{geo.address_components[1]['long_name']} #{geo.address_components[0]['long_name']}"
+
+      street_number = geo.address_components.select { |s| s['types'].include? 'street_number' }.first
+      street_route  = geo.address_components.select { |s| s['types'].include? 'route' }.first
+
+      formatted_street = (street_number && street_route) ? "#{street_route['short_name']} #{street_number['short_name']}" : nil
+
+      obj.street = formatted_street
     end
   end
 
@@ -32,10 +38,18 @@ class Venue < ActiveRecord::Base
     geo.validates :country_name, presence: true
     geo.validates :country_code, presence: true
     geo.validates :city, presence: true
-    geo.validates :street, presence: true
   end
 
   def to_s
     "#{name} - #{street}, #{city}, #{country_name}"
+  end
+
+  def self.find_or_create_tba(city, country_code)
+    fail ArgumentError, "City and country code can't be blank" if city.blank? || country_code.blank?
+
+    venue = Venue.find_by(name: 'TBA', city: city, country_code: country_code)
+    return venue if venue
+
+    Venue.create(name: 'TBA', address: "#{city}, #{country_code}")
   end
 end

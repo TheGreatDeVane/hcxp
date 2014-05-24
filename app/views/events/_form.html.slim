@@ -104,22 +104,48 @@
 
   hr
 
+  = f.text_field :venue_id, ng_model: 'event.venue_id', ng_init: "event.venue_id='#{f.object.venue_id}'", class: 'hide'
   .form-group
     label.control-label.col-sm-2 Venue
 
-    .col-sm-5
-      = f.text_field :venue_id, ng_model: 'event.venue_id', ng_init: "event.venue_id='#{f.object.venue_id}'", class: 'hide'
+    .col-sm-5 ng-show="!event.venue_id"
 
+      p If you know the venue:
       a.btn.btn-primary ng-click="setVenue()"
         i.glyphicon.glyphicon-map-marker>
-        span ng-show='event.venue_id' Change venue
-        span ng-show='!event.venue_id' Set venue
+        span Set venue
+
+    .col-sm-5 ng-show="!event.venue_id"
+      p If you know only the city:
+      a.btn.btn-primary ng-click="editingTBA=true" ng-hide="editingTBA"
+        i.glyphicon.glyphicon-map-marker>
+        span Set city
+
+      .input-group ng-show="editingTBA"
+        input.form-control ng-autocomplete="" ng-model='newTBACity' details="TBADetails" options="{types: '(cities)'}"
+        .input-group-btn
+          a.btn ng-class="{true:'btn-success', false:'btn-default disabled'}[tbaValid]" ng-click="saveTBA(TBADetails)": i.glyphicon.glyphicon-ok
 
     .col-sm-5 ng-show='event.venue_id'
       h4
         | {{ venue.name }}
       p.text-muted
         | {{ venue.address }}
+
+    .col-sm-5 ng-show='event.venue_id'
+      a.btn.btn-primary.btn-sm ng-click="setVenue()"
+        i.glyphicon.glyphicon-map-marker>
+        span Change venue
+      br
+      br
+      a.btn.btn-primary.btn-sm ng-click="editingTBA=true" ng-hide="editingTBA"
+        i.glyphicon.glyphicon-map-marker>
+        span Set city
+
+      .input-group ng-show="editingTBA"
+        input.form-control ng-autocomplete="" ng-model='newTBACity' details="TBADetails" options="{types: '(cities)'}"
+        .input-group-btn
+          a.btn ng-class="{true:'btn-success', false:'btn-default disabled'}[tbaValid]" ng-click="saveTBA(TBADetails)": i.glyphicon.glyphicon-ok
 
   hr
 
