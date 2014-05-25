@@ -79,5 +79,5 @@ html
             b.caret<
 
           ul.dropdown-menu.dropdown-menu-right
-            li: a href='?locale=en' data-no-turbolink="" English
-            li: a href='?locale=pl' data-no-turbolink="" Polski
+            li= link_to 'English', params.merge(locale: 'en'), data: { :'no-turbolink' => '' }
+            li= link_to 'Polski', params.merge(locale: 'pl'), data: { :'no-turbolink' => '' }
