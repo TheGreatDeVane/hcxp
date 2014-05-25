@@ -22,7 +22,7 @@
             .col-md-7
               .input-group
                 | {{ opened }}
-                = f.text_field :beginning_at, class: 'form-control', :'datepicker-popup' => 'dd.MM.yyyy', ng_model: 'dt', is_open: 'event.beginningAtOpened', min_date: '', max_date: "'2015-06-22'", datepicker_options: '', date_disabled: '', close_text: 'Close'
+                = f.text_field :beginning_at, class: 'form-control', :'datepicker-popup' => 'dd.MM.yyyy', ng_model: 'dt', is_open: 'event.beginningAtOpened', min_date: '', max_date: "'2015-06-22'", datepicker_options: '', date_disabled: '', close_text: 'Close', placeholder: 'dd.mm.yyyy'
                 a.input-group-addon ng-click="openBeginningAt($event)": i.glyphicon.glyphicon-calendar
               span.help-block =t 'events.beginning_at'
               | {{ event.beginningAtOpened }}
