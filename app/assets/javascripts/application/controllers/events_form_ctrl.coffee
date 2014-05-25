@@ -7,15 +7,20 @@
 
   ($scope, $rootScope, $timeout, $modal, Restangular) ->
     $scope.event = {
-      title:       ''
-      description: ''
-      band_ids:    []
-      venue_id:    ''
-      bands:       []
-      raw_event_bands: []
+      title:             ''
+      description:       ''
+      band_ids:          []
+      venue_id:          ''
+      bands:             []
+      raw_event_bands:   [],
+      beginningAtOpened: false
     }
 
     $scope.tbaValid = false
+
+    $scope.openBeginningAt = (event) ->
+      event.stopPropagation()
+      $scope.event.beginningAtOpened = !$scope.event.beginningAtOpened
 
 
     # Open venue picker modal

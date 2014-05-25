@@ -20,12 +20,17 @@
         .col-md-6
           .row
             .col-md-7
-              = f.date_field :beginning_at, class: 'form-control'
+              .input-group
+                | {{ opened }}
+                = f.text_field :beginning_at, class: 'form-control', :'datepicker-popup' => 'dd.MM.yyyy', ng_model: 'dt', is_open: 'event.beginningAtOpened', min_date: '', max_date: "'2015-06-22'", datepicker_options: '', date_disabled: '', close_text: 'Close'
+                a.input-group-addon ng-click="openBeginningAt($event)": i.glyphicon.glyphicon-calendar
               span.help-block =t 'events.beginning_at'
+              | {{ event.beginningAtOpened }}
 
             .col-md-5
               = f.time_field :beginning_at_time, class: 'form-control',
-                  value: (@event.beginning_at_time.blank? ? '' : @event.beginning_at_time.strftime('%H:%M'))
+                  value: (@event.beginning_at_time.blank? ? '' : @event.beginning_at_time.strftime('%H:%M')),
+                  placeholder: 'hh:mm'
 
 
         .col-md-6.hide
@@ -91,7 +96,8 @@
           textarea.form-control ng-model="band.description" ng-show="band.isEdited" ng-blur="band.isEdited=false"
           .text-muted.band-description ng-hide="band.isEdited" btf-markdown="band.description || 'No description'"
 
-      hr ng-show='(event.event_bands | filter: {_destroy: false})'
+      / That line causes 10 digest iteration error or something. Need to investigate it.
+      / hr ng-show='(event.event_bands | filter: {_destroy: false})'
 
       a.btn.btn-primary ng-click='addBand()'
         i.glyphicon.glyphicon-plus>
