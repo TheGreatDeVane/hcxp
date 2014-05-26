@@ -22,10 +22,9 @@
             .col-md-7
               .input-group
                 | {{ opened }}
-                = f.text_field :beginning_at, ng_init: "event.beginningAt='#{f.object.beginning_at.strftime('%d.%m.%Y')}'", class: 'form-control', :'datepicker-popup' => 'dd.MM.yyyy', ng_model: 'event.beginningAt', is_open: 'event.beginningAtOpened', min_date: '', max_date: "'2015-06-22'", datepicker_options: '', date_disabled: '', close_text: 'Close', placeholder: 'dd.mm.yyyy'
+                = f.text_field :beginning_at, ng_init: "event.beginningAt='#{f.object.beginning_at.try(:strftime, '%d.%m.%Y')}'", class: 'form-control', :'datepicker-popup' => 'dd.MM.yyyy', ng_model: 'event.beginningAt', is_open: 'event.beginningAtOpened', min_date: '', max_date: "'2015-06-22'", datepicker_options: '', date_disabled: '', close_text: 'Close', placeholder: 'dd.mm.yyyy'
                 a.input-group-addon ng-click="openBeginningAt($event)": i.glyphicon.glyphicon-calendar
               span.help-block =t 'events.beginning_at'
-              | {{ event.beginningAtOpened }}
 
             .col-md-5
               = f.time_field :beginning_at_time, class: 'form-control',
@@ -235,10 +234,12 @@
   /           .col-md-9
   /             = f.text_field :social_link_hcpl, class: 'form-control', placeholder: 'http://forum.hard-core.pl/...'
 
-  .row
-    .col-md-10
-      hr
-      = f.submit t('.save_event'), class: 'btn btn-default btn-primary pull-right'
+
+  hr
+  = f.submit t('.save_event'), class: 'btn btn-default btn-primary pull-right'
+
+  - if can? :destroy, @event
+    = link_to t('delete'), @event, class: 'btn btn-danger', data: { confirm: t('are_you_sure') }, method: :delete
 
   script type="text/ng-template" id="help_for_title.html"
     p Help for title

@@ -39,8 +39,9 @@ class Event < ActiveRecord::Base
   scope :featured,        -> { where(is_promoted: true) }
 
   # Callbacks
-  after_save :puts_changes
-  after_save :sync
+  after_save    :puts_changes
+  after_save    :sync
+  after_destroy :sync_destroy
 
   def to_s
     title_or_bands
@@ -166,5 +167,12 @@ class Event < ActiveRecord::Base
     else
       self.update_column(:bindings, "fhcpl => #{e.create(self).to_i}")
     end
+  end
+
+  def sync_destroy(what = :all)
+    return unless Settings.sync.enabled
+
+    e = Khcpl::Exporters::Fhcpl.new
+    e.destroy(bindings['fhcpl'])
   end
 end

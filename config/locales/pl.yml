@@ -4,6 +4,9 @@ pl:
     today: 'Dzisiaj'
     tomorrow: 'Jutro'
 
+  are_you_sure: 'Jesteś pewien?'
+  delete: 'Usuń'
+
   sidebar:
     bands:
       heading: 'Zespoły'

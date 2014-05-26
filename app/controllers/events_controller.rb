@@ -63,6 +63,14 @@ class EventsController < ApplicationController
     end
   end
 
+  # DELETE /event/1
+  def destroy
+    @event.destroy
+    respond_to do |format|
+      format.html { redirect_to root_url, notice: 'Event destroyed' }
+    end
+  end
+
   def bands
     @tab_content_partial = 'bands'
     render action: :show

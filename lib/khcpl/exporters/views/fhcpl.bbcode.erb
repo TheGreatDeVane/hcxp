@@ -6,7 +6,7 @@
 [size=150]Informacje[/size]
 <% if event.venue %><%= "\n" %>[url=<%= 'http://hcxp.co/venues/' + event.venue.id.to_s %>][b]<%= event.venue.name %>[/b][/url]
 <%= event.venue.address %><%= "\n" %><% end %>
-[b]Data:[/b] <%=l event.beginning_at, format: '%d %B %Y (%A)' %><% if event.beginning_at_time.present? %><%= "\n" %>[b]Start:[/b] <%= event.beginning_at_time.strftime('%H:%M') %><% end %><% if event.price.present? %><%= "\n" %>[b]Wjazd:[/b] <%= event.price %><% end %>
+[b]Data:[/b] <%= event.beginning_at.strftime('%d %B %Y (%A)') %><% if event.beginning_at_time.present? %><%= "\n" %>[b]Start:[/b] <%= event.beginning_at_time.strftime('%H:%M') %><% end %><% if event.price.present? %><%= "\n" %>[b]Wjazd:[/b] <%= event.price %><% end %>
 
 [b]Linki:[/b]
 http://hcxp.co/<%= event.id %>/<%= event.slug %>

@@ -3,9 +3,9 @@ class VenuesController < ApplicationController
 
   # GET /venues
   # GET /venues.json
-  def index
-    @venues = Venue.all
-  end
+  # def index
+  #   @venues = Venue.all
+  # end
 
   # GET /venues/1
   # GET /venues/1.json
@@ -14,9 +14,9 @@ class VenuesController < ApplicationController
   end
 
   # GET /venues/new
-  def new
-    @venue = Venue.new
-  end
+  # def new
+  #   @venue = Venue.new
+  # end
 
   # GET /events/autocomplete
   # GET /events/autocomplete.json
@@ -30,19 +30,19 @@ class VenuesController < ApplicationController
 
   # POST /venues
   # POST /venues.json
-  def create
-    @venue = Venue.new(venue_params)
+  # def create
+  #   @venue = Venue.new(venue_params)
 
-    respond_to do |format|
-      if @venue.save
-        format.html { redirect_to @venue, notice: 'Venue was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @venue }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @venue.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   respond_to do |format|
+  #     if @venue.save
+  #       format.html { redirect_to @venue, notice: 'Venue was successfully created.' }
+  #       format.json { render action: 'show', status: :created, location: @venue }
+  #     else
+  #       format.html { render action: 'new' }
+  #       format.json { render json: @venue.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /venues/1
   # PATCH/PUT /venues/1.json
@@ -60,13 +60,13 @@ class VenuesController < ApplicationController
 
   # DELETE /venues/1
   # DELETE /venues/1.json
-  def destroy
-    @venue.destroy
-    respond_to do |format|
-      format.html { redirect_to venues_url }
-      format.json { head :no_content }
-    end
-  end
+  # def destroy
+  #   @venue.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to venues_url }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
