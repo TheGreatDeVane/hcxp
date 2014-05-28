@@ -1,6 +1,6 @@
 = link_to toggle_event_saves_path(event, from: 'single'), class: "btn btn-default btn-sm event-#{event.id}-save #{(try(:current_user).saved_events.include? event) ? 'btn-warning' : ''}", method: :post, remote: true do
   i.glyphicon> class="#{(try(:current_user).saved_events.include? event) ? 'glyphicon-star' : 'glyphicon-star-empty'}"
   - if try(:current_user).saved_events.include? event
-    = t 'events.saved'
+    = t 'saved'
   - else
-    = t 'events.save'
+    = t 'save'

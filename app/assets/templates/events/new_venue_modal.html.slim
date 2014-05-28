@@ -1,5 +1,5 @@
 .modal-header
-  h4 class="modal-title" Creating new venue
+  h4 class="modal-title" = t('new_venue_modal.creating_new_venue')
 
 .modal-body
   alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)"
@@ -7,17 +7,17 @@
 
   form.form-horizontal
     .form-group
-      label.control-label.col-md-2 Name
+      label.control-label.col-md-2 = t('activerecord.attributes.venue.name')
       .col-md-10
         input.form-control type="text" ng-model="venue.name"
 
     .form-group
-      label.control-label.col-md-2 Address
+      label.control-label.col-md-2 = t('activerecord.attributes.venue.address')
       .col-md-10
-        input.form-control type="text" placeholder="Street, City, Country" ng-autocomplete="" ng-model="venue.address" details="details"
+        input.form-control type="text" placeholder=(t 'new_venue_modal.address_placeholder') ng-autocomplete="" ng-model="venue.address" details="details"
 
     img ng-show='details' ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{ details.geometry.location.k }},{{ details.geometry.location.A }}&zoom=18&size=568x200&markers={{ details.geometry.location.k }},{{ details.geometry.location.A }}&sensor=false"
 
 .modal-footer
-  button.pull-left class="btn btn-link" ng-click="cancel()" Cancel
-  button class="btn btn-success" ng-click="save(details)" Save
+  button.pull-left class="btn btn-link" ng-click="cancel()" =t 'cancel'
+  button class="btn btn-success" ng-click="save(details)" =t 'save'

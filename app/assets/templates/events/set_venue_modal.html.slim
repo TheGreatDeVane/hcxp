@@ -1,12 +1,12 @@
 .modal-header
-  h4 class="modal-title" Set venue
+  h4 class="modal-title" = t('set_venue_modal.set_venue')
 
 .modal-body
-  .form-group: input.form-control.input-lg type="text" ng-model="search.query" placeholder="Search for venue..."
+  .form-group: input.form-control.input-lg type="text" ng-model="search.query" placeholder=(t 'set_venue_modal.search_for_venue')
 
   hr
 
-  h5 ng-show='showingRecent' Venues you've recently used:
+  h5 ng-show='showingRecent' = t('set_venue_modal.venues_you_have_recently_used')
 
   .list-group
     a.list-group-item ng-repeat='venue in venues' ng-click='selectVenue(venue.id)'
@@ -16,5 +16,5 @@
         | {{ venue.address }}
 
 .modal-footer
-  button.pull-left class="btn btn-link" ng-click="cancel()" Cancel
-  button class="btn btn-success" ng-click="newVenue()" New venue
+  button.pull-left class="btn btn-link" ng-click="cancel()" = t('cancel')
+  button class="btn btn-success" ng-click="newVenue()" = t('new_venue')

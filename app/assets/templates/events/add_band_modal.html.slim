@@ -1,19 +1,17 @@
 .modal-header
-  h4 class="modal-title" Add band
+  h4 class="modal-title" = t('events.form.add_band')
 
 .modal-body
-  .form-group: input.form-control.input-lg type="text" ng-model="search.query" placeholder="Search for band..."
+  .form-group: input.form-control.input-lg type="text" ng-model="search.query" placeholder=(t 'search_for_bands')
 
   hr ng-show='bands'
 
   .text-center.text-muted ng-show="showNoResultsInfo"
     br
-    p.lead No bands found
+    p.lead = t('add_band_modal.nothing_found')
     p
-      | Looks like the band you've been
-        searching for is not in our database.
-        Perhaps it's a good idea to
-      a ng-click="newBand()"  create it &rarr;
+      = t('add_band_modal.nothing_found_desc')
+      a< ng-click="newBand()" = t('add_band_modal.create_it_btn').html_safe
 
 
   .list-group ng-show='bands'
@@ -27,5 +25,5 @@
             | {{ band.location }}
 
 .modal-footer
-  button.pull-left class="btn btn-link" ng-click="cancel()" Cancel
-  button class="btn btn-success" ng-click="newBand()" New Band
+  button.pull-left class="btn btn-link" ng-click="cancel()" = t 'cancel'
+  button class="btn btn-success" ng-click="newBand()" = t 'new_band'

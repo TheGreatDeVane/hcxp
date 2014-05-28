@@ -23,6 +23,14 @@ en:
       settings: 'Settings'
       sign_out: 'Sign out'
 
+  add_band_modal:
+    nothing_found: 'No bands found'
+    nothing_found_desc: "Looks like the band you\'ve been searching for is not in our database. Perhaps it\'s a good idea to"
+    create_it_btn: 'create it &rarr;'
+
+  new_band_modal:
+    heading: 'Creating new band'
+
   events:
     save: 'Save'
     saved: 'Saved'
@@ -30,6 +38,7 @@ en:
     promote: 'Promote'
     promoted: 'Promoted'
     timing: 'Czas'
+    if_you_know_venue: 'If you know the venue'
 
     form:
       remove_poster: 'Remove that poster'
