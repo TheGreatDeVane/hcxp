@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.1'
+gem 'rails', '4.1.0'
 gem 'rails-i18n'
 
 # Use SCSS for stylesheets
@@ -39,9 +39,6 @@ gem "geocoder"
 gem 'devise'
 gem 'cancancan', '~> 1.8'
 
-# jquery.timeago
-gem 'rails-timeago', '~> 2.0'
-
 # file uploads
 gem 'carrierwave'
 gem 'carrierwave-azure'
@@ -58,9 +55,6 @@ gem 'nokogiri'
 
 # Removing html tags from strings
 # gem 'sanitize'
-
-# elasticsearch bindings
-gem "searchkick"
 
 # typehead.js
 gem 'twitter-typeahead-rails', :git => "git://github.com/yourabi/twitter-typeahead-rails.git"

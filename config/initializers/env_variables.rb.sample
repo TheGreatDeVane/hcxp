@@ -1,0 +1,4 @@
+# forum.hard-core.pl credentals for user posting events
+ENV['KHCPL_EVENTS_USERNAME'] = ''
+ENV['KHCPL_EVENTS_PASSWORD'] = ''
+ENV['KHCPL_EVENTS_FORUM_ID'] = ''
