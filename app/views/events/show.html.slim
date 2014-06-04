@@ -4,7 +4,7 @@
       - if @event.title.present?
         = @event.title.truncate(24)
       - else
-        = @event.bands.join(', ').truncate(24)
+        = @event.bands.map(&:name).join(', ').truncate(24)
 
     .meta.text-muted
       = image_tag avatar_url(@event.user, size: 25), size: '25x25', class: 'avatar'

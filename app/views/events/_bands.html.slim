@@ -12,7 +12,7 @@
             = image_tag band_thumb_url(band, :mega), width: '100%'
 
           .thumb-heading
-            h4 = link_to band, band
+            h4 = link_to band.name, band
             span.location = band.country_code
 
           .thumb-player

@@ -72,7 +72,7 @@ gem 'watir'
 gem 'pg'
 
 # PostgreSQL full-text search
-gem 'pg_search'
+gem 'pg_search', github: 'Casecommons/pg_search'
 
 # Friendly IDs
 gem 'friendly_id', '~> 5.0.0'

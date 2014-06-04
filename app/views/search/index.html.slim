@@ -4,7 +4,7 @@
 
   = render 'layouts/sidebar/user_locations'
 
-  - if @bands.any?
+  - if @bands.length > 0
     .panel.panel-default
       .panel-heading: span Bands
       .panel-body

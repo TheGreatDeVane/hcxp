@@ -30,7 +30,6 @@
 //
 //= require jquery.turbolinks
 //= require turbolinks
-//= require rails-timeago-all
 //= require jquery_nested_form
 //= require twitter/typeahead
 //= require select2

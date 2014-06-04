@@ -29,10 +29,6 @@ class Band < ActiveRecord::Base
   # Callbacks
   before_validation :geocode, if: :location_changed?
 
-  def to_s
-    name
-  end
-
   def images
     lastfm_resources = self.resources.lastfm
     self.resources.lastfm.first.data[:images] if lastfm_resources.any? && lastfm_resources.first.data.present?

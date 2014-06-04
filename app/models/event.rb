@@ -33,7 +33,7 @@ class Event < ActiveRecord::Base
                                         limit: 1
 
   # Scopes
-  default_scope order(:beginning_at)
+  default_scope              { order(:beginning_at) }
   scope :from_the_future, -> { where('beginning_at >= ?', Date.today) }
   scope :from_the_past,   -> { where('beginning_at < ?', Date.today) }
   scope :featured,        -> { where(is_promoted: true) }
@@ -96,7 +96,7 @@ class Event < ActiveRecord::Base
     if title.present?
       title
     else
-      bands.join(', ')
+      bands.map(&:name).join(', ').to_s
     end
   end
 
