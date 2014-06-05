@@ -106,7 +106,7 @@ class Event < ActiveRecord::Base
   end
 
   def puts_changes
-    puts self.changes
+    # puts self.changes
   end
 
   def self.similar_by(options = {})
