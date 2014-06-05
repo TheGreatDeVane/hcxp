@@ -9,7 +9,7 @@ Fork or clone HCXP from Github:
 
     $ git clone git://github.com/mbajur/hcxp.git
 
-Copy config/database.yml.sample to config/database.yml and fill in your credential.
+Copy `config/database.yml.sample` to `config/database.yml` and fill in your credential.
 
 Then run:
 
