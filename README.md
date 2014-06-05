@@ -1,7 +1,7 @@
 HCXP
 =============================
 
-HCXP is an online hardcore/punk events directory. It synchronizes it's contents with popular social media sites like bandcamp, last.fm or facebook to make life easier for show hosts and keep it's contents up-to-date.
+HCXP is an online hardcore/punk events directory. It synchronizes it's contents with popular social media sites like bandcamp, last.fm or facebook to make life easier for show hosts and to always be up to date.
 
 # Application init
 
