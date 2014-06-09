@@ -1,5 +1,5 @@
 / Set page title
-- @title = "#{@event.title_or_bands} / #{@event.venue.name}, #{@event.venue.city}"
+- @title = event_page_title(@event)
 
 .row.events-show ng-controller="EventsShowCtrl" ng-init="event.id=#{@event.id}"
   .col-md-12
