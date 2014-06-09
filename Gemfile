@@ -80,7 +80,7 @@ gem 'friendly_id', '~> 5.0.0'
 # EpicEditor
 gem 'epic-editor-rails'
 
-# Use your angular templates with rails' asset pipeline
+# Use your angular templates with rails asset pipeline
 gem 'angular-rails-templates', github: 'pitr/angular-rails-templates'
 
 # Rails settings
@@ -125,3 +125,4 @@ gem 'rails-assets-angular-sanitize'
 gem 'rails-assets-showdown'
 gem 'rails-assets-moment'
 gem 'rails-assets-angular-moment'
+gem 'rails-assets-angular-translate'

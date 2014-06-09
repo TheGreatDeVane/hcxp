@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title HCXP
+    title= page_title(@title)
 
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"
@@ -11,7 +11,10 @@ html
     meta name="viewport" content="width=device-width, initial-scale=1"
 
     javascript:
-      moment.lang('#{cookies[:locale]}')
+      /* Sets moment.js lang based on app
+      /* language currently being set */
+      lang = '#{cookies[:locale]}'
+      moment.lang(lang)
 
   body class="#{params[:controller]}-#{params[:action]}"
     .navbar.navbar-default
@@ -30,14 +33,15 @@ html
 
               / Menu for signed-in user
               - if user_signed_in?
-                = link_to new_event_path, class: 'btn btn-default btn-lg', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Add event' do
+                = link_to new_event_path, class: 'btn btn-default btn-lg', data: { toggle: 'tooltip', placement: 'bottom' }, title: t('main_nav.user.add_event') do
                   i.glyphicon.glyphicon-plus
 
-                = link_to search_index_path(q: ':s'), class: 'btn btn-default btn-lg', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Saved events' do
+                = link_to search_index_path(q: ':s'), class: 'btn btn-default btn-lg', data: { toggle: 'tooltip', placement: 'bottom' }, title: t('main_nav.user.saved_events') do
                   i.glyphicon.glyphicon-star
 
                 a.btn.btn-default.btn-lg.btn-avatar data-toggle="dropdown"
                   = image_tag avatar_url(current_user, size: 25)
+
                 ul.dropdown-menu.dropdown-menu-right role="menu"
                   li: a href=search_index_path(q: current_user.username) = t 'main_nav.user.your_events'
                   li: a = t 'main_nav.user.settings'

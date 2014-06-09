@@ -1,20 +1,26 @@
 .modal-header
-  h4 class="modal-title" = t('set_venue_modal.set_venue')
+  h4 class="modal-title"
+    | {{ 'SET_VENUE_MODAL_TITLE' | translate }}
 
 .modal-body
-  .form-group: input.form-control.input-lg type="text" ng-model="search.query" placeholder=(t 'set_venue_modal.search_for_venue')
+  .form-group: input.form-control.input-lg type="text" ng-model="search.query" placeholder="{{ 'SET_VENUE_MODAL_SEARCH_PLACEHOLDER' | translate }}"
 
   hr
 
-  h5 ng-show='showingRecent' = t('set_venue_modal.venues_you_have_recently_used')
+  h5 ng-show='showingRecent'
+    | {{ 'SET_VENUE_MODAL_RECENT_TITLE' | translate }}
 
   .list-group
     a.list-group-item ng-repeat='venue in venues' ng-click='selectVenue(venue.id)'
       h4.list-group-item-heading
         | {{ venue.name }}
+
       p.list-group-item-text.text-muted
         | {{ venue.address }}
 
 .modal-footer
-  button.pull-left class="btn btn-link" ng-click="cancel()" = t('cancel')
-  button class="btn btn-success" ng-click="newVenue()" = t('new_venue')
+  button.pull-left class="btn btn-link" ng-click="cancel()"
+    | {{ 'SET_VENUE_MODAL_CANCEL_BTN' | translate }}
+
+  button class="btn btn-success" ng-click="newVenue()"
+    | {{ 'SET_VENUE_MODAL_NEW_VENUE_BTN' | translate }}

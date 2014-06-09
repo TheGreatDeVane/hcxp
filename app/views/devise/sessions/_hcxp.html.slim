@@ -1,0 +1,18 @@
+#hcxp.tab-pane
+  = form_for(User.new, :as => resource_name, :url => session_path(resource_name)) do |f|
+    .form-group
+      = f.text_field :username, :autofocus => true, class: 'form-control input-lg', placeholder: t('activerecord.attributes.user.user_name')
+
+    .form-group
+      = f.password_field :password, class: 'form-control input-lg', placeholder: t('activerecord.attributes.user.password')
+
+    - if devise_mapping.rememberable?
+      .form-group.row
+        .col-sm-6
+          .checkbox
+            label
+              = f.check_box :remember_me
+              = t 'sessions.new.remember_me'
+
+        .col-sm-6
+          = f.submit t('sessions.new.sign_in_btn'), name: 'commit_hcxp', class: 'btn btn-default btn-lg pull-right'

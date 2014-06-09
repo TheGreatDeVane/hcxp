@@ -1,17 +1,20 @@
 .modal-header
-  h4 class="modal-title" = t('events.form.add_band')
+  h4 class="modal-title"
+    | {{ 'ADD_BAND_MODAL_TITLE' | translate }}
 
 .modal-body
-  .form-group: input.form-control.input-lg type="text" ng-model="search.query" placeholder=(t 'search_for_bands')
+  .form-group: input.form-control.input-lg type="text" ng-model="search.query" placeholder="{{ 'ADD_BAND_MODAL_SEARCH_FOR_BANDS' | translate }}"
 
   hr ng-show='bands'
 
   .text-center.text-muted ng-show="showNoResultsInfo"
     br
-    p.lead = t('add_band_modal.nothing_found')
+    p.lead
+      | {{ 'ADD_BAND_MODAL_NOTHING_FOUND' | translate }}
     p
-      = t('add_band_modal.nothing_found_desc')
-      a< ng-click="newBand()" = t('add_band_modal.create_it_btn').html_safe
+      | {{ 'ADD_BAND_MODAL_NOTHING_FOUND_DESC' | translate }}
+      a< ng-click="newBand()"
+        | {{ 'ADD_BAND_MODAL_NOTHING_FOUND_CREATE_IT_BTN' | translate }}
 
 
   .list-group ng-show='bands'
@@ -25,5 +28,7 @@
             | {{ band.location }}
 
 .modal-footer
-  button.pull-left class="btn btn-link" ng-click="cancel()" = t 'cancel'
-  button class="btn btn-success" ng-click="newBand()" = t 'new_band'
+  button.pull-left class="btn btn-link" ng-click="cancel()"
+    | {{ 'ADD_BAND_MODAL_CANCEL_BTN' | translate }}
+  button class="btn btn-success" ng-click="newBand()"
+    | {{ 'ADD_BAND_MODAL_NEW_BAND_BTN' | translate }}

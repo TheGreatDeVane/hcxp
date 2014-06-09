@@ -1,0 +1,28 @@
+@import "bootstrap-variables";
+
+$border-darken-amount: 10%;
+$background-lighten-amount: 20%;
+
+.alert {
+  opacity: 0.5;
+}
+
+.alert-success {
+  background:   lighten($brand-success, $background-lighten-amount);
+  border-color: darken(lighten($brand-success, $background-lighten-amount), $border-darken-amount)
+}
+
+.alert-info {
+  background:   lighten($brand-info, $background-lighten-amount);
+  border-color: darken(lighten($brand-info, $background-lighten-amount), $border-darken-amount)
+}
+
+.alert-danger {
+  background:   lighten($brand-danger, $background-lighten-amount);
+  border-color: darken(lighten($brand-danger, $background-lighten-amount), $border-darken-amount)
+}
+
+.alert-warning {
+  background:   lighten($brand-warning, $background-lighten-amount);
+  border-color: darken(lighten($brand-warning, $background-lighten-amount), $border-darken-amount)
+}

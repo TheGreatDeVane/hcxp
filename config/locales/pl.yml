@@ -32,6 +32,27 @@ pl:
     address_placeholder: 'Ulica, Miasto, Kraj'
     creating_new_venue: 'Tworzenie nowego miejsca'
 
+  sessions:
+    new:
+      sign_in: 'Zaloguj się'
+      remember_me: 'Zapamiętaj'
+      sign_in_btn: 'Zaloguj'
+
+      fhcpl:
+        # description: 'Use your credentials from forum.hard-core.pl to sign in to hcxp.'
+        description: 'Aby zalogować się w hcxp, możesz użyć swoich danych z <a href="http://forum.hard-core.pl">forum.hard-core.pl</a>.'
+
+  search:
+    no_results:
+      # oops: 'Oops!'
+      oops: 'Ups!'
+      # description: "Sorry, no events found for <strong>%{query}</strong>"
+      description: "Sory, nie znaleźliśmy żadnych wydarzeń dla frazy <strong>%{query}</strong>"
+      # description_without_q: "Sorry, no events found."
+      description_without_q: "Sory, nie znaleźliśmy żadnych wydarzeń."
+      # advice: "Maybe you should try <a href='%{url}'>searching the archives? &rarr;</a>"
+      advice: "Może powinieneś spróbować <a href='%{url}'>przeszukać archiwum? &rarr;</a>"
+
   sidebar:
     bands:
       heading: 'Zespoły'
@@ -55,6 +76,8 @@ pl:
       your_events: 'Twoje wydarzenia'
       settings: 'Ustawienia'
       sign_out: 'Wyloguj'
+      add_event: 'Dodaj wydarzenie'
+      saved_events: 'Zapisane'
 
   footer:
     nav:
@@ -117,3 +140,7 @@ pl:
       venue:
         name: 'Nazwa'
         address: 'Adres'
+
+      user:
+        user_name: 'Nazwa użytkownika'
+        password: 'Hasło'

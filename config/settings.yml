@@ -1,5 +1,14 @@
+# General settings
+general:
+  site_name: 'HCXP'
+  subtitle: 'hardcore punk events directory'
+
+auth:
+  # Settings specific for hcxp sign-ins
+  hcxp:
+    enabled: false
+
 # Synchronization settings
 sync:
-
   # Enable/disable synchronization
   enabled: true
