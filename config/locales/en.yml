@@ -1,4 +1,7 @@
 en:
+  delete: 'Delete'
+  are_you_sure: 'Are you sure?'
+
   sidebar:
     bands:
       heading: 'Bands'

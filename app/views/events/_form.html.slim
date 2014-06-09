@@ -242,7 +242,7 @@
   = f.submit t('.save_event'), class: 'btn btn-default btn-primary pull-right'
 
   - if can? :destroy, @event
-    = link_to t('delete'), @event, class: 'btn btn-danger', data: { confirm: t('are_you_sure') }, method: :delete
+    = link_to t('.delete'), @event, class: 'btn btn-danger', data: { confirm: t('are_you_sure') }, method: :delete
 
   script type="text/ng-template" id="help_for_title.html"
     p Help for title
