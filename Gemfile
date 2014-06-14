@@ -42,7 +42,8 @@ gem 'cancancan', '~> 1.8'
 # file uploads
 gem 'carrierwave'
 gem 'carrierwave-azure'
-gem 'mini_magick', '3.5.0'
+gem 'rmagick'
+gem 'minimagick'
 
 # nested forms
 gem 'nested_form'
