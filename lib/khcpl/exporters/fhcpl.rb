@@ -32,7 +32,7 @@ module Khcpl
         # Format subject elements
         formatted_event = format_event(event)
 
-        topic_form              = page.forms[1]
+        topic_form         = page.forms[1]
         topic_form.subject = formatted_event[:subject]
         topic_form.message = formatted_event[:message]
         log 'Filled topic form.'
@@ -57,7 +57,10 @@ module Khcpl
         log 'Topic page loaded'
 
         quick_moderation_form = page.form_with(action: /mcp/)
-        quick_moderation_form.field_with(name: 'action').option_with(value: 'delete_topic').click
+        quick_moderation_form
+          .field_with(name: 'action')
+          .option_with(value: 'delete_topic')
+          .click
         page = @agent.submit(quick_moderation_form)
         log 'Submited quick moderation form'
 
