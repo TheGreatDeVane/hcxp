@@ -43,7 +43,7 @@ gem 'cancancan', '~> 1.8'
 gem 'carrierwave'
 gem 'carrierwave-azure'
 gem 'rmagick'
-gem 'minimagick'
+# gem 'mini_magick'
 
 # nested forms
 gem 'nested_form'
