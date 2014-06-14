@@ -25,7 +25,7 @@ class Api::V1::UsersController < Api::V1Controller
   end
 
   def recent_venues
-    @venues = current_user.events.joins(:venue).select('venues.id, venues.name, venues.address, events.beginning_at').uniq('venues.id')
+    @venues = current_user.recent_venues
   end
 
   private
