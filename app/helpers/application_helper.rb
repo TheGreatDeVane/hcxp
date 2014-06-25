@@ -11,7 +11,12 @@ module ApplicationHelper
     #   user.avatar_url
     # else
       gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
-      "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{options[:size]}&d=mm"
+      url = "http://gravatar.com/avatar/#{gravatar_id}.png?d=mm"
+
+      # Remove size param if size is set to -1
+      url = url + "&s=#{options[:size]}" if options[:size] != -1
     # end
+
+    url
   end
 end

@@ -12,6 +12,7 @@
       .panel-body
         div.list-group
           - Event.featured.each do |event|
+
             div.list-group-item
               .media
                 = image_tag event.poster.square, class: 'pull-left', size: '42x42'

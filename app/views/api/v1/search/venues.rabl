@@ -6,8 +6,4 @@ child @venues => :venues do
   attributes :id, :name, :address
 end
 
-node :meta do
-  {
-    resource: 'venues'
-  }
-end
+node(:resource) { 'venues' }

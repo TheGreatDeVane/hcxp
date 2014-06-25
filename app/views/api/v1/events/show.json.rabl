@@ -3,7 +3,7 @@ object false
 child @event => :event do
   object @event
 
-  attributes :id, :is_promoted
+  extends 'api/v1/events/event'
 end
 
 node(:resource) { 'event' }

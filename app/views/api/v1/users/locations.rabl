@@ -6,8 +6,4 @@ child @locations => :locations do
   attributes :id, :city, :country_code
 end
 
-node :meta do
-  {
-    resource: 'locations'
-  }
-end
+node(:resource) { 'locations' }

@@ -8,8 +8,4 @@ child @events => :events do
   node(:bands) { |e| e.bands.map { |b| [b.name] } }
 end
 
-node :meta do
-  {
-    resource: 'events'
-  }
-end
+node(:resource) { 'events' }

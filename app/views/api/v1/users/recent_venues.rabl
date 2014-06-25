@@ -6,8 +6,4 @@ child @venues => :venues do
   extends 'api/v1/venues/venue'
 end
 
-node :meta do
-  {
-    resource: 'venues'
-  }
-end
+node(:resource) { 'venues' }

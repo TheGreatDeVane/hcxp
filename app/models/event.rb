@@ -16,6 +16,8 @@ class Event < ActiveRecord::Base
   has_many   :bands, through: :event_bands
   belongs_to :venue, counter_cache: true
   belongs_to :user
+  has_many   :saves
+  has_many   :savegazers, through: :saves, source: :user
 
   mount_uploader :poster, PosterUploader
 

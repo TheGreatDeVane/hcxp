@@ -6,8 +6,4 @@ child @bands => :bands do
   attributes :id, :name, :location, :images
 end
 
-node :meta do
-  {
-    resource: 'bands'
-  }
-end
+node(:resource) { 'bands' }

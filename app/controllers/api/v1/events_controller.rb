@@ -14,6 +14,8 @@ class Api::V1::EventsController < Api::V1Controller
     ).reorder('similarity DESC')
   end
 
+  def show; end
+
   def promote
     @event.update_attribute(:is_promoted, !@event.is_promoted)
   end

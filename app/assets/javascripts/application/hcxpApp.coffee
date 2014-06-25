@@ -23,7 +23,7 @@ hcxpApp.config([
 
     # Make Restangular work with our api response structure
     RestangularProvider.addResponseInterceptor( (data, operation, what, url, response, deferred) ->
-      data[data.meta.resource]
+      data[data.resource]
     )
 ])
 

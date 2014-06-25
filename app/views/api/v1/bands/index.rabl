@@ -6,8 +6,4 @@ child @bands => :bands do
   extends 'api/v1/bands/band'
 end
 
-node :meta do
-  {
-    resource: 'bands'
-  }
-end
+node(:resource) { 'bands' }

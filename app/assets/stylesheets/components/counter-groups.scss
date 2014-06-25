@@ -1,0 +1,16 @@
+@import "bootstrap-variables";
+
+.counter-group {
+  .counter {
+    margin-right: 10px;
+
+    .counter-number {
+      font-size: 19px;
+    }
+
+    .counter-label {
+      font-size: 13px;
+      color: $gray;
+    }
+  }
+}

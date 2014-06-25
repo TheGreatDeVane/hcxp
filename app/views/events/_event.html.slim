@@ -1,43 +1,81 @@
-.row class="event event-#{event.id}" class="#{'faved' if try(:current_user).try(:saved_events).try(:include?, event)}" class=('has-passed' if event.has_passed) class=('is-promoted' if event.is_promoted)
+.row.event class="event-#{event.id}" class="#{'faved' if try(:current_user).try(:saved_events).try(:include?, event)}" class=('has-passed' if event.has_passed) class=('is-promoted' if event.is_promoted) ng-click="toggleExpand($event)" ng-init="eventId=#{event.id}" ng-controller="EventsListCtrl" ng-class="{true:'is-expanded'}[isExpanded]"
   .inner
 
-    .col-md-9
-      .time.pull-left.text-right
-        time = event.beginning_at_time.try(:strftime, '%H:%M') || '&ndash;'.html_safe
+    / Time section
+    .time.pull-left.text-right
+      time 
+        = event.beginning_at_time.try(:strftime, '%H:%M') || '&ndash;'.html_safe
 
-        - if user_signed_in?
-          = link_to toggle_event_saves_path(event, from: 'list'), remote: true, method: :post do
-            - if try(:current_user).saved_events.include? event
-              i.glyphicon.glyphicon-star.pull-right
-            - else
-              i.glyphicon.glyphicon-star-empty.pull-right
-
-      .media
-        = link_to event, class: 'pull-left' do
-          = image_tag event.poster.square, size: '50x50'
-
-        .media-body
-          - if event.title.present?
-            h3.media-heading.event-title
-              = link_to event.title, event.path
-
-            - if event.bands.any?
-              p
-                - event.bands.each do |band|
-                  span.label.label-default.label-tag> = link_to band.name, search_index_path(q: band.name)
-
-            - else
-              p.text-muted= excerpt(event).to_s.truncate(170)
-
+      - if user_signed_in?
+        = link_to toggle_event_saves_path(event, from: 'list'), remote: true, method: :post do
+          - if try(:current_user).saved_events.include? event
+            i.glyphicon.glyphicon-star.pull-right
           - else
-            h3.media-heading.event-title
-              = link_to event.bands.map(&:name).join(', '), event.path
+            i.glyphicon.glyphicon-star-empty.pull-right
 
-            p.text-muted= excerpt(event).to_s.truncate(170)
+    / Actual event body (poster and info)
+    .media
 
-    .col-md-3.text-right
-      - if event.venue.present?
-        = event.venue.name
-        br
-        small.text-muted
-          = "#{event.venue.city}, #{event.venue.country_code}"
+      / The poster
+      = link_to event, class: 'pull-left' do
+        = image_tag event.poster.square, size: '50x50'
+
+      .media-body
+
+        .row
+
+          .col-md-9
+
+            - if event.title.present?
+              h3.media-heading.event-title
+                = link_to event.title, event.path
+
+              - if event.bands.any?
+                ul.list-inline.event-bands-labels
+                  - event.bands.each do |band|
+                    li: span.label.label-default.label-tag> 
+                      = link_to band.name, search_index_path(q: band.name)
+
+              - else
+                p.text-muted ng-hide="isExpanded && event"
+                  = excerpt(event).to_s.truncate(170)
+
+            - else
+              h3.media-heading.event-title
+                = link_to event.bands.map(&:name).join(', '), event.path
+
+              p.text-muted.event-excerpt= excerpt(event).to_s.truncate(170)
+
+          / Venue stuff
+          .col-md-3.text-right
+            small.text-muted
+              = "#{event.venue.city}"
+
+        ul.list-inline.counter-group ng-show="isExpanded && event"
+          li.counter
+            .counter-number
+              | {{ event.views }}
+            .counter-label Views
+
+          li.counter
+            .counter-number
+              | {{ event.saves_count }}
+            .counter-label Saves
+
+          li.savegazers
+            ul.list-inline.pull-left
+              li ng-repeat="savegazer in event.savegazers"
+                a ng-href="{{ savegazer.profile_path }}"
+                  img ng-src="{{ savegazer.avatar_url + '&size=35' }}" width="35" height="35"
+
+        p.text-muted ng-show="isExpanded && event"
+          | {{ event.description }}
+
+        ul.list-inline.event-menu.pull-left ng-show="isExpanded && event"
+          li: a
+            i.glyphicon.glyphicon-chevron-up>
+            | Collapse
+
+        ul.list-inline.event-menu.pull-right ng-show="isExpanded && event"
+          li: a Save event
+          li: a More

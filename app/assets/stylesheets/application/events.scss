@@ -15,12 +15,45 @@
   .event {
     margin-left:  0;
     margin-right: 0;
-    padding:      10px 0;
+    padding:      15px 0;
     @include transition(all 0.1s ease-in);
 
     .media-body {
-      p {
+      p.event-excerpt {
         margin: 0;
+      }
+    }
+
+    .event-bands-labels {
+      margin-bottom: 0;
+    }
+
+    .counter-group {
+      border: 1px solid $gray-lighter;
+      border-width: 1px 0;
+      margin-top: 15px;
+      padding-bottom: 5px;
+      padding-top: 5px;
+
+      .counter {
+        margin-right: 50px;
+      }
+
+      .counter-label {
+        font-weight: 100;
+        text-transform: uppercase;
+        font-size: 70%;
+      }
+    }
+
+    .event-menu {
+      font-size: 85%;
+      margin-bottom: 0;
+
+      &.pull-right {
+        li {
+          margin-left: 10px;
+        }
       }
     }
 
@@ -43,6 +76,12 @@
     &.has-passed {
       opacity: 0.4;
       @include transition(all 0.1s ease-in);
+    }
+
+    &.is-expanded {
+      background: #f9f9f9;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.10);
+      margin-bottom: 15px;
     }
 
     &:hover {
