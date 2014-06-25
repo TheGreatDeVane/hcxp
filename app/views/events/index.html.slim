@@ -19,13 +19,3 @@
                   = link_to event.title_or_bands.truncate(30), event.path
                   br
                   small.text-muted am-time-ago="'#{event.beginning_at}'"
-
-
-  .panel.panel-default
-    .panel-heading: span = t 'sidebar.bands.heading'
-    .panel-body
-      ul.list-inline
-        - Band.order('events_count DESC').each do |band|
-          li: span.label.label-default.label-tag
-            = link_to band.name, search_index_path(q: band.name)
-            small< = band.events_count

@@ -34,30 +34,46 @@ h1, .h1 {
 
 // Panels
 .panel {
-  border: 0;
-  border-bottom: 0;
-  @include box-shadow(none)
+  border-radius: $border-radius-large + 1;
 }
+.panel-default {
+  .panel-heading {
+    background: #f9f9f9;
+  }
 
-.panel-heading {
-  padding: 0;
-  text-transform: uppercase;
-  position: relative;
-  padding-top: 10px;
-  font-size: 14px;
-
-  span {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: #fff;
-    padding-right: 10px;
-    color: $gray;
+  .panel-body {
+    padding: 15px;
   }
 }
 
-.panel-body {
-  padding: 20px 0 0;
+.panel-skeleton {
+  .panel {
+    border: 0;
+    border-bottom: 0;
+    @include box-shadow(none)
+  }
+
+  .panel-heading {
+    padding: 0;
+    text-transform: uppercase;
+    position: relative;
+    padding-top: 10px;
+    font-size: 14px;
+    border-color: #dddddd;
+
+    span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #fff;
+      padding-right: 10px;
+      color: $gray;
+    }
+  }
+
+  .panel-body {
+    padding: 20px 0 0;
+  }
 }
 
 // List group

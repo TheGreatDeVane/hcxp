@@ -18,27 +18,6 @@ ActiveRecord::Schema.define(version: 20140523104255) do
   enable_extension "pg_trgm"
   enable_extension "hstore"
 
-  create_table "audits", force: true do |t|
-    t.integer  "auditable_id"
-    t.string   "auditable_type"
-    t.integer  "associated_id"
-    t.string   "associated_type"
-    t.integer  "user_id"
-    t.string   "user_type"
-    t.string   "username"
-    t.string   "action"
-    t.text     "audited_changes"
-    t.integer  "version",         default: 0
-    t.string   "comment"
-    t.string   "remote_address"
-    t.datetime "created_at"
-  end
-
-  add_index "audits", ["associated_id", "associated_type"], name: "associated_index", using: :btree
-  add_index "audits", ["auditable_id", "auditable_type"], name: "auditable_index", using: :btree
-  add_index "audits", ["created_at"], name: "index_audits_on_created_at", using: :btree
-  add_index "audits", ["user_id", "user_type"], name: "user_index", using: :btree
-
   create_table "band_resources", force: true do |t|
     t.integer  "band_id"
     t.string   "resource_type"
@@ -85,7 +64,7 @@ ActiveRecord::Schema.define(version: 20140523104255) do
     t.time     "beginning_at_time"
     t.date     "ending_at"
     t.time     "ending_at_time"
-    t.string   "price",             limit: 30
+    t.string   "price"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "latitude"
@@ -95,7 +74,7 @@ ActiveRecord::Schema.define(version: 20140523104255) do
     t.string   "social_link_lfm"
     t.string   "social_link_hcpl"
     t.string   "short_id"
-    t.boolean  "is_promoted",                  default: false
+    t.boolean  "is_promoted",       default: false
     t.hstore   "bindings"
   end
 

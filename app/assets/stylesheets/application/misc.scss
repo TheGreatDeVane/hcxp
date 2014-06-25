@@ -53,18 +53,22 @@
 
 // Sidebar
 #sidebar {
-  padding-top: 29px;
-  opacity: 0.65;
-  @include transition(all 0.1s ease-in);
-
   .affix {
     width: 263px;
     top: 25px;
   }
+}
 
-  &:hover {
-    opacity: 1;
-    @include transition(all 0.1s ease-in);
+.widget-user-locations {
+  hr {
+    margin: 0 0 15px;
+  }
+
+  .btn-counters {
+    h4 {
+      margin-bottom: 3px;
+      margin-top: 8px;
+    }
   }
 }
 

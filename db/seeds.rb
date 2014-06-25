@@ -38,7 +38,7 @@ print '.'
   event = Event.create!(
     title:              Faker::Lorem.sentence,
     description:        Faker::Lorem.paragraphs(2).join("\n\n"),
-    band_ids:           Band.all.map(&:id),
+    band_ids:           (Band.all.map(&:id) if [true, false].sample),
     beginning_at:       DateTime.now + rand(1...10).month,
     beginning_at_time: '19:00',
     price:              '20 PLN',

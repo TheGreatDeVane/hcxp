@@ -1,7 +1,31 @@
 - if user_signed_in?
-  .panel.panel-default ng-controller="UserLocationsCtrl"
-    .panel-heading: span = t 'sidebar.your_cities.heading'
+
+  .panel.panel-default.widget-user-locations ng-controller="UserLocationsCtrl"
+    .panel-heading 
+      h3.panel-title mbajur
+
     .panel-body
+      .media
+        a.pull-left href=""
+          = image_tag avatar_url(current_user, size: 70), class: 'thumbnail', size: '70x70'
+
+        .media-body
+          .btn-group.btn-group-justified.btn-counters
+            a.btn href=search_index_path(q: current_user.username)
+              h4 = current_user.events.count
+              small = t('.hosted')
+            a.btn href=search_index_path(q: ':s')
+              h4 = current_user.saved_events.count
+              small = t('.saved')
+
+      hr
+      h5 
+        = t 'sidebar.your_cities.heading'
+
+        small.panel-menu
+          |  &#8226;
+          a< = t('.edit')
+
       form
         .input-group
           input.form-control ng-autocomplete="" ng-model="autocomplete" options="{types: '(cities)'}" details="locationDetails" placeholder=(t 'sidebar.your_cities.placeholder')
