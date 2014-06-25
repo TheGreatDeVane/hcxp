@@ -17,36 +17,54 @@ html
     .navbar.navbar-default
       .container
         .row
-          .col-md-9
-            .media
-              a.navbar-logo#logo href=root_path hcxp
-              .media-body
-                form.navbar-form.navbar-left#search action=search_index_path
-                  .form-group
-                    input.form-control.input-lg type="text" value=params[:q] name="q" placeholder=(t 'main_nav.search.placeholder')
+          ul.nav.navbar-nav
+            li: a href=root_path
+              i.glyphicon.glyphicon-home>
+              | Home
+            / li: a
+            /   i.glyphicon.glyphicon-globe>
+            /   | Discover
+            li: a
+              i.glyphicon.glyphicon-user> 
+              | Me
 
-          .col-md-3
-            .btn-group.nav-main
+          ul.nav.navbar-nav.navbar-right
+            li: a: i.glyphicon.glyphicon-cog
+            li: a: i.glyphicon.glyphicon-edit
 
-              / Menu for signed-in user
-              - if user_signed_in?
-                = link_to new_event_path, class: 'btn btn-default btn-lg', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Add event' do
-                  i.glyphicon.glyphicon-plus
+          form.navbar-form.navbar-right role="search" action=search_index_path
+            input type="text" class="form-control" placeholder="Search" name="q" value=params[:q]
 
-                = link_to search_index_path(q: ':s'), class: 'btn btn-default btn-lg', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Saved events' do
-                  i.glyphicon.glyphicon-star
+          / .col-md-9
+          /   .media
+          /     a.navbar-logo#logo href=root_path hcxp
+          /     .media-body
+          /       form.navbar-form.navbar-left#search action=search_index_path
+          /         .form-group
+          /           input.form-control.input-lg type="text" value=params[:q] name="q" placeholder=(t 'main_nav.search.placeholder')
 
-                a.btn.btn-default.btn-lg.btn-avatar data-toggle="dropdown"
-                  = image_tag avatar_url(current_user, size: 25)
-                ul.dropdown-menu.dropdown-menu-right role="menu"
-                  li: a href=search_index_path(q: current_user.username) = t 'main_nav.user.your_events'
-                  li: a = t 'main_nav.user.settings'
-                  li.divider
-                  li= link_to t('main_nav.user.sign_out'), destroy_user_session_path, method: :delete
+          / .col-md-3
+          /   .btn-group.nav-main
 
-              / Menu for guest
-              - else
-                a.btn.btn-default.btn-lg href=new_user_session_path = t 'main_nav.user.sign_in'
+          /     / Menu for signed-in user
+          /     - if user_signed_in?
+          /       = link_to new_event_path, class: 'btn btn-default btn-lg', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Add event' do
+          /         i.glyphicon.glyphicon-plus
+
+          /       = link_to search_index_path(q: ':s'), class: 'btn btn-default btn-lg', data: { toggle: 'tooltip', placement: 'bottom' }, title: 'Saved events' do
+          /         i.glyphicon.glyphicon-star
+
+          /       a.btn.btn-default.btn-lg.btn-avatar data-toggle="dropdown"
+          /         = image_tag avatar_url(current_user, size: 25)
+          /       ul.dropdown-menu.dropdown-menu-right role="menu"
+          /         li: a href=search_index_path(q: current_user.username) = t 'main_nav.user.your_events'
+          /         li: a = t 'main_nav.user.settings'
+          /         li.divider
+          /         li= link_to t('main_nav.user.sign_out'), destroy_user_session_path, method: :delete
+
+          /     / Menu for guest
+          /     - else
+          /       a.btn.btn-default.btn-lg href=new_user_session_path = t 'main_nav.user.sign_in'
 
     .container
       .row

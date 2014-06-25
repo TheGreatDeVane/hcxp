@@ -20,6 +20,10 @@
   margin-top: 10px;
   float: right;
 
+  .glyphicon {
+    font-size: 120%;
+  }
+
   .btn {
     &:first-child {
       border-right: 2px solid #E9E9E9;
