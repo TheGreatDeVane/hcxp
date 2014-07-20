@@ -13,6 +13,7 @@ html
       /* Sets moment.js lang based on app
       /* language currently being set */
       lang = '#{cookies[:locale]}'
+      console.log(lang)
       moment.lang(lang)
 
   body class="#{params[:controller]}-#{params[:action]}"

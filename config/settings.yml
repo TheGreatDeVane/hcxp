@@ -1,6 +1,6 @@
 # General settings
 general:
-  site_name: 'HCXP'
+  site_name: 'hcxp'
   subtitle: 'hardcore punk events directory'
 
 auth:

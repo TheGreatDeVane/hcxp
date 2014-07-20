@@ -69,7 +69,7 @@
             ul.list-inline.pull-left
               li ng-repeat="savegazer in event.savegazers"
                 a ng-href="{{ savegazer.profile_path }}"
-                  img ng-src="{{ savegazer.avatar_url + '&size=35' }}" width="35" height="35"
+                  img.img-rounded ng-src="{{ savegazer.avatar_url + '&size=35' }}" width="35" height="35"
 
         p.text-muted ng-show="isExpanded && event"
           | {{ event.description }}
