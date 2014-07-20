@@ -41,7 +41,10 @@ class Venue < ActiveRecord::Base
   end
 
   def to_s
-    "#{name} - #{street}, #{city}, #{country_name}"
+    string = "#{name}"
+    string << " - #{street}"      if street.present?
+    string << ", #{city}"         if city.present?
+    string << ", #{country_name}" if country_name.present?
   end
 
   def self.find_or_create_tba(city, country_code)

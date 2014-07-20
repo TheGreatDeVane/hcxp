@@ -1,109 +1,14 @@
 / Set page title
 - @title = event_page_title(@event)
 
-.row.events-show ng-controller="EventsShowCtrl" ng-init="event.id=#{@event.id}"
-  .col-md-12
-    = render 'shared/flash'
+= render 'shared/flash'
 
-    h1.event-title
-      - if @event.title.present?
-        = @event.title.truncate(24)
-      - else
-        = @event.bands.map(&:name).join(', ').truncate(24)
+.events-list
+  h2.month-title
+    = event_date_to_words @event.beginning_at
 
-    .meta.text-muted
-      = image_tag avatar_url(@event.user, size: 25), size: '25x25', class: 'avatar'
-      = link_to @event.user
+    - if !@event.beginning_at.today? && !(@event.beginning_at + 1.day).today? && !(@event.beginning_at.-1.day).today?
+      small< am-time-ago="'#{@event.beginning_at}'"
 
-      - if user_signed_in?
-        .pull-right
-
-          - if can? :edit, @event
-            = link_to t('events.edit'), edit_event_path(@event), class: 'btn btn-link btn-sm'
-            = " "
-
-          - if can? :promote, @event
-            a.btn.btn-sm ng-init="event.isPromoted=#{@event.is_promoted}" ng-class="{true: 'btn-success', false: 'btn-default'}[event.isPromoted]" ng-click='togglePromote()'
-              i.glyphicon.glyphicon-certificate>
-              span ng-hide='event.isPromoted' = t 'events.promote'
-              span ng-show='event.isPromoted' = t 'events.promoted'
-
-          = render 'save_button', event: @event
-
-    hr
-
-    .btn-group.btn-group-justified
-
-      / Event timing
-      .btn-group
-        .media
-          .pull-left.text-muted
-            i.glyphicon.glyphicon-time
-
-          .media-body
-            h4.media-heading am-time-ago="'#{@event.beginning_at}'"
-            small.text-muted
-              =l @event.beginning_at, format: '%d.%m.%Y (%A) '
-              / = @event.try(:beginning_at).try(:strftime, '%d.%m.%Y (%A) ')
-              |
-              = @event.try(:beginning_at_time).try(:strftime, '%H:%M')
-
-      / Event placement
-      - if @event.venue.present?
-        .btn-group
-          .media
-            .pull-left.text-muted
-              i.glyphicon.glyphicon-map-marker
-
-            .media-body
-              h4.media-heading = link_to @event.venue.name, search_index_path(q: "#{@event.venue.name}, #{@event.venue.city}")
-              small.text-muted
-                | #{@event.venue.city}, #{@event.venue.country_code}
-
-      / Event price
-      - if @event.price.present?
-        .btn-group
-          .media
-            .pull-left.text-muted
-              i.glyphicon.glyphicon-usd
-
-            .media-body
-              h4.media-heading = @event.price
-              small &nbsp;
-
-.row.events-show
-  .col-md-12
-    hr
-    .tabs-left
-      = render 'nav'
-
-      .tab-content: .tab-pane.active
-        = render @tab_content_partial
-
-  / .col-md-4
-  /   = image_tag @event.poster, width: '100%'
-
-
-      //- if @event.has_any_social_links?
-      //  .btn-group.btn-group-justified.social-links
-      //    = link_to 'Facebook', @event.social_link_fb, class: 'btn btn-primary'       if @event.social_link_fb.present?
-      //    = link_to 'Last.fm', @event.social_link_lfm, class: 'btn btn-danger'        if @event.social_link_lfm.present?
-      //    = link_to 'hard-core.pl', @event.social_link_hcpl, class: 'btn btn-default' if @event.social_link_hcpl.present?
-
-- content_for :sidebar do
-  .panel.panel-default
-    = image_tag @event.poster.medium, width: '100%'
-
-  .panel.panel-default.hide
-    .panel-heading: span Info
-    .panel-body
-      p: small
-        | Created <strong>2 days ago</strong> by <a href="">m.b.</a>, edited <strong>3</strong> times and viewed <strong>287</strong> times.
-
-  .panel.panel-default
-    .panel-heading: span = t 'sidebar.similar_events.heading'
-    .panel-body
-    .list-group.list-group-plused
-      - @event.similar.limit(20).each do |event|
-        a.list-group-item href=event_path(event)
-          = event
+  .month-events
+    = render 'event_show', event: @event

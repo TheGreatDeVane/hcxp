@@ -1,0 +1,80 @@
+.row.event.is-expanded class="event-#{event.id}" class="#{'faved' if try(:current_user).try(:saved_events).try(:include?, event)}" class=('is-promoted' if event.is_promoted) ng-init="eventId=#{event.id}" ng-controller="EventsListCtrl"
+  .inner
+
+    / Time section
+    .time.pull-left.text-right
+      time
+        = event.beginning_at_time.try(:strftime, '%H:%M') || '&ndash;'.html_safe
+
+      - if user_signed_in?
+        a ng-init="isSaved=#{current_user.saved_events.include? event}" ng-click="toggleIsSaved()"
+          i.glyphicon.glyphicon-star.pull-right.no-expand ng-class="{true: 'glyphicon-star', false: 'glyphicon-star-empty'}[isSaved]"
+
+    / Actual event body (poster and info)
+    .media
+
+      / The poster
+      = link_to event, class: 'pull-left no-expand' do
+        = image_tag event.poster.square, size: '50x50'
+
+      .media-body
+
+        .row
+
+          .col-md-9
+
+            - if event.title.present?
+              h3.media-heading.event-title
+                = link_to event.title, event.path, class: 'no-expand'
+
+              - if event.bands.any?
+                ul.list-inline.event-bands-labels
+                  - event.bands.each do |band|
+                    li: span.label.label-default.label-tag>
+                      = link_to band.name, search_index_path(q: band.name), class: 'no-expand'
+
+            - else
+              ul.list-inline.event-bands-labels
+                - event.bands.each do |band|
+                  li: span.label.label-default.label-tag>
+                    = link_to band.name, search_index_path(q: band.name), class: 'no-expand'
+
+          / Venue stuff
+          .col-md-3.text-right
+            small.text-muted
+              = "#{event.venue.city}"
+
+        ul.list-inline.counter-group
+          li.counter
+            .counter-number
+              | 0
+            .counter-label Views
+
+          li.counter
+            .counter-number
+              = event.saves.count
+            .counter-label Saves
+
+          li.savegazers
+            ul.list-inline.pull-left
+              - event.saves.each do |save|
+                li
+                  a ng-href=""
+                    img.img-rounded src=avatar_url(save.user) width="35" height="35"
+
+        div.text-muted
+          = markdown event.description
+
+        ul.list-unstyled.event-meta
+          li
+            i.glyphicon.glyphicon-map-marker>
+            = event.venue
+
+        ul.list-inline.event-menu.pull-left.hide
+          li: a
+            i.glyphicon.glyphicon-chevron-up>
+            | Collapse
+
+        ul.list-inline.event-menu.pull-right.hide
+          li: a Save event
+          li: a More

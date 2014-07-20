@@ -8,6 +8,9 @@ module EventsHelper
   end
 
   def event_date_to_words(date, format = '%d.%m.%Y')
+    # Make sure that date is a type of DateTime
+    date = DateTime.parse(date.to_s) if date.is_a? Date
+
     # calculate distance in days
     days = (Time.zone.now - date).to_i / 1.day
 
