@@ -7,17 +7,14 @@
         = event.beginning_at_time.try(:strftime, '%H:%M') || '&ndash;'.html_safe
 
       - if user_signed_in?
-        = link_to toggle_event_saves_path(event, from: 'list'), remote: true, method: :post do
-          - if try(:current_user).saved_events.include? event
-            i.glyphicon.glyphicon-star.pull-right
-          - else
-            i.glyphicon.glyphicon-star-empty.pull-right
+        a ng-init="isSaved=#{current_user.saved_events.include? event}" ng-click="toggleIsSaved()"
+          i.glyphicon.glyphicon-star.pull-right.no-expand ng-class="{true: 'glyphicon-star', false: 'glyphicon-star-empty'}[isSaved]"
 
     / Actual event body (poster and info)
     .media
 
       / The poster
-      = link_to event, class: 'pull-left' do
+      = link_to event, class: 'pull-left no-expand' do
         = image_tag event.poster.square, size: '50x50'
 
       .media-body
@@ -28,13 +25,13 @@
 
             - if event.title.present?
               h3.media-heading.event-title
-                = link_to event.title, event.path
+                = link_to event.title, event.path, class: 'no-expand'
 
               - if event.bands.any?
                 ul.list-inline.event-bands-labels
                   - event.bands.each do |band|
                     li: span.label.label-default.label-tag>
-                      = link_to band.name, search_index_path(q: band.name)
+                      = link_to band.name, search_index_path(q: band.name), class: 'no-expand'
 
               - else
                 p.text-muted ng-hide="isExpanded && event"
@@ -44,7 +41,7 @@
               ul.list-inline.event-bands-labels
                 - event.bands.each do |band|
                   li: span.label.label-default.label-tag>
-                    = link_to band.name, search_index_path(q: band.name)
+                    = link_to band.name, search_index_path(q: band.name), class: 'no-expand'
 
               p.text-muted.event-excerpt ng-hide="isExpanded && event"
                 = excerpt(event).to_s.truncate(170)
@@ -68,7 +65,7 @@
           li.savegazers
             ul.list-inline.pull-left
               li ng-repeat="savegazer in event.savegazers"
-                a ng-href="{{ savegazer.profile_path }}"
+                a.no-expand ng-href="{{ savegazer.profile_path }}"
                   img.img-rounded ng-src="{{ savegazer.avatar_url + '&size=35' }}" width="35" height="35"
 
         p.text-muted ng-show="isExpanded && event"

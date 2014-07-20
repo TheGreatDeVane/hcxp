@@ -5,8 +5,9 @@
 
   ($scope, $rootScope, Restangular) ->
 
-    $scope.isExpanded = false
-    $scope.event      = false
+    $scope.isExpanded   = false
+    $scope.event        = false
+    $scope.isSaved      = false
 
     loadEvent = () ->
 
@@ -15,16 +16,19 @@
         return true
 
     $scope.toggleExpand = ($event) ->
-
-      return false if $($event.target).is('a')
+      console.log $event.target
+      return false if $($event.target).is('.no-expand')
 
       # Event should be loaded just one time
       if $scope.event is false
-
         if loadEvent()
           $scope.isExpanded = !$scope.isExpanded
-
       else
         $scope.isExpanded = !$scope.isExpanded
+
+    $scope.toggleIsSaved = () ->
+      Restangular.one('events', $scope.eventId).post('toggle_save', $scope.eventId).then (data) ->
+        $scope.isSaved = data.is_saved
+        return true
 
 ])

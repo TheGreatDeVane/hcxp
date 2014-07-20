@@ -27,6 +27,7 @@ Khcpl::Application.routes.draw do
       resources :events do
         get :similar_by, on: :collection
         put :promote, on: :member
+        post :toggle_save, on: :member
       end
 
       resources :venues do

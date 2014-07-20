@@ -12,6 +12,7 @@ class Ability
       can [:edit, :update, :new, :create], Event, user_id: user.id
       can [:edit, :update, :new, :create], Band
       can [:edit, :update, :new, :create], Venue
+      can [:toggle_save], Event
     end
 
     if user.is_admin

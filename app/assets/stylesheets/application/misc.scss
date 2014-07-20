@@ -28,20 +28,18 @@
     margin-top: 8px;
     margin-left: 5px;
   }
+
+  .nav-user-nav {
+    &> li > a {
+      font-size: 19px;
+      line-height: 16px;
+    }
+  }
 }
 
 // Search form
-#search {
-  width: 100%;
-
-  .form-group {
-    width: 100%;
-  }
-
-  .input-lg {
-    width: 100%;
-    margin-bottom: 3px;
-  }
+.search-form {
+  margin-right: 5px !important;
 }
 
 // Content

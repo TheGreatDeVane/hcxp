@@ -1,6 +1,6 @@
 class Api::V1::EventsController < Api::V1Controller
-  # before_action :authenticate_user!, only: [:]
-  before_action :set_event, only: [:promote]
+  before_action :authenticate_user!, only: [:toggle_save]
+  before_action :set_event, only: [:promote, ]
   skip_before_filter :verify_authenticity_token
   load_and_authorize_resource :event, except: [:similar_by]
 
@@ -18,6 +18,16 @@ class Api::V1::EventsController < Api::V1Controller
 
   def promote
     @event.update_attribute(:is_promoted, !@event.is_promoted)
+  end
+
+  def toggle_save
+    if current_user.saved_events.include? @event
+      current_user.saved_events.delete @event
+    else
+      current_user.saved_events <<  @event
+    end
+
+    @event.reload
   end
 
   private
