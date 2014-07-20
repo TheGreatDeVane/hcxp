@@ -75,6 +75,10 @@
             i.glyphicon.glyphicon-chevron-up>
             | Collapse
 
-        ul.list-inline.event-menu.pull-right.hide
-          li: a Save event
-          li: a More
+        ul.list-inline.event-menu.pull-right
+          - if can? :edit, @event
+            li: a href=edit_event_path(@event) Edit
+
+          / - if can? :promote, @event
+          /   li: a Promote
+          / li: a More

@@ -12,3 +12,18 @@
 
   .month-events
     = render 'event_show', event: @event
+
+- content_for :sidebar do
+
+  - if @event.other_events_in_the_city.any?
+    .panel.panel-default
+      .panel-heading: span
+        = t 'sidebar.other_events_in.heading'
+
+      div.list-group
+        - @event.other_events_in_the_city.limit(5).each do |event|
+
+          div.list-group-item
+            = link_to event.title_or_bands.truncate(40), event.path
+            br
+            small.text-muted am-time-ago="'#{event.beginning_at}'"

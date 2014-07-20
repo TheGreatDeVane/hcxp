@@ -177,4 +177,13 @@ class Event < ActiveRecord::Base
     e = Khcpl::Exporters::Fhcpl.new
     e.destroy(bindings['fhcpl'])
   end
+
+  def other_events_in_the_city
+    city      = venue.city
+    venue_ids = Venue.where(city: city).map(&:id)
+
+    Event.from_the_future
+      .where(venue_id: venue_ids)
+      .where.not(id: id)
+  end
 end
