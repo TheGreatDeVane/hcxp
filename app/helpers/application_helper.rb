@@ -44,4 +44,16 @@ module ApplicationHelper
       when 'alert'   then "alert alert-warning"
     end
   end
+
+  def app_version
+    rev  = `git rev-parse --short HEAD`.strip
+    date = `git log -1 --format=%cd`
+    date = Date.parse(date).strftime("%d.%m.%Y")
+
+    version = ''
+    version << 'd:49 / ' if Rails.env.production?
+    version << "b:<a href='https://github.com/mbajur/hcxp/commit/#{rev}'>#{rev}</a>.#{date}"
+
+    version.html_safe
+  end
 end
