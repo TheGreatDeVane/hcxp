@@ -49,7 +49,7 @@
           / Venue stuff
           .col-md-3.text-right
             small.text-muted
-              = "#{event.venue.city}"
+              = "#{event.venue.try(:city)}"
 
         ul.list-inline.counter-group ng-show="isExpanded && event"
           li.counter
