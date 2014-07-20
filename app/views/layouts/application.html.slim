@@ -1,8 +1,7 @@
 doctype html
 html
   head
-    title hcxp
-
+    title= page_title(@title)
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"
     link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:300,400,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'
@@ -11,7 +10,10 @@ html
     meta name="viewport" content="width=device-width, initial-scale=1"
 
     javascript:
-      moment.lang('#{cookies[:locale]}')
+      /* Sets moment.js lang based on app
+      /* language currently being set */
+      lang = '#{cookies[:locale]}'
+      moment.lang(lang)
 
   body class="#{params[:controller]}-#{params[:action]}"
     .navbar.navbar-default.navbar-main

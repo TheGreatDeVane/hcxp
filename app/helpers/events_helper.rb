@@ -1,4 +1,12 @@
 module EventsHelper
+  def event_page_title(event)
+    title  = event.title_or_bands
+    title += ' / '
+    title += (event.venue.present?) ? event.venue.name : 'TBA'
+
+    title
+  end
+
   def event_date_to_words(date, format = '%d.%m.%Y')
     # calculate distance in days
     days = (Time.zone.now - date).to_i / 1.day

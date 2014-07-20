@@ -11,17 +11,16 @@
 
 - if @event_months.empty?
   p.lead.text-center
-    | Oops!
+    =t 'search.no_results.oops'
 
   p.text-center
     - if params[:q]
-
-      | Sorry, no events found for <strong>#{params[:q]}</strong>.
+      =t('search.no_results.description', query: params[:q]).html_safe
       br
-      | Maybe you should try <a href="#{search_index_path(q: '-' + params[:q])}">searching the archives? &rarr;</a>
+      =t('search.no_results.advice', url: search_index_path(q: '-' + params[:q])).html_safe
 
     - else
 
-      | Sorry, no events found.
+      =t('search.no_results.description_without_q').html_safe
       br
-      | Maybe you should try <a href="#{search_index_path(q: '-')}">searching the archives? &rarr;</a>
+      =t('search.no_results.advice', url: search_index_path(q: '-')).html_safe

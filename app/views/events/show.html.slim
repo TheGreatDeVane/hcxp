@@ -1,5 +1,10 @@
+/ Set page title
+- @title = event_page_title(@event)
+
 .row.events-show ng-controller="EventsShowCtrl" ng-init="event.id=#{@event.id}"
   .col-md-12
+    = render 'shared/flash'
+
     h1.event-title
       - if @event.title.present?
         = @event.title.truncate(24)

@@ -212,6 +212,7 @@ GEM
       rails-assets-moment (>= 2.0.0, < 2.7.0)
     rails-assets-angular-sanitize (1.2.16)
       rails-assets-angular (= 1.2.16)
+    rails-assets-angular-translate (2.2.0)
     rails-assets-lodash (2.4.1)
     rails-assets-moment (2.6.0)
     rails-assets-ngAutocomplete (1.0.0)
@@ -365,6 +366,7 @@ DEPENDENCIES
   rails-assets-angular-bootstrap
   rails-assets-angular-moment
   rails-assets-angular-sanitize
+  rails-assets-angular-translate
   rails-assets-moment
   rails-assets-ngAutocomplete
   rails-assets-restangular

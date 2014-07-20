@@ -27,13 +27,13 @@ gem 'turbolinks'
 gem 'jquery-turbolinks'
 
 # Slim templates
-gem "slim-rails"
+gem 'slim-rails'
 
 # Tagging
 gem 'acts-as-taggable-on'
 
 # Geocoding
-gem "geocoder"
+gem 'geocoder'
 
 # Authentication
 gem 'devise'
@@ -43,9 +43,10 @@ gem 'cancancan', '~> 1.8'
 gem 'carrierwave'
 gem 'carrierwave-azure'
 gem 'rmagick'
+# gem 'mini_magick'
 
 # nested forms
-gem "nested_form"
+gem 'nested_form'
 
 # markdown parser
 gem 'redcarpet'
@@ -57,7 +58,7 @@ gem 'nokogiri'
 # gem 'sanitize'
 
 # typehead.js
-gem 'twitter-typeahead-rails', :git => "git://github.com/yourabi/twitter-typeahead-rails.git"
+gem 'twitter-typeahead-rails', git: 'git://github.com/yourabi/twitter-typeahead-rails.git'
 
 # select2
 gem 'select2-rails'
@@ -80,7 +81,7 @@ gem 'friendly_id', '~> 5.0.0'
 # EpicEditor
 gem 'epic-editor-rails'
 
-# Use your angular templates with rails' asset pipeline
+# Use your angular templates with rails asset pipeline
 gem 'angular-rails-templates', github: 'pitr/angular-rails-templates'
 
 # Rails settings
@@ -125,3 +126,4 @@ gem 'rails-assets-angular-sanitize'
 gem 'rails-assets-showdown'
 gem 'rails-assets-moment'
 gem 'rails-assets-angular-moment'
+gem 'rails-assets-angular-translate'

@@ -15,4 +15,8 @@ class User < ActiveRecord::Base
   def to_s
     username || email
   end
+
+  def recent_venues
+    Venue.where(id: events.select(:venue_id)).uniq
+  end
 end

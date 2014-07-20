@@ -1,19 +1,21 @@
 #= require_self
+#= require      ./locales
 #= require_tree ./controllers
 
-hcxpApp = angular.module "hcxpApp", [
+@hcxpApp = angular.module "hcxpApp", [
   'restangular'
   'ngAutocomplete'
   'ui.bootstrap'
   'templates'
   'btford.markdown'
   'angularMoment'
+  'pascalprecht.translate'
 
   'hcxpApp.controllers'
 ]
 
 # Config
-hcxpApp.config([
+@hcxpApp.config([
   'RestangularProvider'
 
   (RestangularProvider) ->

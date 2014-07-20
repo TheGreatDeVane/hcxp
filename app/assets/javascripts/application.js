@@ -22,6 +22,7 @@
 //= require application/vendor/ui-bootstrap-tpls.min
 //= require angular-bootstrap
 //= require angular-sanitize
+//= require angular-translate
 //= require showdown
 //= require ./application/vendor/markdown
 //= require moment
@@ -36,6 +37,8 @@
 //
 //= require bootstrap/tooltip
 //= require bootstrap/dropdown
+//= require bootstrap/tab
+//= require bootstrap/alert
 // require bootstrap/affix
 //
 //= require epiceditor
@@ -74,6 +77,11 @@ $(document).ready(function() {
   }
 
   $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tab"]').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
+  $(".alert").alert()
 
   // $('#search input').typeahead([
   // 	{
