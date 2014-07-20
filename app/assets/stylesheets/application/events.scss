@@ -17,6 +17,7 @@
     margin-right: 0;
     padding:      15px 0;
     @include transition(all 0.1s ease-in);
+    cursor: pointer;
 
     .media-body {
       p.event-excerpt {
@@ -44,6 +45,13 @@
         text-transform: uppercase;
         font-size: 70%;
       }
+    }
+
+    .event-meta {
+      font-size: 85%;
+      color: $gray;
+
+      margin-bottom: 15px;
     }
 
     .event-menu {
@@ -108,7 +116,7 @@
   }
 
   .time {
-    width: 107px;
+    width: 121px;
     padding-right: 15px;
 
     time {

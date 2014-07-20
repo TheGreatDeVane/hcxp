@@ -15,24 +15,18 @@
   float: left;
 }
 
+.logo {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  margin-left: -32px;
+}
+
 // Main nav
-.nav-main {
-  margin-top: 10px;
-  float: right;
-
-  .glyphicon {
-    font-size: 120%;
-  }
-
-  .btn {
-    &:first-child {
-      border-right: 2px solid #E9E9E9;
-      padding-right: 13px;
-
-      &:hover {
-        border-right: 2px solid $gray-lighter;
-      }
-    }
+.navbar-main {
+  .btn-sign-in {
+    margin-top: 8px;
+    margin-left: 5px;
   }
 }
 

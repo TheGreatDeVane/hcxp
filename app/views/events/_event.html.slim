@@ -3,7 +3,7 @@
 
     / Time section
     .time.pull-left.text-right
-      time 
+      time
         = event.beginning_at_time.try(:strftime, '%H:%M') || '&ndash;'.html_safe
 
       - if user_signed_in?
@@ -33,7 +33,7 @@
               - if event.bands.any?
                 ul.list-inline.event-bands-labels
                   - event.bands.each do |band|
-                    li: span.label.label-default.label-tag> 
+                    li: span.label.label-default.label-tag>
                       = link_to band.name, search_index_path(q: band.name)
 
               - else
@@ -41,10 +41,13 @@
                   = excerpt(event).to_s.truncate(170)
 
             - else
-              h3.media-heading.event-title
-                = link_to event.bands.map(&:name).join(', '), event.path
+              ul.list-inline.event-bands-labels
+                - event.bands.each do |band|
+                  li: span.label.label-default.label-tag>
+                    = link_to band.name, search_index_path(q: band.name)
 
-              p.text-muted.event-excerpt= excerpt(event).to_s.truncate(170)
+              p.text-muted.event-excerpt ng-hide="isExpanded && event"
+                = excerpt(event).to_s.truncate(170)
 
           / Venue stuff
           .col-md-3.text-right
@@ -71,11 +74,16 @@
         p.text-muted ng-show="isExpanded && event"
           | {{ event.description }}
 
-        ul.list-inline.event-menu.pull-left ng-show="isExpanded && event"
+        ul.list-unstyled.event-meta ng-show="isExpanded && event"
+          li
+            i.glyphicon.glyphicon-map-marker>
+            | {{ event.venue.name }}, {{ event.venue.address }}
+
+        ul.list-inline.event-menu.pull-left.hide ng-show="isExpanded && event"
           li: a
             i.glyphicon.glyphicon-chevron-up>
             | Collapse
 
-        ul.list-inline.event-menu.pull-right ng-show="isExpanded && event"
+        ul.list-inline.event-menu.pull-right.hide ng-show="isExpanded && event"
           li: a Save event
           li: a More

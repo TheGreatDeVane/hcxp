@@ -1,5 +1,5 @@
 class Api::V1::EventsController < Api::V1Controller
-  before_action :authenticate_user!
+  # before_action :authenticate_user!, only: [:]
   before_action :set_event, only: [:promote]
   skip_before_filter :verify_authenticity_token
   load_and_authorize_resource :event, except: [:similar_by]

@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title HCXP
+    title hcxp
 
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"
@@ -14,7 +14,11 @@ html
       moment.lang('#{cookies[:locale]}')
 
   body class="#{params[:controller]}-#{params[:action]}"
-    .navbar.navbar-default
+    .navbar.navbar-default.navbar-main
+
+      a.logo href=root_path
+        = image_tag 'logo.jpg'
+
       .container
         .row
           ul.nav.navbar-nav
@@ -25,12 +29,18 @@ html
             /   i.glyphicon.glyphicon-globe>
             /   | Discover
             li: a
-              i.glyphicon.glyphicon-user> 
+              i.glyphicon.glyphicon-user>
               | Me
 
-          ul.nav.navbar-nav.navbar-right
-            li: a: i.glyphicon.glyphicon-cog
-            li: a: i.glyphicon.glyphicon-edit
+          - if user_signed_in?
+            ul.nav.navbar-nav.navbar-right
+              li: a: i.glyphicon.glyphicon-cog
+              li = link_to new_event_path do
+                i.glyphicon.glyphicon-edit
+
+          - else
+            ul.list-inline.navbar-right
+              li: a.btn.btn-default.btn-sign-in href=new_user_session_path = t 'main_nav.user.sign_in'
 
           form.navbar-form.navbar-right role="search" action=search_index_path
             input type="text" class="form-control" placeholder="Search" name="q" value=params[:q]

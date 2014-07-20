@@ -9,14 +9,13 @@
       .panel-heading: span
         = t 'sidebar.featured_events.heading'
 
-      .panel-body
-        div.list-group
-          - Event.featured.each do |event|
+      div.list-group
+        - Event.featured.each do |event|
 
-            div.list-group-item
-              .media
-                = image_tag event.poster.square, class: 'pull-left', size: '42x42'
-                .media-body
-                  = link_to event.title_or_bands.truncate(30), event.path
-                  br
-                  small.text-muted am-time-ago="'#{event.beginning_at}'"
+          div.list-group-item
+            .media
+              = image_tag event.poster.square, class: 'pull-left', size: '42x42'
+              .media-body
+                = link_to event.title_or_bands.truncate(30), event.path
+                br
+                small.text-muted am-time-ago="'#{event.beginning_at}'"
