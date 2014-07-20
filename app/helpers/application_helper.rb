@@ -55,5 +55,7 @@ module ApplicationHelper
     version << "b:<a href='https://github.com/mbajur/hcxp/commit/#{rev}'>#{rev}</a>.#{date}"
 
     version.html_safe
+  rescue
+    ''
   end
 end
