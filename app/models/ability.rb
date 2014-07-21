@@ -6,6 +6,7 @@ class Ability
 
     # Guests
     can :read, :all
+    can :browse, Event
 
     # Members
     unless user.new_record?

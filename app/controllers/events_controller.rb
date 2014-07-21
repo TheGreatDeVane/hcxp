@@ -7,9 +7,16 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events       = Event.from_the_future.order(:beginning_at)
+    @events = Event.from_the_future.order(:beginning_at)
+
+    if user_signed_in?
+      @events = @events.from_cities(current_user.locations.map(&:city)) if current_user.locations.any?
+    end
+
     @event_months = @events.group_by { |e| e.beginning_at.beginning_of_day }
   end
+
+  def browse; end
 
   # GET /events/1
   # GET /events/1.json

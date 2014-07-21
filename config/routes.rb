@@ -55,15 +55,13 @@ Khcpl::Application.routes.draw do
 
   resources :events, path: '/' do
     get :edit, on: :member
-    get :autocomplete, on: :collection
+    # get :autocomplete, on: :collection
+
+    get :browse, on: :collection
 
     resources :saves do
       post :toggle, on: :collection
     end
-
-    get :bands, on: :member
-    get :links, on: :member
-    get :resources, on: :member
 
     get ':slug' => 'events#show', on: :member, as: :slugged
   end

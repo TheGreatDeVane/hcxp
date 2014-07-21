@@ -1,3 +1,15 @@
+- if user_signed_in?
+  - @title = 'Dashboard'
+
+  .page-lead
+    h1.h3 Dashboard
+    p.text-muted.description
+      | Displaying events from:
+      - if current_user.locations.any?
+        = current_user.locations.map(&:to_s).join(', ')
+      - else
+        |  anywhere
+
 = render 'shared/flash'
 = render 'events/events'
 

@@ -26,6 +26,7 @@ class Event < ActiveRecord::Base
   # Validations
   validates :user_id, presence: true
   validates :beginning_at, presence: true
+  validates :venue_id, presence: true
 
   # Nested attributes
   accepts_nested_attributes_for :event_bands, allow_destroy: true,
@@ -192,5 +193,9 @@ class Event < ActiveRecord::Base
   def views_count
     # impressionist_count
     impressions_count
+  end
+
+  def self.from_cities(cities = [])
+    self.joins(:venue).where('venues.city IN (?)', cities)
   end
 end
