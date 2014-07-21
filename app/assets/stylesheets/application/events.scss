@@ -66,18 +66,27 @@
     }
 
     &.is-promoted {
-      background: lighten($brand-success, 25%);
+      background: lighten($brand-info, 25%);
 
       .text-muted {
-        color: lighten($brand-success, 5%);
+        color: lighten($brand-info, 5%);
+      }
+
+      .counter-group {
+        border-color: lighten($brand-info, 18%);
       }
 
       &:hover {
-        background: lighten($brand-success, 20%);
+        background: lighten($brand-info, 25%);
 
         .text-muted {
-          color: lighten($brand-success, 0%);
+          color: lighten($brand-info, 5%);
         }
+      }
+
+      &.is-expanded {
+        background: lighten($brand-info, 25%);
+        box-shadow: 0 1px 1px rgba($brand-info, 0.6);
       }
     }
 
