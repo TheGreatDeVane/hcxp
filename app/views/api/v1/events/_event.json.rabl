@@ -1,13 +1,13 @@
-attributes :id 
-attributes :title 
+attributes :id
+attributes :title
 attributes :title_or_bands
 attributes :description
+attributes :views_count
 attributes :band_ids
 attributes :savegazer_ids
 attributes :venue_id
 
 node(:saves_count) { |event| event.saves.count }
-node(:views) { |event| rand(0..100) }
 
 child :savegazers => 'savegazers' do
   collection locals[:object].savegazers

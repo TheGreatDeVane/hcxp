@@ -87,6 +87,9 @@ gem 'angular-rails-templates', github: 'pitr/angular-rails-templates'
 # Rails settings
 gem "rails_config"
 
+# Impressions
+gem 'impressionist'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

@@ -1,6 +1,7 @@
 class Api::V1::EventsController < Api::V1Controller
   before_action :authenticate_user!, only: [:toggle_save]
-  before_action :set_event, only: [:promote, ]
+  before_action :set_event, only: [:promote, :toggle_save]
+  impressionist actions: [:show], unique: [:impressionable_type, :impressionable_id, :session_hash]
   skip_before_filter :verify_authenticity_token
   load_and_authorize_resource :event, except: [:similar_by]
 

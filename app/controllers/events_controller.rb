@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy, :bands]
   before_action :authenticate_user!, only: [:edit, :update, :new, :create]
+  impressionist actions: [:show], unique: [:impressionable_type, :impressionable_id, :session_hash]
   load_and_authorize_resource :event
 
   # GET /events

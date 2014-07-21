@@ -143,7 +143,11 @@ GEM
     hike (1.2.3)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
+    httpclient (2.4.0)
     i18n (0.6.9)
+    impressionist (1.5.1)
+      httpclient (~> 2.2)
+      nokogiri (~> 1.5)
     jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -353,6 +357,7 @@ DEPENDENCIES
   friendly_id (~> 5.0.0)
   geocoder
   guard-rspec
+  impressionist
   jquery-rails
   jquery-turbolinks
   mechanize

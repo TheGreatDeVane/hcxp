@@ -2,6 +2,8 @@ class Event < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   include PgSearch
 
+  is_impressionable counter_cache: true, unique: [:impressionable_type, :impressionable_id, :session_hash]
+
   pg_search_scope :search, against: [:title, :beginning_at],
                            associated_against: {
                              bands: [:name],
@@ -185,5 +187,10 @@ class Event < ActiveRecord::Base
     Event.from_the_future
       .where(venue_id: venue_ids)
       .where.not(id: id)
+  end
+
+  def views_count
+    # impressionist_count
+    impressions_count
   end
 end
