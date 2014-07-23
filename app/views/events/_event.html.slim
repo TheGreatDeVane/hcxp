@@ -47,7 +47,7 @@
                 = excerpt(event).to_s.truncate(170)
 
           / Venue stuff
-          .col-md-3.text-right
+          .col-md-3.text-right.event-venue
             small.text-muted
               = "#{event.venue.try(:city)}"
 
