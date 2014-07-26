@@ -2,6 +2,51 @@
 @import "compass/css3/images";
 @import "compass/css3/transition";
 
+// Mixins
+@mixin event-preset($base-color) {
+  background:   lighten($base-color, 25%);
+  border-color: lighten($base-color, 15%);
+
+  .event-title a {
+    color: darken($base-color, 18%);
+  }
+
+  .event-save i { color: $base-color; }
+
+  .text-muted {
+    color: $base-color
+  }
+
+  .counter-group {
+    border-color: lighten($base-color, 18%);
+  }
+
+  .counter-group {
+    .counter-number {
+      color: darken($base-color, 18%);
+    }
+
+    .counter-label {
+      color: $base-color;
+    }
+  }
+
+  &:hover {
+    background:   lighten($base-color, 25%);
+    border-color: lighten($base-color, 15%);
+  }
+
+  &.is-expanded {
+    background:   lighten($base-color, 25%);
+    box-shadow:   0 1px 1px rgba($base-color, 0.6);
+    border-color: lighten($base-color, 15%);
+
+    &:hover {
+      border-color: lighten($base-color, 15%);
+    }
+  }
+}
+
 // Events list, day by day
 .events-list {
   .month-title {
@@ -15,9 +60,21 @@
   .event {
     margin-left:  0;
     margin-right: 0;
-    padding:      15px 0;
-    @include transition(all 0.1s ease-in);
+    padding:      15px;
     cursor: pointer;
+    border-left: 5px solid #fff;
+    position: relative;
+    // @include transition(all 0.1s ease-in);
+
+    .event-save {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+
+      i {
+        color: $gray-light;
+      }
+    }
 
     .media-body {
       p.event-excerpt {
@@ -25,7 +82,7 @@
       }
     }
 
-    .event-venue small {
+    .event-poster {
       margin-right: 15px;
     }
 
@@ -69,29 +126,13 @@
       }
     }
 
+    // Event presets
     &.is-promoted {
-      background: lighten($brand-info, 25%);
+      @include event-preset($brand-info);
+    }
 
-      .text-muted {
-        color: lighten($brand-info, 5%);
-      }
-
-      .counter-group {
-        border-color: lighten($brand-info, 18%);
-      }
-
-      &:hover {
-        background: lighten($brand-info, 25%);
-
-        .text-muted {
-          color: lighten($brand-info, 5%);
-        }
-      }
-
-      &.is-expanded {
-        background: lighten($brand-info, 25%);
-        box-shadow: 0 1px 1px rgba($brand-info, 0.6);
-      }
+    &.is-saved {
+      @include event-preset($brand-warning);
     }
 
     &.has-passed {
@@ -103,11 +144,17 @@
       background: #f9f9f9;
       box-shadow: 0 1px 1px rgba(0, 0, 0, 0.10);
       margin-bottom: 15px;
+      border-color: darken(#f9f9f9, 5%);
+
+      &:hover {
+        border-color: darken(#f9f9f9, 5%);
+      }
     }
 
     &:hover {
-      @include transition(all 0.1s ease-in);
+      // @include transition(all 0.1s ease-in);
       background: #f9f9f9;
+      border-color: #f9f9f9;
 
       &.has-passed {
         opacity: 1;
@@ -120,7 +167,7 @@
   }
 
   .event-title {
-    font-size: 15px;
+    font-size: 16px;
     margin-bottom: 4px;
 
     a {
@@ -128,118 +175,7 @@
     }
   }
 
-  .time {
-    width: 121px;
-    padding-right: 15px;
-
-    time {
-      display: block;
-      margin-bottom: 5px;
-    }
-  }
-
   .media {
     margin-top: 0;
-  }
-}
-
-// Single event view
-.events-show {
-  .event-title {
-    margin-top: 0;
-  }
-
-  .avatar {
-    margin-right: 10px;
-  }
-
-  .post-body {
-    img {
-      max-width: 100%;
-    }
-  }
-
-  .description {
-    overflow: hidden;
-    max-height: 140px;
-    position: relative;
-
-    .expander {
-      position: absolute;
-      @include background(linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.7) 30%, #fff));
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      cursor: pointer;
-      padding: 10px 0;
-
-      .btn {
-        padding: 10px 10px 5px;
-      }
-
-      i {
-        font-size: 20px;
-        color: $gray;
-      }
-    }
-
-    &.expanded {
-      max-height: none;
-
-      .expander {
-        opacity: 0;
-        display: none;
-      }
-    }
-  }
-}
-
-// Band thumb. The one on event's band list
-.band-thumb {
-  position: relative;
-  height: 210px;
-  display: block;
-  margin-bottom: 30px;
-  overflow: hidden;
-  background: $gray-lighter;
-
-  .thumb-container {
-    position: absolute;
-    top: 0;
-    z-index: 10;
-  }
-
-  .thumb-heading {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 20;
-
-    h4 {
-      padding: 10px;
-      background: #000;
-      color: #fff;
-      margin-bottom: -6px;
-      margin-top: 0;
-
-      a {
-        color: #fff;
-      }
-    }
-
-    .location {
-      background: #fff;
-      padding: 0 3px;
-      margin-left: 10px;
-    }
-  }
-
-  .thumb-player {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    z-index: 30;
-    opacity: 0.8;
   }
 }

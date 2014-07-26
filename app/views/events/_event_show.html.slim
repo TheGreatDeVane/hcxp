@@ -1,21 +1,12 @@
 .row.event.is-expanded class="event-#{event.id}" class="#{'faved' if try(:current_user).try(:saved_events).try(:include?, event)}" class=('is-promoted' if event.is_promoted) ng-init="eventId=#{event.id}" ng-controller="EventsListCtrl"
   .inner
 
-    / Time section
-    .time.pull-left.text-right
-      time
-        = event.beginning_at_time.try(:strftime, '%H:%M') || '&ndash;'.html_safe
-
-      - if user_signed_in?
-        a ng-init="isSaved=#{current_user.saved_events.include? event}" ng-click="toggleIsSaved()"
-          i.glyphicon.glyphicon-star.pull-right.no-expand ng-class="{true: 'glyphicon-star', false: 'glyphicon-star-empty'}[isSaved]"
-
     / Actual event body (poster and info)
     .media
 
       / The poster
-      = link_to event, class: 'pull-left no-expand' do
-        = image_tag event.poster.square, size: '50x50'
+      = link_to event, class: 'pull-left no-expand event-poster' do
+        = image_tag event.poster.square, size: '65x65', class: 'img-rounded'
 
       .media-body
 

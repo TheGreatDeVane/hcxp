@@ -58,14 +58,28 @@
 }
 
 .widget-user-locations {
+  .media-heading {
+    margin-bottom: 2px;
+  }
+
   hr {
     margin: 0 0 15px;
   }
 
   .btn-counters {
     h4 {
-      margin-bottom: 3px;
-      margin-top: 8px;
+      margin: 0;
+    }
+
+    small {
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    a {
+      text-align: left;
+      color: $gray;
+      padding: 0;
     }
   }
 }

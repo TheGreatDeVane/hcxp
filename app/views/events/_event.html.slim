@@ -1,21 +1,21 @@
-.row.event class="event-#{event.id}" class="#{'faved' if try(:current_user).try(:saved_events).try(:include?, event)}" class=('has-passed' if event.has_passed) class=('is-promoted' if event.is_promoted) ng-click="toggleExpand($event)" ng-init="eventId=#{event.id}" ng-controller="EventsListCtrl" ng-class="{true:'is-expanded'}[isExpanded]"
+.row.event (
+    class="event-#{event.id}"
+    class="#{'faved' if try(:current_user).try(:saved_events).try(:include?, event)}"
+    class=('has-passed' if event.has_passed)
+    class=('is-promoted' if event.is_promoted)
+    ng-click="toggleExpand($event)"
+    ng-init="eventId=#{event.id}; isSaved=#{current_user.saved_events.include? event}"
+    ng-controller="EventsListCtrl"
+    ng-class="{'is-expanded': isExpanded, 'is-saved': isSaved}"
+  )
   .inner
-
-    / Time section
-    .time.pull-left.text-right
-      time
-        = event.beginning_at_time.try(:strftime, '%H:%M') || '&ndash;'.html_safe
-
-      - if user_signed_in?
-        a ng-init="isSaved=#{current_user.saved_events.include? event}" ng-click="toggleIsSaved()"
-          i.glyphicon.glyphicon-star.pull-right.no-expand ng-class="{true: 'glyphicon-star', false: 'glyphicon-star-empty'}[isSaved]"
 
     / Actual event body (poster and info)
     .media
 
       / The poster
-      = link_to event, class: 'pull-left no-expand' do
-        = image_tag event.poster.square, size: '50x50'
+      = link_to event, class: 'pull-left no-expand event-poster' do
+        = image_tag event.poster.square, size: '65x65', class: 'img-rounded'
 
       .media-body
 
@@ -34,7 +34,7 @@
                       = link_to band.name, search_index_path(q: band.name), class: 'no-expand'
 
               - else
-                p.text-muted ng-hide="isExpanded && event"
+                p.text-muted.event-excerpt ng-hide="isExpanded && event"
                   = excerpt(event).to_s.truncate(170)
 
             - else
@@ -76,6 +76,14 @@
             i.glyphicon.glyphicon-map-marker>
             | {{ event.venue.name }}, {{ event.venue.address }}
 
+          li
+            i.glyphicon.glyphicon-time>
+            | 19:00
+
+          li
+            i.glyphicon.glyphicon-coins>
+            | 19:00
+
         ul.list-inline.event-menu.pull-left.hide ng-show="isExpanded && event"
           li: a
             i.glyphicon.glyphicon-chevron-up>
@@ -84,3 +92,7 @@
         ul.list-inline.event-menu.pull-right.hide ng-show="isExpanded && event"
           li: a Save event
           li: a More
+
+        - if user_signed_in?
+          a.event-save ng-init="isSaved=#{current_user.saved_events.include? event}" ng-click="toggleIsSaved()"
+            i.glyphicon.glyphicon-star.pull-right.no-expand ng-class="{true: 'glyphicon-star', false: 'glyphicon-star-empty'}[isSaved]"

@@ -6,7 +6,7 @@
     p.text-muted.description
       | Displaying events from:
       - if current_user.locations.any?
-        = current_user.locations.map(&:to_s).join(', ')
+        = ' ' << current_user.locations.map(&:to_s).join(', ')
       - else
         |  anywhere
 

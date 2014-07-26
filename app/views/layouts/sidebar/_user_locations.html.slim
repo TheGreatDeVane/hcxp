@@ -2,24 +2,26 @@
 
   .panel.panel-default.widget-user-locations ng-controller="UserLocationsCtrl"
     .panel-heading
-      h3.panel-title = current_user
-
-    .panel-body
+      / h3.panel-title = current_user
       .media
-        a.pull-left href=""
-          = image_tag avatar_url(current_user, size: 70), class: 'thumbnail', size: '70x70'
+        a.pull-left
+          = image_tag avatar_url(current_user, size: 70), class: 'img-rounded avatar', size: '70x70'
 
         .media-body
+          h4.media-heading m.b.
           .btn-group.btn-group-justified.btn-counters
             a.btn href=search_index_path(q: current_user.username)
-              h4 = current_user.events.count
               small = t('.hosted')
+              h4 = current_user.events.count
 
             a.btn href=search_index_path(q: ':s')
-              h4 = current_user.saved_events.count
               small = t('.saved')
+              h4 = current_user.saved_events.count
 
-      hr
+    .panel-body
+      .btn-group.btn-group-justified
+        a.btn.btn-success Add Event
+
       h5
         = t 'sidebar.your_cities.heading'
 
