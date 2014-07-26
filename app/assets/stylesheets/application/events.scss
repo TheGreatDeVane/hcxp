@@ -11,7 +11,7 @@
     color: darken($base-color, 18%);
   }
 
-  .event-save i { color: $base-color; }
+  .event-menu > a > i { color: $base-color; }
 
   .text-muted {
     color: $base-color
@@ -28,6 +28,14 @@
 
     .counter-label {
       color: $base-color;
+    }
+  }
+
+  .event-meta {
+    color: $base-color;
+
+    i {
+      color: darken($base-color, 10%);
     }
   }
 
@@ -66,14 +74,22 @@
     position: relative;
     // @include transition(all 0.1s ease-in);
 
-    .event-save {
+    .event-menu {
       position: absolute;
       bottom: 15px;
       right: 15px;
 
-      i {
-        color: $gray-light;
+      & > a {
+        padding: 0 0 0 10px;
+
+        i {
+          color: $gray-light;
+        }
       }
+    }
+
+    .event-save i {
+      color: $gray-light;
     }
 
     .media-body {
@@ -111,8 +127,12 @@
     .event-meta {
       font-size: 85%;
       color: $gray;
-
       margin-bottom: 15px;
+
+      i {
+        width: 15px;
+        text-align: center;
+      }
     }
 
     .event-menu {
@@ -127,16 +147,16 @@
     }
 
     // Event presets
-    &.is-promoted {
-      @include event-preset($brand-info);
-    }
-
     &.is-saved {
       @include event-preset($brand-warning);
     }
 
+    &.is-promoted {
+      @include event-preset($brand-info);
+    }
+
     &.has-passed {
-      opacity: 0.4;
+      opacity: 0.6;
       @include transition(all 0.1s ease-in);
     }
 

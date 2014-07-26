@@ -17,7 +17,7 @@ class Ability
     end
 
     if user.is_admin
-      can [:promote], Event
+      can [:toggle_promote], Event
       can [:destroy], Event, persisted?: true
       can [:edit, :update], Event
     end

@@ -9,6 +9,7 @@ gem 'rails-i18n'
 gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'compass-rails'
+gem "font-awesome-rails"
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

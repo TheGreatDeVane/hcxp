@@ -33,8 +33,6 @@
         # If venue has been picked from the list
         $scope.event.venue_id = selectedVenueId
 
-
-
     # Open band picker modal
     $scope.addBand = () ->
       modalInstance = $modal.open
@@ -51,12 +49,8 @@
         }
         $scope.event.event_bands.push event_band
 
-
-
     $scope.removeBand = (index) ->
       $scope.event.bands[index].destroy = true
-
-
 
     $scope.saveTBA = (details) ->
       return unless $scope.tbaValid

@@ -25,7 +25,7 @@ html
         .row
           ul.nav.navbar-nav
             li: a href=root_path
-              i.glyphicon.glyphicon-home>
+              i.fa.fa-home>
               | Home
             / li: a
             /   i.glyphicon.glyphicon-globe>
@@ -36,8 +36,9 @@ html
 
           - if user_signed_in?
             ul.nav.navbar-nav.navbar-right.nav-user-nav
-              li: a data-toggle="dropdown"
-                i.glyphicon.glyphicon-cog
+              li
+                a data-toggle="dropdown"
+                  i.fa.fa-gear
                 ul.dropdown-menu.dropdown-menu-right role="menu"
                   li: a href=search_index_path(q: current_user.username) = t 'main_nav.user.your_events'
                   li: a = t 'main_nav.user.settings'
@@ -45,7 +46,7 @@ html
                   li= link_to t('main_nav.user.sign_out'), destroy_user_session_path, method: :delete
 
               li = link_to new_event_path do
-                i.glyphicon.glyphicon-edit
+                i.fa.fa-pencil-square-o
 
           - else
             ul.list-inline.navbar-right

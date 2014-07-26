@@ -2,11 +2,10 @@
     class="event-#{event.id}"
     class="#{'faved' if try(:current_user).try(:saved_events).try(:include?, event)}"
     class=('has-passed' if event.has_passed)
-    class=('is-promoted' if event.is_promoted)
     ng-click="toggleExpand($event)"
-    ng-init="eventId=#{event.id}; isSaved=#{current_user.saved_events.include? event}"
+    ng-init="eventId=#{event.id}"
     ng-controller="EventsListCtrl"
-    ng-class="{'is-expanded': isExpanded, 'is-saved': isSaved}"
+    ng-class="{'is-expanded': isExpanded, 'is-saved': isSaved, 'is-promoted': isPromoted}"
   )
   .inner
 
@@ -73,16 +72,16 @@
 
         ul.list-unstyled.event-meta ng-show="isExpanded && event"
           li
-            i.glyphicon.glyphicon-map-marker>
-            | {{ event.venue.name }}, {{ event.venue.address }}
+            = fa_icon 'map-marker'
+            |  {{ event.venue.name }}, {{ event.venue.address }}
 
           li
-            i.glyphicon.glyphicon-time>
-            | 19:00
+            = fa_icon 'clock-o'
+            |  19:00
 
           li
-            i.glyphicon.glyphicon-coins>
-            | 19:00
+            = fa_icon 'ticket'
+            |  19:00
 
         ul.list-inline.event-menu.pull-left.hide ng-show="isExpanded && event"
           li: a
@@ -94,5 +93,31 @@
           li: a More
 
         - if user_signed_in?
-          a.event-save ng-init="isSaved=#{current_user.saved_events.include? event}" ng-click="toggleIsSaved()"
-            i.glyphicon.glyphicon-star.pull-right.no-expand ng-class="{true: 'glyphicon-star', false: 'glyphicon-star-empty'}[isSaved]"
+          .btn-group.event-menu
+            a.btn.btn-link.dropdown-toggle data-toggle="dropdown"
+              i.fa.fa-ellipsis-h.no-expand title='More' data-toggle='tooltip'
+
+            ul.dropdown-menu.dropdown-menu-right
+              - if can? :edit, event
+                li: a.no-expand href=edit_event_path(event)
+                  = fa_icon 'pencil'
+                  |  Edit
+
+              - if can? :toggle_promote, event
+                li: a.no-expand ng-init="isPromoted=#{event.is_promoted}" ng-click='toggleIsPromoted()'
+                  = fa_icon 'asterisk'
+                  |  Promote
+
+              li: a.no-expand
+                = fa_icon 'flag'
+                |  Report
+
+              - if can? :destroy, event
+                li.divider
+
+                li: a.no-expand href=event_path(event) data-method="delete" data-confirm="Are you sure?"
+                  = fa_icon 'times'
+                  |  Remove
+
+            a.btn.btn-link.event-save ng-init="isSaved=#{current_user.saved_events.include? event}" ng-click="toggleIsSaved()"
+              i.fa.no-expand ng-class="{true: 'fa-star', false: 'fa-star-o'}[isSaved]" title='Save' data-toggle='tooltip'

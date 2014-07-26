@@ -74,7 +74,7 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     respond_to do |format|
-      format.html { redirect_to root_url, notice: 'Event destroyed' }
+      format.html { redirect_to root_url, notice: 'Event removed' }
     end
   end
 

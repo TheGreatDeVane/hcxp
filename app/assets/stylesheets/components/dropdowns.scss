@@ -1,0 +1,21 @@
+@import "bootstrap-variables";
+
+.dropdown-menu {
+  font-size: 15px;
+  border-radius: 3px;
+
+  i.fa {
+  	margin-right: 8px;
+  	width: 15px;
+  	text-align: center;
+  }
+
+  & > li > a {
+  	color: #666666;
+  	padding: 4px 16px;
+  }
+
+  .divider {
+  	margin: 5px 0;
+  }
+}

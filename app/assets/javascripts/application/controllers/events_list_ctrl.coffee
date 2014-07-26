@@ -8,9 +8,9 @@
     $scope.isExpanded   = false
     $scope.event        = false
     $scope.isSaved      = false
+    $scope.isPromoted   = false
 
     loadEvent = () ->
-
       Restangular.one('events', $scope.eventId).get($scope.eventId).then (data) ->
         $scope.event = data
         return true
@@ -29,6 +29,11 @@
     $scope.toggleIsSaved = () ->
       Restangular.one('events', $scope.eventId).post('toggle_save', $scope.eventId).then (data) ->
         $scope.isSaved = data.is_saved
+        return true
+
+    $scope.toggleIsPromoted = () ->
+      Restangular.one('events', $scope.eventId).post('toggle_promote', $scope.eventId).then (data) ->
+        $scope.isPromoted = data.is_promoted
         return true
 
 ])
