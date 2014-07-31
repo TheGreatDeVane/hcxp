@@ -18,9 +18,11 @@
 //
 //= require underscore
 //= require restangular
-//= require ngAutocomplete
+// require ngAutocomplete
 //= require application/vendor/ui-bootstrap-tpls.min
 //= require angular-bootstrap
+//= require ./application/vendor/angular-strap.min
+//= require angular-ui-utils
 //= require angular-sanitize
 //= require angular-translate
 //= require showdown

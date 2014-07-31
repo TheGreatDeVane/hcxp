@@ -1,0 +1,98 @@
+.modal-header
+  button type="button" class="close" ng-click="cancel()"
+    span aria-hidden="true" &times;
+    span class="sr-only" Close
+
+  h4 class="modal-title" Add Event
+
+.modal-body
+
+  .row
+    .col-md-3
+      ul.nav.nav-pills.nav-stacked
+        li.active: a href='#general' role='tab' data-toggle='tab'
+          | General
+        li: a href='#bands' role='tab' data-toggle='tab'
+          | Bands
+        li: a href='#venue' role='tab' data-toggle='tab'
+          | Venue
+        / li.disabled: a Poster
+        li: a href='#description' role='tab' data-toggle='tab'
+          | Description
+
+    .col-md-9.tab-content
+
+      / General tab
+      #general.tab-pane.active
+        label Title
+        input.form-control
+        p.help-block Please keep the event title as short as possible and capslock-free! Also, if this event has no so-called <i>title</i>, you can leave it blank. <u>It will be populated by associated bands names</u>.
+
+        .row
+          .col-md-6
+            .form-group
+              label Start date *
+              .input-group
+                input.form-control
+                a.input-group-addon ng-click="openBeginningAt($event)": i.glyphicon.glyphicon-calendar
+
+          .col-md-6
+            .form-group
+              label Start time
+              input.form-control type='time'
+
+        label Price
+        input.form-control
+        p.help-block Keep it short. Just the number, currency and optionally additional details.
+
+      / Bands tab
+      #bands.tab-pane
+        .form-group
+          .input-group
+            input.form-control.input-lg placeholder='Search for a band'
+            a.input-group-addon ng-click="": i.fa.fa-plus
+
+        .well.well-help
+          .media
+            i.pull-left.well-icon.fa.fa-music
+            .media-body
+              h3.media-heading No bands
+              p There are no bands selected for that event yet. Use the field above to add one!
+
+
+      / Venue tab
+      #venue.tab-pane
+        .form-group
+          .input-group
+            input.form-control.input-lg placeholder='Search for a venue'
+            a.input-group-addon ng-click="": i.fa.fa-plus
+
+        .well.well-help
+          .media
+            i.pull-left.well-icon.fa.fa-map-marker
+            .media-body
+              h3.media-heading No venue
+              p There is no venue set for that event yet. Use the field above to add it!
+              p If you know just the city but not the exact venue, use the button below
+
+              a.btn.btn-info Set city
+
+      / Description tab
+      #description.tab-pane
+        .form-group ng-show="event.showDescription"
+          label Description
+          textarea.form-control rows="10"
+
+        .well.well-help ng-hide="event.showDescription"
+          .media
+            i.pull-left.well-icon.fa.fa-pencil
+            .media-body
+              h3.media-heading No description
+              p There is no description set for that event yet. Please have in mind, that event description is not required <u>nor considered in search results</u>.
+              p: a.btn.btn-info ng-click='event.showDescription=true' Add description anyway
+
+
+  .clearfix
+
+.modal-footer
+  a.btn.btn-success Save

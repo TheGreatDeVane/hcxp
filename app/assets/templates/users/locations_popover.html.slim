@@ -1,0 +1,30 @@
+.popover
+
+  h3.popover-title ng-bind='title' ng-show='title'
+  .popover-content
+  	.form-group
+  	  input.form-control.input-lg (
+  	  	ng-autocomplete="testVar"
+  	  	ng-model="autocomplete"
+  	  	options="{types: '(cities)'}"
+  	  	details="locationDetails"
+  	  	placeholder=(t 'sidebar.your_cities.placeholder')
+  	  )
+
+  	.list-group
+  	  a.list-group-item (
+  	  	ng-repeat='location in locations'
+  	  	ng-click='removeLocation($index)'
+  	  	ng-mouseover='location.hover=true'
+  	  	ng-mouseout='location.hover=false'
+  	  	ng-init='location.hover=false'
+  	  	ng-class="{true: 'list-group-item-danger'}[location.hover]"
+  	  	title='Click to remove this location'
+  	  	data-toggle='tooltip'
+  	  )
+
+  	    | {{ location.city }}
+  	    i.pull-right.fa.fa-times
+
+  	.btn-group.btn-group-justified
+  	  a.btn.btn-success ng-click="toggle()" Done

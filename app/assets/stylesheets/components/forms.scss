@@ -1,5 +1,9 @@
 @import "bootstrap-variables";
 
+label {
+  font-weight: 600;
+}
+
 .help-block {
   color: $gray-light;
   font-size: 14px;

@@ -18,26 +18,6 @@
               small = t('.saved')
               h4 = current_user.saved_events.count
 
-    .panel-body
+    .panel-body ng-controller="newEventBtnCtrl"
       .btn-group.btn-group-justified
-        a.btn.btn-success Add Event
-
-      h5
-        = t 'sidebar.your_cities.heading'
-
-        small.panel-menu
-          |  &#8226;
-          a< = t('.edit')
-
-      form
-        .input-group
-          input.form-control ng-autocomplete="" ng-model="autocomplete" options="{types: '(cities)'}" details="locationDetails" placeholder=(t 'sidebar.your_cities.placeholder')
-          a.input-group-addon ng-click="addLocation()"
-            i.glyphicon.glyphicon-plus
-
-      ul.list-inline
-        li ng-repeat="location in locations"
-          span.label.label-default.label-tag
-            a ng-href="#{search_index_path}?q={{ location.city }}, {{ location.country_code }}"
-              | {{ location.city }}
-            small<: a href="javascript:void(0)" ng-click="removeLocation($index)" &times;
+        a.btn.btn-success ng-click="open()" Add Event

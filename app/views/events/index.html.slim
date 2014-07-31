@@ -1,14 +1,19 @@
 - if user_signed_in?
   - @title = 'Dashboard'
 
-  .page-lead
+  .page-lead ng-controller='UserLocationsCtrl'
     h1.h3 Dashboard
-    p.text-muted.description
-      | Displaying events from:
-      - if current_user.locations.any?
-        = ' ' << current_user.locations.map(&:to_s).join(', ')
-      - else
-        |  anywhere
+    ul.list-inline.description
+      li.text-muted Displaying events from:
+      li.text-muted ng-repeat="location in locations"
+        | {{ location.city }}
+      li.text-muted ng-hide="locations" Anywhere
+      li: a (
+        title='Edit your locations'
+        bs-popover='UserLocationsCtrl'
+        data-placement='bottom'
+        data-template='users/locations_popover.html'
+      ) = fa_icon 'pencil'
 
 = render 'shared/flash'
 = render 'events/events'

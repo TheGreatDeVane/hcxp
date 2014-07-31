@@ -5,14 +5,18 @@
 
   ($scope, $rootScope, Restangular) ->
 
-    $scope.addLocation = () ->
+    $scope.$on('mapentrySelected', (data) ->
+      $scope.addLocation(data.targetScope.details)
+    )
+
+    $scope.addLocation = (details) ->
       location = {
-        country_code: $scope.locationDetails.address_components[4].short_name
-        city:         $scope.locationDetails.name
+        country_code: details.address_components[4].short_name
+        city:         details.name
       }
 
       Restangular.one('users').one('locations').customPOST({location: location}).then () ->
-        $scope.autocomplete    = ''
+        $scope.autocomplete = ''
         loadLocations()
 
     loadLocations = () ->
@@ -24,5 +28,4 @@
         $scope.locations.splice(index, 1)
 
     loadLocations()
-
 ])

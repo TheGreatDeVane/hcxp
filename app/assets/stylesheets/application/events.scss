@@ -35,7 +35,7 @@
     color: $base-color;
 
     i {
-      color: darken($base-color, 10%);
+      color: lighten($base-color, 10%);
     }
   }
 
@@ -132,6 +132,7 @@
       i {
         width: 15px;
         text-align: center;
+        color: lighten($gray, 20%);
       }
     }
 

@@ -6,6 +6,8 @@
   'restangular'
   'ngAutocomplete'
   'ui.bootstrap'
+  'mgcrea.ngStrap.popover'
+  'ui.keypress'
   'templates'
   'btford.markdown'
   'angularMoment'
