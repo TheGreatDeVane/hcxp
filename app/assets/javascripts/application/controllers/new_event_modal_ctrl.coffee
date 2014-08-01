@@ -73,6 +73,7 @@
       $scope.event.newTBACity = null
       $scope.event.setCity    = false
       $scope.data.venueSearch = null
+      $scope.newVenue.active  = false
 
     ##
     # Select2 shit
