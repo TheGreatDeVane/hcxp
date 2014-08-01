@@ -12,10 +12,20 @@
     $scope.event = {
       tbaVenueSelected: false
     }
+    $scope.newVenue = {
+      active:  false,
+      name:    null,
+      address: null
+    }
 
     $scope.$watch 'data.venueSearch', (venue) ->
       return if venue is ''
-      $scope.event.venue_id = venue.id
+
+      if venue.id is 'new'
+        $scope.newVenue.active = true
+        $scope.newVenue.name   = venue.name
+      else
+        $scope.event.venue_id = venue.id
 
     $scope.$watch 'data.TBAVenueDetails', (val) ->
       return if val is ''
@@ -24,7 +34,7 @@
 
     # Watch venue_id change. If it occurs, reload it's
     # data from the api.
-    $scope.$watchCollection 'event.venue_id', (venue_id) ->
+    $scope.$watch 'event.venue_id', (venue_id) ->
       return if venue_id is ''
 
       Restangular.one('venues', venue_id).get().then (venue) ->
@@ -45,11 +55,34 @@
         $scope.event.venue_id   = result.id
         $scope.editingTBA       = false
 
+    # Create venue
+    $scope.createVenue = () ->
+      Restangular.one('venues').customPOST({venue: $scope.newVenue}).then((result) ->
+        console.log result
+        $scope.newVenue.active = false
+        $scope.event.venue_id  = result.id
+
+      , (result) ->
+        for error in result.data.full_messages
+          $scope.alerts.push({type: 'danger', msg: error});
+      )
+
+    # Remove venue
+    $scope.removeVenue = () ->
+      $scope.event.venue_id   = null
+      $scope.event.newTBACity = null
+      $scope.event.setCity    = false
+      $scope.data.venueSearch = null
+
     ##
     # Select2 shit
 
     venueFormatResult = (venue) ->
-      markup  = '<strong>' + venue.name + '</strong><br/>'
+      markup  = '<strong>'
+      markup += '<i>' if venue.id is 'new'
+      markup += venue.name
+      markup += ' (new)</i>' if venue.id is 'new'
+      markup += '</strong><br/>'
       markup += '<small class="text-muted">' + venue.address + '</small>'
       markup
 
@@ -59,6 +92,11 @@
       formatResult: venueFormatResult
       formatSelection: (venue) ->
         venue.name
+
+      createSearchChoice: (term) ->
+        return { id: 'new', name: term, address: 'Create a new Venue' }
+
+      createSearchChoicePosition: 'bottom'
 
       ajax:
         quietMillis: 500
@@ -75,13 +113,6 @@
         results: (data, page) ->
           results: data.data.venues
     }
-
-    # Remove venue
-    $scope.removeVenue = () ->
-      $scope.event.venue_id   = null
-      $scope.event.newTBACity = null
-      $scope.event.setCity    = false
-      $scope.data.venueSearch = null
 
     # Cancel modal
     $scope.cancel = () ->

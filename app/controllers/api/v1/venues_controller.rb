@@ -9,8 +9,6 @@ class Api::V1::VenuesController < Api::V1Controller
   def index
     response.headers['X-Resource'] = 'venues'
 
-    puts params.inspect
-
     @venues = Venue.all
     @venues = @venues.search(params[:query])
     @venues
@@ -20,24 +18,22 @@ class Api::V1::VenuesController < Api::V1Controller
   end
 
   def create
+    response.headers['X-Resource'] = 'venue'
+
     @venue = Venue.new(venue_params)
 
     if @venue.save
       render json: {
         success: true,
-        event: {
+        venue: {
           id: @venue.id
-        },
-        meta: {
-          resource: 'event'
         }
       }
     else
       render json: {
-        errors:        @venue.errors,
-        full_messages: @venue.errors.full_messages,
-        meta: {
-          resource: 'errors'
+        venue: {
+          errors:        @venue.errors,
+          full_messages: @venue.errors.full_messages,
         }
       }, status: :unprocessable_entity
     end
@@ -53,7 +49,7 @@ class Api::V1::VenuesController < Api::V1Controller
   private
 
     def venue_params
-      params.require(:venue).permit(:name, :address)
+      params.require(:venue).permit(:name, :address, :latitude, :longitude)
     end
 
     def set_venue

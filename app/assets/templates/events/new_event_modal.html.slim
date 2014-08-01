@@ -63,49 +63,76 @@
       / Venue tab
       #venue.tab-pane
 
-        / When venue is not set for a event
-        div ng-hide="event.venue_id"
+        / If new venue form is visible
+        div ng-show="newVenue.active"
+
           .form-group
-            input.form-control.input-lg type="hidden" ui-select2="venueSearchOptions" ng-model="data.venueSearch" data-placeholder="Search for a venue"
+            label Name
+            input.form-control ng-model="newVenue.name"
 
-          .well.well-help
-            .media
-              i.pull-left.well-icon.fa.fa-map-marker
-              .media-body
-                h3.media-heading No venue
-                p There is no venue set for that event yet. Use the field above to add it!
-                p If you know just the city but not the exact venue, use the button below
+          .form-group
+            label Address
+            input.form-control (
+              ng-autocomplete=""
+              ng-model="newVenue.address"
+              details="newVenue.address_details"
+            )
 
-                a.btn.btn-info ng-hide='event.setCity' ng-click='event.setCity=true' Set city
+          .form-group
+            img (
+              ng-show="newVenue.address_details"
+              ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{ newVenue.address_details.geometry.location.k }},{{ newVenue.address_details.geometry.location.B }}&zoom=15&size=419x209&maptype=roadmap"
+              width="100%"
+            )
 
-                .input-group ng-show='event.setCity'
-                  input.form-control(
-                    ng-autocomplete=""
-                    ng-model="event.newTBACity"
-                    details="data.TBAVenueDetails"
-                    options="{types: '(cities)'}"
-                    placeholder="Enter city name"
-                  )
-                  a.input-group-addon type='submit' ng-click="saveTBAVenue(data.TBAVenueDetails)": i.fa.fa-check
-                  a.input-group-addon ng-click="event.setCity=false; event.newTBACity=null": i.fa.fa-times
+          a.btn.btn-sm.btn-success ng-click="createVenue()" Create Venue
 
-        / When venue is set
-        div ng-show="event.venue_id"
-          h4
-            | {{ venue.name }}
+        / If new venue form is hidden
+        div ng-hide="newVenue.active"
 
-          p
-            img src="http://maps.googleapis.com/maps/api/staticmap?center={{ venue.latitude }},{{ venue.longitude }}&zoom=15&size=419x209&maptype=roadmap" width="100%"
+          / When venue is not set for a event
+          div ng-hide="event.venue_id"
+            .form-group
+              input.form-control.input-lg type="hidden" ui-select2="venueSearchOptions" ng-model="data.venueSearch" data-placeholder="Search for a venue"
 
-          .row
-            .col-md-6
-              p.text-muted
-                | {{ venue.address }}
+            .well.well-help
+              .media
+                i.pull-left.well-icon.fa.fa-map-marker
+                .media-body
+                  h3.media-heading No venue
+                  p There is no venue set for that event yet. Use the field above to add it!
+                  p If you know just the city but not the exact venue, use the button below
 
-            .col-md-6
-              a.btn.btn-warning.btn-xs.pull-right ng-click="removeVenue()"
-                | Remove Venue
-                i.fa.fa-times<
+                  a.btn.btn-info ng-hide='event.setCity' ng-click='event.setCity=true' Set city
+
+                  .input-group ng-show='event.setCity'
+                    input.form-control(
+                      ng-autocomplete=""
+                      ng-model="event.newTBACity"
+                      details="data.TBAVenueDetails"
+                      options="{types: '(cities)'}"
+                      placeholder="Enter city name"
+                    )
+                    a.input-group-addon type='submit' ng-click="saveTBAVenue(data.TBAVenueDetails)": i.fa.fa-check
+                    a.input-group-addon ng-click="event.setCity=false; event.newTBACity=null": i.fa.fa-times
+
+          / When venue is set
+          div ng-show="event.venue_id"
+            h4
+              | {{ venue.name }}
+
+            p
+              img src="http://maps.googleapis.com/maps/api/staticmap?center={{ venue.latitude }},{{ venue.longitude }}&zoom=15&size=419x209&maptype=roadmap" width="100%"
+
+            .row
+              .col-md-6
+                p.text-muted
+                  | {{ venue.address }}
+
+              .col-md-6
+                a.btn.btn-warning.btn-xs.pull-right ng-click="removeVenue()"
+                  | Remove Venue
+                  i.fa.fa-times<
 
       / Description tab
       #description.tab-pane
