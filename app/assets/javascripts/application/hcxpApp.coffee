@@ -7,7 +7,7 @@
   'ngAutocomplete'
   'ui.bootstrap'
   'mgcrea.ngStrap.popover'
-  'ui.keypress'
+  'ui.select2'
   'templates'
   'btford.markdown'
   'angularMoment'
@@ -27,7 +27,7 @@
 
     # Make Restangular work with our api response structure
     RestangularProvider.addResponseInterceptor( (data, operation, what, url, response, deferred) ->
-      data[data.resource]
+      data[data.resource || response.headers('x-resource')]
     )
 ])
 

@@ -6,6 +6,16 @@ class Api::V1::VenuesController < Api::V1Controller
 
   respond_to :json
 
+  def index
+    response.headers['X-Resource'] = 'venues'
+
+    puts params.inspect
+
+    @venues = Venue.all
+    @venues = @venues.search(params[:query])
+    @venues
+  end
+
   def show
   end
 

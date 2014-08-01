@@ -62,20 +62,50 @@
 
       / Venue tab
       #venue.tab-pane
-        .form-group
-          .input-group
-            input.form-control.input-lg placeholder='Search for a venue'
-            a.input-group-addon ng-click="": i.fa.fa-plus
 
-        .well.well-help
-          .media
-            i.pull-left.well-icon.fa.fa-map-marker
-            .media-body
-              h3.media-heading No venue
-              p There is no venue set for that event yet. Use the field above to add it!
-              p If you know just the city but not the exact venue, use the button below
+        / When venue is not set for a event
+        div ng-hide="event.venue_id"
+          .form-group
+            input.form-control.input-lg type="hidden" ui-select2="venueSearchOptions" ng-model="data.venueSearch" data-placeholder="Search for a venue"
 
-              a.btn.btn-info Set city
+          .well.well-help
+            .media
+              i.pull-left.well-icon.fa.fa-map-marker
+              .media-body
+                h3.media-heading No venue
+                p There is no venue set for that event yet. Use the field above to add it!
+                p If you know just the city but not the exact venue, use the button below
+
+                a.btn.btn-info ng-hide='event.setCity' ng-click='event.setCity=true' Set city
+
+                .input-group ng-show='event.setCity'
+                  input.form-control(
+                    ng-autocomplete=""
+                    ng-model="event.newTBACity"
+                    details="data.TBAVenueDetails"
+                    options="{types: '(cities)'}"
+                    placeholder="Enter city name"
+                  )
+                  a.input-group-addon type='submit' ng-click="saveTBAVenue(data.TBAVenueDetails)": i.fa.fa-check
+                  a.input-group-addon ng-click="event.setCity=false; event.newTBACity=null": i.fa.fa-times
+
+        / When venue is set
+        div ng-show="event.venue_id"
+          h4
+            | {{ venue.name }}
+
+          p
+            img src="http://maps.googleapis.com/maps/api/staticmap?center={{ venue.latitude }},{{ venue.longitude }}&zoom=15&size=419x209&maptype=roadmap" width="100%"
+
+          .row
+            .col-md-6
+              p.text-muted
+                | {{ venue.address }}
+
+            .col-md-6
+              a.btn.btn-warning.btn-xs.pull-right ng-click="removeVenue()"
+                | Remove Venue
+                i.fa.fa-times<
 
       / Description tab
       #description.tab-pane

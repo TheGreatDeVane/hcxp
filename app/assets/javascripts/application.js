@@ -30,6 +30,7 @@
 //= require moment
 //= require_tree ./application/vendor/moment
 //= require angular-moment
+//= require angular-ui-select2
 //
 //= require jquery.turbolinks
 //= require turbolinks
