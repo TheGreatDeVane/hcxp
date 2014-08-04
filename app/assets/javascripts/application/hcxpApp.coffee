@@ -27,7 +27,6 @@
 
     # Make Restangular work with our api response structure
     RestangularProvider.addResponseInterceptor( (data, operation, what, url, response, deferred) ->
-      console.log data[data.resource || response.headers('x-resource')]
       data[data.resource || response.headers('x-resource')]
     )
 ])

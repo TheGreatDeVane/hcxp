@@ -6,7 +6,12 @@ class Api::V1::BandsController < Api::V1Controller
   respond_to :json
 
   def index
-    @bands = Band.where(id: params[:id_in])
+    response.headers['X-Resource'] = 'bands'
+
+    @bands = Band.all
+
+    @bands = @bands.where(id: params[:id_in]) if params[:id_in].present?
+    @bands = @bands.search(params[:query])    if params[:query].present?
   end
 
   def create

@@ -11,15 +11,21 @@
     $scope.data  = {}
     $scope.event = {
       tbaVenueSelected: false
+      bands: []
     }
     $scope.newVenue = {
+      # Determines if new venue form is displayed
+      # or not.
       active:  false,
       name:    null,
       address: null
     }
+    $scope.bands = []
 
+    # When user picked anything in select venue
+    # search field.
     $scope.$watch 'data.venueSearch', (venue) ->
-      return if venue is ''
+      return if (venue is null) || !venue?
 
       if venue.id is 'new'
         $scope.newVenue.active = true
@@ -27,8 +33,22 @@
       else
         $scope.event.venue_id = venue.id
 
+    # When user picked anything in select band
+    # search field.
+    $scope.$watch 'data.bandSearch', (band) ->
+      return if (band is null) || !band?
+
+      if band.id is 'new'
+        $scope.newBand.active = true
+        $scope.newBand.name   = band.name
+      else
+        $scope.bands.push band
+        $scope.cancelBand()
+
+    # When user picks anything in TBA city text field,
+    # save the picked city as new TBA venue for event.
     $scope.$watch 'data.TBAVenueDetails', (val) ->
-      return if val is ''
+      return if (val is null) || !val?
       $scope.saveTBAVenue($scope.data.TBAVenueDetails)
 
 
@@ -39,9 +59,6 @@
 
       Restangular.one('venues', venue_id).get().then (venue) ->
         $scope.venue = venue
-
-    $scope.cancel = () ->
-      $modalInstance.dismiss('cancel')
 
     $scope.saveTBAVenue = (details) ->
       # What the hell is that?
@@ -58,7 +75,6 @@
     # Create venue
     $scope.createVenue = () ->
       Restangular.one('venues').customPOST({venue: $scope.newVenue}).then((result) ->
-        console.log result
         $scope.newVenue.active = false
         $scope.event.venue_id  = result.id
 
@@ -68,12 +84,18 @@
       )
 
     # Remove venue
+    # @todo rename to cancelVenue
     $scope.removeVenue = () ->
       $scope.event.venue_id   = null
       $scope.event.newTBACity = null
       $scope.event.setCity    = false
       $scope.data.venueSearch = null
       $scope.newVenue.active  = false
+
+    # Cancel anything related to band creation / search.
+    # Basically reset everything to initial state.
+    $scope.cancelBand = () ->
+      $scope.data.bandSearch = null
 
     ##
     # Select2 shit
@@ -86,6 +108,42 @@
       markup += '</strong><br/>'
       markup += '<small class="text-muted">' + venue.address + '</small>'
       markup
+
+    bandFormatResult = (band) ->
+      markup  = '<strong>'
+      markup += '<i>' if band.id is 'new'
+      markup += band.name
+      markup += ' (new)</i>' if band.id is 'new'
+      markup += '</strong><br/>'
+      markup += '<small class="text-muted">' + band.location + '</small>'
+      markup
+
+    # Band Select2 options
+    $scope.bandSearchOptions = {
+      minimumInputLength: 1
+      formatResult: bandFormatResult
+      formatSelection: (band) ->
+        band.name
+
+      createSearchChoice: (term) ->
+        return { id: 'new', name: term, location: 'Create a new Band' }
+
+      createSearchChoicePosition: 'bottom'
+
+      ajax:
+        quietMillis: 500
+
+        data: (term, page) ->
+          query: term
+
+        transport: (queryParams, page) ->
+          # I was trying to use restangular here but it was not working
+          # Sounds like i need to ask for that on stack overflow
+          $http.get("/api/v1/bands?query=" + queryParams.data.query).then(queryParams.success)
+
+        results: (data, page) ->
+          results: data.data.bands
+    }
 
     # Venue Select2 options
     $scope.venueSearchOptions = {
@@ -108,7 +166,6 @@
         transport: (queryParams, page) ->
           # I was trying to use restangular here but it was not working
           # Sounds like i need to ask for that on stack overflow
-          console.log queryParams.data
           $http.get("/api/v1/venues?query=" + queryParams.data.query).then(queryParams.success)
 
         results: (data, page) ->
