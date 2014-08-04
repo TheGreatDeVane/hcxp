@@ -20,7 +20,12 @@
       name:    null,
       address: null
     }
-    $scope.bands = []
+    $scope.eventBands = []
+    $scope.newBand = {
+      active:   false,
+      name:     null,
+      location: null
+    }
 
     # When user picked anything in select venue
     # search field.
@@ -42,7 +47,10 @@
         $scope.newBand.active = true
         $scope.newBand.name   = band.name
       else
-        $scope.bands.push band
+        $scope.eventBands.push _.extend band,
+          index:   Math.round(new Date().getTime() / 1000)
+          id:      null,
+          band_id: band.id
         $scope.cancelBand()
 
     # When user picks anything in TBA city text field,
@@ -83,6 +91,18 @@
           $scope.alerts.push({type: 'danger', msg: error});
       )
 
+    # Create band
+    $scope.createBand = () ->
+      Restangular.one('bands').customPOST({band: $scope.newBand}).then((result) ->
+        $scope.eventBands.push _.extend result,
+          index: Math.round(new Date().getTime() / 1000)
+        $scope.cancelBand()
+
+      , (result) ->
+        for error in result.data.full_messages
+          $scope.alerts.push({type: 'danger', msg: error});
+      )
+
     # Remove venue
     # @todo rename to cancelVenue
     $scope.removeVenue = () ->
@@ -95,7 +115,12 @@
     # Cancel anything related to band creation / search.
     # Basically reset everything to initial state.
     $scope.cancelBand = () ->
-      $scope.data.bandSearch = null
+      $scope.data.bandSearch  = null
+      $scope.newBand.active   = false
+      $scope.newBand.name     = null
+      $scope.newBand.location = null
+      $scope.newBand.locationDetails = null
+      $scope.data.bandSearch  = null
 
     ##
     # Select2 shit
@@ -171,6 +196,32 @@
         results: (data, page) ->
           results: data.data.venues
     }
+
+    $scope.openBeginningAt = (event) ->
+      event.stopPropagation()
+      $scope.event.beginningAtOpened = !$scope.event.beginningAtOpened
+
+    # Saves event
+    $scope.save = () ->
+      formattedEventObject = _.pick $scope.event,
+        'beginning_at'
+        'beginning_at_time'
+        'description'
+        'price'
+        'title'
+        'venue_id'
+
+      # Transform bands array to rails-friendly object
+      formattedEventObject.event_bands_attributes = _.map $scope.eventBands, (num, key) ->
+        _.pick num,
+          '_destroy'
+          'description'
+          'id'
+          'band_id'
+
+      Restangular.one('events').customPOST({event: formattedEventObject}).then (result) ->
+        alert('Event saved')
+        $modalInstance.close(result);
 
     # Cancel modal
     $scope.cancel = () ->

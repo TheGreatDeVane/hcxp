@@ -7,7 +7,6 @@ class Api::V1::BandsController < Api::V1Controller
 
   def index
     response.headers['X-Resource'] = 'bands'
-
     @bands = Band.all
 
     @bands = @bands.where(id: params[:id_in]) if params[:id_in].present?
@@ -15,26 +14,13 @@ class Api::V1::BandsController < Api::V1Controller
   end
 
   def create
+    response.headers['X-Resource'] = 'band'
     @band = Band.new(band_params)
 
     if @band.save
-      render json: {
-        success: true,
-        band: {
-          id: @band.id
-        },
-        meta: {
-          resource: 'band'
-        }
-      }
+      render 'create_success'
     else
-      render json: {
-        errors:        @band.errors,
-        full_messages: @band.errors.full_messages,
-        meta: {
-          resource: 'errors'
-        }
-      }, status: :unprocessable_entity
+      render 'create_failure', status: :unprocessable_entity
     end
   end
 

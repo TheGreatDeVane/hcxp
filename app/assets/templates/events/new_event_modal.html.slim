@@ -25,7 +25,7 @@
       / General tab
       #general.tab-pane.active
         label Title
-        input.form-control
+        input.form-control ng-model="event.title"
         p.help-block Please keep the event title as short as possible and capslock-free! Also, if this event has no so-called <i>title</i>, you can leave it blank. <u>It will be populated by associated bands names</u>.
 
         .row
@@ -33,71 +33,109 @@
             .form-group
               label Start date *
               .input-group
-                input.form-control
+                input.form-control (
+                  datepicker-popup = 'dd.MM.yyyy'
+                  ng-model="event.beginning_at"
+                  is-open="event.beginningAtOpened"
+                  min_date=""
+                  max-date="'2015-06-22'"
+                  datepicker-options=""
+                  date-disabled=""
+                  close-text="Close"
+                  placeholder="dd.mm.yyyy"
+                )
                 a.input-group-addon ng-click="openBeginningAt($event)": i.glyphicon.glyphicon-calendar
 
           .col-md-6
             .form-group
               label Start time
-              input.form-control type='time'
+              input.form-control ng-model="event.beginning_at_time" type='time'
 
         label Price
-        input.form-control
+        input.form-control ng-model="event.price"
         p.help-block Keep it short. Just the number, currency and optionally additional details.
 
       / Bands tab
       #bands.tab-pane
 
-        .form-group
-          input.form-control.input-lg type="hidden" ui-select2="bandSearchOptions" ng-model="data.bandSearch" data-placeholder="Search for a band"
+        / If new band form is visible
+        div ng-show="newBand.active"
 
-        / If there are no bands set
-        div ng-hide="bands.length"
-          .well.well-help
-            .media
-              i.pull-left.well-icon.fa.fa-music
+          .form-group
+            label Name
+            input.form-control ng-model="newBand.name"
+
+          .form-group
+            label Location
+            input.form-control (
+              ng-autocomplete=""
+              ng-model="newBand.location"
+              details="newBand.locationDetails"
+            )
+
+          .form-group
+            img (
+              ng-show="newBand.locationDetails"
+              ng-src="http://maps.googleapis.com/maps/api/staticmap?center={{ newBand.locationDetails.geometry.location.k }},{{ newBand.locationDetails.geometry.location.B }}&zoom=15&size=419x209&maptype=roadmap"
+              width="100%"
+            )
+
+          a.btn.btn-sm.btn-success ng-click="createBand()" Create Band
+          a.btn.btn-sm.pull-right ng-click="cancelBand()" Cancel
+
+        / If new band form is hidden
+        div ng-hide="newBand.active"
+
+          .form-group
+            input.form-control.input-lg type="hidden" ui-select2="bandSearchOptions" ng-model="data.bandSearch" data-placeholder="Search for a band"
+
+          / If there are no bands set
+          div ng-hide="eventBands.length"
+            .well.well-help
+              .media
+                i.pull-left.well-icon.fa.fa-music
+                .media-body
+                  h3.media-heading No bands
+                  p There are no bands selected for that event yet. Use the field above to add one!
+
+          / If there are some bands
+          div ng-show="eventBands.length"
+            .media.band ng-repeat='eventBand in eventBands' ng-hide='eventBand._destroy'
+
+              / Hidden fields used by rails nested attributes
+              input.hide name='event[event_bands_attributes][{{ eventBand.index || $index }}][id]' ng-model='eventBand.id'
+              input.hide name='event[event_bands_attributes][{{ eventBand.index || $index }}][band_id]' ng-model='eventBand.band_id'
+              input.hide name='event[event_bands_attributes][{{ eventBand.index || $index }}][description]' ng-model='eventBand.description'
+              input.hide type="checkbox" name='event[event_bands_attributes][{{ eventBand.index || $index }}][_destroy]' ng-model='eventBand._destroy' ng-init='eventBand._destroy=false'
+
+              img.pull-left.img-rounded ng-src="{{ eventBand.images.medium_s }}" width="50" height="50"
               .media-body
-                h3.media-heading No bands
-                p There are no bands selected for that event yet. Use the field above to add one!
+                h4.media-heading.pull-left
+                  | {{ eventBand.name }}
+                  small<
+                    | {{ eventBand.location }}
 
-        / If there are some bands
-        div ng-show="bands.length"
-          .media.band ng-repeat='band in bands' ng-hide='band._destroy'
+                .btn-group.pull-right
+                  a.hide.btn.btn-default.btn-xs ng-click="eventBand.isEdited=true" ng-hide="eventBand.isEdited"
+                    i.glyphicon.glyphicon-pencil>
+                    =t 'events.edit'
 
-            / Hidden fields used by rails nested attributes
-            input.hide name='event[event_bands_attributes][{{ band.index || $index }}][id]' ng-model='band.id'
-            input.hide name='event[event_bands_attributes][{{ band.index || $index }}][band_id]' ng-model='band.band_id'
-            input.hide name='event[event_bands_attributes][{{ band.index || $index }}][description]' ng-model='band.description'
-            input.hide type="checkbox" name='event[event_bands_attributes][{{ band.index || $index }}][_destroy]' ng-model='band._destroy' ng-init='band._destroy=false'
+                  a.btn.btn-success.btn-xs ng-click="eventBand.isEdited=false" ng-show="eventBand.isEdited"
+                    i.glyphicon.glyphicon-ok>
+                    =t 'events.done'
 
-            img.pull-left.img-rounded ng-src="{{ band.images.medium_s }}" width="45" height="45"
-            .media-body
-              h4.media-heading.pull-left
-                | {{ band.name }}
-                small<
-                  | {{ band.location }}
+                  a.btn.btn-danger.btn-xs ng-click="eventBand._destroy=true": i.fa.fa-times
 
-              .btn-group.pull-right
-                a.hide.btn.btn-default.btn-xs ng-click="band.isEdited=true" ng-hide="band.isEdited"
-                  i.glyphicon.glyphicon-pencil>
-                  =t 'events.edit'
+                .clearfix
+                textarea.form-control ng-model="eventBand.description" ng-show="eventBand.isEdited" ng-blur="eventBand.isEdited=false"
 
-                a.btn.btn-success.btn-xs ng-click="band.isEdited=false" ng-show="band.isEdited"
-                  i.glyphicon.glyphicon-ok>
-                  =t 'events.done'
+                div ng-show="eventBand.description"
+                  small.text-muted.band-description ng-hide="eventBand.isEdited" ng-click="eventBand.isEdited=true"
+                    | {{ eventBand.description }}
 
-                a.btn.btn-danger.btn-xs ng-click="band._destroy=true": i.fa.fa-times
-
-              .clearfix
-              textarea.form-control ng-model="band.description" ng-show="band.isEdited" ng-blur="band.isEdited=false"
-
-              div ng-show="band.description"
-                small.text-muted.band-description ng-hide="band.isEdited" ng-click="band.isEdited=true"
-                  | {{ band.description }}
-
-              div ng-hide="band.description"
-                small.text-muted.band-description ng-hide="band.isEdited" ng-click="band.isEdited=true": abbr title="Edit bands description"
-                  | Click here to add description
+                div ng-hide="eventBand.description"
+                  small.text-muted.band-description ng-hide="eventBand.isEdited" ng-click="eventBand.isEdited=true": abbr title="Edit bands description"
+                    | Click here to add description
 
 
       / Venue tab
@@ -179,7 +217,7 @@
       #description.tab-pane
         .form-group ng-show="event.showDescription"
           label Description
-          textarea.form-control rows="10"
+          textarea.form-control rows="10" ng-model="event.description"
 
         .well.well-help ng-hide="event.showDescription"
           .media
@@ -193,4 +231,4 @@
   .clearfix
 
 .modal-footer
-  a.btn.btn-success Save
+  a.btn.btn-success ng-click="save()" Save

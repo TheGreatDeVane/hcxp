@@ -17,6 +17,19 @@ class Api::V1::EventsController < Api::V1Controller
 
   def show; end
 
+  def create
+    response.headers['X-Resource'] = 'event'
+    @event = Event.new(event_params)
+    @event.user = current_user
+
+    if @event.save
+      render 'create_success'
+    else
+      throw @event.errors
+      render 'create_failure', status: :unprocessable_entity
+    end
+  end
+
   def toggle_promote
     @event.update_attribute(:is_promoted, !@event.is_promoted)
     @event.reload
@@ -36,6 +49,19 @@ class Api::V1::EventsController < Api::V1Controller
 
     def set_event
       @event = Event.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def event_params
+      params.require(:event).permit(:title, :remote_poster_url, :user_id, :description,
+                                    :beginning_at, :beginning_at_time, :ending_at,
+                                    :ending_at_time, :price, :address, {band_ids: []},
+                                    :venue_id, :remove_poster, :poster,
+                                    :social_link_fb, :social_link_lfm, :social_link_hcpl,
+                                    bands_attributes: [:id, :name, :location, :_destroy],
+                                    venue_attributes: [:id, :name, :address],
+                                    event_bands_attributes: [:id, :band_id, :description, :_destroy]
+      )
     end
 
 end
