@@ -88,7 +88,9 @@
         $scope.event.venue_id  = result.id
 
       , (result) ->
-        for error in result.data.full_messages
+        $scope.resetAlerts()
+
+        for error in result.data.venue.full_messages
           $scope.alerts.push({type: 'danger', msg: error});
       )
 
@@ -100,13 +102,16 @@
         $scope.cancelBand()
 
       , (result) ->
-        for error in result.data.full_messages
+        $scope.resetAlerts()
+
+        for error in result.data.band.full_messages
           $scope.alerts.push({type: 'danger', msg: error});
       )
 
     # Remove venue
     # @todo rename to cancelVenue
     $scope.removeVenue = () ->
+      $scope.resetAlerts()
       $scope.event.venue_id   = null
       $scope.event.newTBACity = null
       $scope.event.setCity    = false
@@ -116,6 +121,7 @@
     # Cancel anything related to band creation / search.
     # Basically reset everything to initial state.
     $scope.cancelBand = () ->
+      $scope.resetAlerts()
       $scope.data.bandSearch  = null
       $scope.newBand.active   = false
       $scope.newBand.name     = null
@@ -204,6 +210,8 @@
 
     # Saves event
     $scope.save = () ->
+      $scope.resetAlerts()
+
       formattedEventObject = _.pick $scope.event,
         'beginning_at'
         'beginning_at_time'
@@ -225,13 +233,17 @@
         $modalInstance.close(result)
 
       , (result) ->
-        for message in result.data.event.errors.full_messages
+        for message in result.data.event.full_messages
           $scope.alerts.push {
             msg:  message,
             type: 'danger'
           }
 
       )
+
+    # Reset alerts
+    $scope.resetAlerts = () ->
+      $scope.alerts = []
 
     # Close alert
     $scope.closeAlert = (index) ->

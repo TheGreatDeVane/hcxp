@@ -23,19 +23,9 @@ class Api::V1::VenuesController < Api::V1Controller
     @venue = Venue.new(venue_params)
 
     if @venue.save
-      render json: {
-        success: true,
-        venue: {
-          id: @venue.id
-        }
-      }
+      render 'create_success'
     else
-      render json: {
-        venue: {
-          errors:        @venue.errors,
-          full_messages: @venue.errors.full_messages,
-        }
-      }, status: :unprocessable_entity
+      render 'create_failure', status: :unprocessable_entity
     end
   end
 
