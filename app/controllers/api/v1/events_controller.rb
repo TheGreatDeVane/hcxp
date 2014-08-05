@@ -25,7 +25,6 @@ class Api::V1::EventsController < Api::V1Controller
     if @event.save
       render 'create_success'
     else
-      throw @event.errors
       render 'create_failure', status: :unprocessable_entity
     end
   end

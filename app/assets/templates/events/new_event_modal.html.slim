@@ -22,6 +22,9 @@
 
     .col-md-9.tab-content
 
+      / Alerts
+      alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" {{alert.msg}}
+
       / General tab
       #general.tab-pane.active
         label Title

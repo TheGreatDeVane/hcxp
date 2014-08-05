@@ -8,8 +8,9 @@
 
   ($scope, $rootScope, $modalInstance, $log, $http, Restangular) ->
 
-    $scope.data  = {}
-    $scope.event = {
+    $scope.alerts = []
+    $scope.data   = {}
+    $scope.event  = {
       tbaVenueSelected: false
       bands: []
     }
@@ -219,9 +220,22 @@
           'id'
           'band_id'
 
-      Restangular.one('events').customPOST({event: formattedEventObject}).then (result) ->
+      Restangular.one('events').customPOST({event: formattedEventObject}).then((result) ->
         alert('Event saved')
-        $modalInstance.close(result);
+        $modalInstance.close(result)
+
+      , (result) ->
+        for message in result.data.event.errors.full_messages
+          $scope.alerts.push {
+            msg:  message,
+            type: 'danger'
+          }
+
+      )
+
+    # Close alert
+    $scope.closeAlert = (index) ->
+      $scope.alerts.splice(index, 1);
 
     # Cancel modal
     $scope.cancel = () ->
