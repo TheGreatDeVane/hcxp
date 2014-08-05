@@ -99,7 +99,7 @@
 
             ul.dropdown-menu.dropdown-menu-right
               - if can? :edit, event
-                li: a.no-expand href=edit_event_path(event)
+                li: a.no-expand ng-click="edit()"
                   = fa_icon 'pencil'
                   |  Edit
 

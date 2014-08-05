@@ -1,9 +1,10 @@
 @controllers.controller('EventsListCtrl', [
   '$scope'
   '$rootScope'
+  '$modal'
   'Restangular'
 
-  ($scope, $rootScope, Restangular) ->
+  ($scope, $rootScope, $modal, Restangular) ->
 
     $scope.isExpanded   = false
     $scope.event        = false
@@ -14,6 +15,21 @@
       Restangular.one('events', $scope.eventId).get($scope.eventId).then (data) ->
         $scope.event = data
         return true
+
+    $scope.edit = () ->
+      modalInstance = $modal.open
+        templateUrl: 'events/new_event_modal.html'
+        controller:  'newEventModalCtrl'
+        resolve: {
+          mode: () ->
+            return 'edit'
+
+          eventId: () ->
+            return $scope.eventId
+        }
+
+      modalInstance.result.then (event) ->
+        console.log 'ok'
 
     $scope.toggleExpand = ($event) ->
       console.log $event.target

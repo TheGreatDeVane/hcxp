@@ -5,8 +5,10 @@
   '$log'
   '$http'
   'Restangular'
+  'mode'
+  'eventId'
 
-  ($scope, $rootScope, $modalInstance, $log, $http, Restangular) ->
+  ($scope, $rootScope, $modalInstance, $log, $http, Restangular, mode, eventId) ->
 
     $scope.alerts = []
     $scope.data   = {}
@@ -27,6 +29,12 @@
       name:     null,
       location: null
     }
+
+    # If mode is "edit", modal should be populated with
+    # existing event data
+    if mode is 'edit'
+      Restangular.one('events', eventId).get().then (event) ->
+        $scope.event = event
 
     # When user picked anything in select venue
     # search field.
@@ -228,7 +236,7 @@
           'id'
           'band_id'
 
-      Restangular.one('events').customPOST({event: formattedEventObject}).then((result) ->
+      Restangular.one('events', eventId).customPUT({event: formattedEventObject}).then((result) ->
         alert('Event saved')
         $modalInstance.close(result)
 

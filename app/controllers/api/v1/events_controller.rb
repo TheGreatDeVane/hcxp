@@ -29,6 +29,14 @@ class Api::V1::EventsController < Api::V1Controller
     end
   end
 
+  def update
+    if @event.update(event_params)
+      render 'create_success'
+    else
+      render 'create_failure', status: :unprocessable_entity
+    end
+  end
+
   def toggle_promote
     @event.update_attribute(:is_promoted, !@event.is_promoted)
     @event.reload
