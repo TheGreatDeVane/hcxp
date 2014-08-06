@@ -77,11 +77,11 @@
 
           li
             = fa_icon 'clock-o'
-            |  19:00
+            |  {{ event.beginning_at_time }}
 
           li
             = fa_icon 'ticket'
-            |  19:00
+            |  {{ event.price }}
 
         ul.list-inline.event-menu.pull-left.hide ng-show="isExpanded && event"
           li: a

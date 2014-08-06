@@ -3,7 +3,8 @@
     span aria-hidden="true" &times;
     span class="sr-only" Close
 
-  h4 class="modal-title" Add Event
+  h4 class="modal-title" ng-show="mode=='new'" Add Event
+  h4 class="modal-title" ng-show="mode=='edit'" Edit Event
 
 .modal-body
 
@@ -16,7 +17,8 @@
           | Bands
         li: a href='#venue' role='tab' data-toggle='tab'
           | Venue
-        / li.disabled: a Poster
+        li ng-show="mode=='edit'": a href="#poster" role="tab" data-toggle="tab"
+          | Poster
         li: a href='#description' role='tab' data-toggle='tab'
           | Description
 
@@ -216,6 +218,16 @@
                   | Remove Venue
                   i.fa.fa-times<
 
+      / Poster tab
+      #poster.tab-pane
+        .form-group
+          p.help-block You can select a poster image file from your hard drive
+          input.form-control type="file"
+
+        .form-group
+          p.help-block You can just past an URL to the poster file and we'll fetch it by ourselves
+          input.form-control type="text" placeholder="http://"
+
       / Description tab
       #description.tab-pane
         .form-group ng-show="event.showDescription"
@@ -234,4 +246,5 @@
   .clearfix
 
 .modal-footer
+  span.btn.btn-link.pull-left ng-show="isLoading": i.fa.fa-circle-o-notch.fa-spin
   a.btn.btn-success ng-click="save()" Save

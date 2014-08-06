@@ -1,6 +1,6 @@
 class Api::V1::EventsController < Api::V1Controller
   before_action :authenticate_user!, only: [:toggle_save, :toggle_promote]
-  before_action :set_event, only: [:promote, :toggle_save, :toggle_promote]
+  before_action :set_event, only: [:promote, :toggle_save, :toggle_promote, :event_bands]
   impressionist actions: [:show], unique: [:impressionable_type, :impressionable_id, :session_hash]
   skip_before_filter :verify_authenticity_token
   load_and_authorize_resource :event, except: [:similar_by]
@@ -16,6 +16,12 @@ class Api::V1::EventsController < Api::V1Controller
   end
 
   def show; end
+  def event_bands
+    response.headers['X-Resource'] = 'event_bands'
+
+    @event_bands = @event.event_bands
+    render '/api/v1/event_bands/index'
+  end
 
   def create
     response.headers['X-Resource'] = 'event'

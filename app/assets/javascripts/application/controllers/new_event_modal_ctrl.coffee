@@ -10,9 +10,11 @@
 
   ($scope, $rootScope, $modalInstance, $log, $http, Restangular, mode, eventId) ->
 
-    $scope.alerts = []
-    $scope.data   = {}
-    $scope.event  = {
+    $scope.isLoading = false
+    $scope.mode      = mode
+    $scope.alerts    = []
+    $scope.data      = {}
+    $scope.event     = {
       tbaVenueSelected: false
       bands: []
     }
@@ -32,9 +34,15 @@
 
     # If mode is "edit", modal should be populated with
     # existing event data
-    if mode is 'edit'
+    if $scope.mode is 'edit'
+      # Get event data
       Restangular.one('events', eventId).get().then (event) ->
         $scope.event = event
+
+      # Get event_bands data
+      Restangular.one('events', eventId).getList('event_bands').then (event_bands) ->
+        $scope.eventBands = event_bands
+        console.log $scope.eventBands
 
     # When user picked anything in select venue
     # search field.
@@ -219,6 +227,7 @@
     # Saves event
     $scope.save = () ->
       $scope.resetAlerts()
+      $scope.isLoading = true
 
       formattedEventObject = _.pick $scope.event,
         'beginning_at'
@@ -236,17 +245,28 @@
           'id'
           'band_id'
 
-      Restangular.one('events', eventId).customPUT({event: formattedEventObject}).then((result) ->
-        alert('Event saved')
-        $modalInstance.close(result)
+      request = switch $scope.mode
+        when 'edit'
+          Restangular.one('events', eventId).customPUT({event: formattedEventObject})
+        when 'new'
+          Restangular.one('events').customPOST({event: formattedEventObject})
+
+      request.then((result) ->
+        $scope.isLoading = false
+        $scope.resetAlerts()
+        $scope.alerts.push {
+          msg:  'Event saved',
+          type: 'success'
+        }
 
       , (result) ->
+        $scope.isLoading = false
+        $scope.resetAlerts()
         for message in result.data.event.full_messages
           $scope.alerts.push {
             msg:  message,
             type: 'danger'
           }
-
       )
 
     # Reset alerts
