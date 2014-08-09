@@ -39,7 +39,7 @@ class Event < ActiveRecord::Base
 
   # Scopes
   default_scope              { order(:beginning_at) }
-  scope :from_the_future, -> { where('beginning_at >= ?', Date.today) }
+  scope :from_the_future, -> { where('beginning_at >= ?', Date.today.beginning_of_day) }
   scope :from_the_past,   -> { where('beginning_at < ?', Date.today) }
   scope :featured,        -> { where(is_promoted: true) }
 
