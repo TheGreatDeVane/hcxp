@@ -3,17 +3,17 @@
   h3.popover-title ng-bind='title' ng-show='title'
   .popover-content
   	.form-group
-  	  input.form-control.input-lg (
-  	  	ng-autocomplete="testVar"
-  	  	ng-model="autocomplete"
+  	  input.form-control (
+  	  	ng-autocomplete=""
+  	  	ng-model="data.autocomplete"
   	  	options="{types: '(cities)'}"
-  	  	details="locationDetails"
+  	  	details="data.locationDetails"
   	  	placeholder=(t 'sidebar.your_cities.placeholder')
   	  )
 
   	.list-group
   	  a.list-group-item (
-  	  	ng-repeat='location in locations'
+  	  	ng-repeat='location in data.locations'
   	  	ng-click='removeLocation($index)'
   	  	ng-mouseover='location.hover=true'
   	  	ng-mouseout='location.hover=false'
@@ -27,4 +27,6 @@
   	    i.pull-right.fa.fa-times
 
   	.btn-group.btn-group-justified
-  	  a.btn.btn-success ng-click="toggle()" Done
+  	  a.btn.btn-success.btn-sm ng-click="done(); $hide()"
+        i.fa.fa-check>
+        | Done

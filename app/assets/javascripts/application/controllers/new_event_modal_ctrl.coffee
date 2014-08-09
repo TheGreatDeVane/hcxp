@@ -38,6 +38,8 @@
       # Get event data
       Restangular.one('events', eventId).get().then (event) ->
         $scope.event = event
+        # console.log event.description
+        $scope.event.showDescription = true if event.description
 
       # Get event_bands data
       Restangular.one('events', eventId).getList('event_bands').then (event_bands) ->

@@ -5,9 +5,9 @@
     h1.h3 Dashboard
     ul.list-inline.description
       li.text-muted Displaying events from:
-      li.text-muted ng-repeat="location in locations"
+      li.text-muted ng-repeat="location in data.locations"
         | {{ location.city }}
-      li.text-muted ng-hide="locations" Anywhere
+      li.text-muted ng-hide="data.locations" Anywhere
       li: a (
         title='Edit your locations'
         bs-popover='UserLocationsCtrl'

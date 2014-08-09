@@ -452,3 +452,8 @@
   background-position: right 4px center;
   /* 5 */
 }
+
+/* Temporary fix to remove strange shadow cut-out */
+.select2-container .select2-choice {
+  overflow: visible !important;
+}
