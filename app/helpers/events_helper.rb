@@ -24,6 +24,8 @@ module EventsHelper
   end
 
   def excerpt(event)
+    return '' unless event.description
+
     html_body = markdown(event.description)
     noko      = Nokogiri::HTML(html_body)
     return noko.css('p').first.try(:content)
