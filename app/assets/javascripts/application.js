@@ -22,6 +22,7 @@
 //= require application/vendor/ui-bootstrap-tpls.min
 //= require angular-bootstrap
 //= require ./application/vendor/angular-strap.min
+//= require ./application/vendor/ngAutocomplete.js
 //= require angular-ui-utils
 //= require angular-sanitize
 //= require angular-translate
