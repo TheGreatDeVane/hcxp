@@ -114,7 +114,9 @@
     $scope.createBand = () ->
       Restangular.one('bands').customPOST({band: $scope.newBand}).then((result) ->
         $scope.eventBands.push _.extend result,
-          index: Math.round(new Date().getTime() / 1000)
+          index:   Math.round(new Date().getTime() / 1000)
+          band_id: result.id
+          id:      null
         $scope.cancelBand()
 
       , (result) ->
