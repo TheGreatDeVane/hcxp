@@ -1,7 +1,7 @@
 - if user_signed_in?
   - @title = 'Dashboard'
 
-  .page-lead ng-controller='UserLocationsCtrl'
+  .page-lead ng-controller='UserWidgetCtrl'
     h1.h3 Dashboard
     ul.list-inline.description
       li.text-muted Displaying events from:
@@ -20,7 +20,7 @@
 
 - content_for :sidebar do
 
-  = render 'layouts/sidebar/user_locations'
+  = render 'layouts/sidebar/user_widget'
 
   - if Event.featured.any?
     .panel.panel-default

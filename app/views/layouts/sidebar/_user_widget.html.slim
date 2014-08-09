@@ -1,6 +1,6 @@
 - if user_signed_in?
 
-  .panel.panel-default.widget-user-locations ng-controller="UserLocationsCtrl"
+  .panel.panel-default.widget-user-locations ng-controller="UserWidgetCtrl"
     .panel-heading
       / h3.panel-title = current_user
       .media
@@ -12,11 +12,13 @@
           .btn-group.btn-group-justified.btn-counters
             a.btn href=search_index_path(q: current_user.username)
               small = t('.hosted')
-              h4 = current_user.events.count
+              h4
+                | {{ user.hosted }}
 
             a.btn href=search_index_path(q: ':s')
               small = t('.saved')
-              h4 = current_user.saved_events.count
+              h4
+                | {{ user.saved }}
 
     .panel-body ng-controller="newEventBtnCtrl"
       .btn-group.btn-group-justified

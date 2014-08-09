@@ -4,6 +4,10 @@ class Api::V1::UsersController < Api::V1Controller
 
   respond_to :json
 
+  def current
+    @user = current_user
+  end
+
   def locations
     @locations = current_user.locations
   end

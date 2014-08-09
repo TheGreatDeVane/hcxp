@@ -38,6 +38,7 @@ Khcpl::Application.routes.draw do
       resources :bands
 
       resources :users do
+        get :current, on: :collection
         get :locations, on: :collection
         post 'locations' => 'users#locations_create', on: :collection
         delete 'locations' => 'users#locations_destroy', on: :collection

@@ -45,6 +45,10 @@
     $scope.toggleIsSaved = () ->
       Restangular.one('events', $scope.eventId).post('toggle_save', $scope.eventId).then (data) ->
         $scope.isSaved = data.is_saved
+        $rootScope.$broadcast 'savesChanged', {
+          id:   $scope.eventId
+          type: if data.is_saved is true then 'saved' else 'unsaved'
+        }
         return true
 
     $scope.toggleIsPromoted = () ->
