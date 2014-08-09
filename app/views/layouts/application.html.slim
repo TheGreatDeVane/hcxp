@@ -16,7 +16,12 @@ html
       lang = '#{cookies[:locale]}'
       moment.lang(lang)
 
-  body class="#{params[:controller]}-#{params[:action]}"
+  body class="#{params[:controller]}-#{params[:action]}" ng-controller="AppCtrl"
+
+    / Alerts
+    div.container-alert ng-show='alerts.length > 0'
+      alert close="alert.close()" ng-repeat="alert in alerts" type="{{ alert.type }}"
+        | {{ alert.msg }}
 
     .navbar.navbar-default.navbar-main
 

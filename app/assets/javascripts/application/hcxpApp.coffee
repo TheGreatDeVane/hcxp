@@ -1,6 +1,7 @@
 #= require_self
 #= require      ./locales
 #= require_tree ./controllers
+#= require_tree ./services
 
 @hcxpApp = angular.module "hcxpApp", [
   'restangular'
@@ -14,6 +15,7 @@
   'pascalprecht.translate'
 
   'hcxpApp.controllers'
+  'hcxpApp.services'
 ]
 
 # Config
@@ -33,3 +35,6 @@
 
 # Controllers
 @controllers = angular.module('hcxpApp.controllers', [])
+
+# Services
+@services = angular.module('hcxpApp.services', [])

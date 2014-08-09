@@ -30,6 +30,7 @@
         $scope.data.locations.splice(index, 1)
 
     $scope.done = () ->
+      $rootScope.$broadcast 'alert', {type: 'success', msg: 'Location has been saved.'}
       console.log 'hide'
 
     loadLocations()

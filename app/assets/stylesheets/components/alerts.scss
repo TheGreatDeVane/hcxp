@@ -26,3 +26,11 @@ $background-lighten-amount: 20%;
   background:   lighten($brand-warning, $background-lighten-amount);
   border-color: darken(lighten($brand-warning, $background-lighten-amount), $border-darken-amount)
 }
+
+.container-alert {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  width: 20%;
+  z-index: 9999;
+}

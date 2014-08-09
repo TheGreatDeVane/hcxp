@@ -105,6 +105,8 @@
         $scope.newVenue.active = false
         $scope.event.venue_id  = result.id
 
+        $rootScope.$broadcast 'alert', {type: 'success', msg: 'Venue has been created.'}
+
       , (result) ->
         $scope.resetAlerts()
 
@@ -119,6 +121,8 @@
           index:   Math.round(new Date().getTime() / 1000)
           band_id: result.id
           id:      null
+
+        $rootScope.$broadcast 'alert', {type: 'success', msg: 'Band has been created.'}
         $scope.cancelBand()
 
       , (result) ->
@@ -258,10 +262,8 @@
       request.then((result) ->
         $scope.isLoading = false
         $scope.resetAlerts()
-        $scope.alerts.push {
-          msg:  'Event saved',
-          type: 'success'
-        }
+        $rootScope.$broadcast 'alert', {type: 'success', msg: 'Event has been created!'}
+        $modalInstance.close(result)
 
       , (result) ->
         $scope.isLoading = false
