@@ -5,10 +5,10 @@
 
 - content_for :sidebar do
 
-  = render 'layouts/sidebar/user_widget'
+  = render 'layouts/sidebar/event_filters'
 
   - if @bands.length > 0
-    .panel.panel-default
+    .panel.panel-default.hide
       .panel-heading: span Bands
       .panel-body
         - @bands.each do |band|

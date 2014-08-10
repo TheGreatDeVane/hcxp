@@ -193,8 +193,6 @@
           query: term
 
         transport: (queryParams, page) ->
-          # I was trying to use restangular here but it was not working
-          # Sounds like i need to ask for that on stack overflow
           $http.get("/api/v1/bands?query=" + queryParams.data.query).then(queryParams.success)
 
         results: (data, page) ->

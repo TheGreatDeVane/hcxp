@@ -51,6 +51,10 @@
 #sidebar {
   padding-top: 15px;
 
+  .sidebar-heading:first-child {
+    margin-top: 0;
+  }
+
   .affix {
     width: 263px;
     top: 25px;
