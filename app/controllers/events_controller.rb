@@ -7,7 +7,16 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.from_the_future.order(:beginning_at)
+    @events = Event
+
+    case params[:from]
+    when 'past'
+      @events = @events.from_the_past.order(beginning_at: :desc)
+      @from   = :past
+    else
+      @events = @events.from_the_future.order(beginning_at: :desc)
+      @from   = :future
+    end
 
     if user_signed_in?
       @events = @events.from_cities(current_user.locations.map(&:city)) if current_user.locations.any?

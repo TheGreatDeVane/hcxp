@@ -1,19 +1,27 @@
 - if user_signed_in?
   - @title = 'Dashboard'
 
-  .page-lead ng-controller='UserLocationsCtrl'
-    h1.h3 Dashboard
-    ul.list-inline.description
-      li.text-muted Displaying events from:
-      li.text-muted ng-repeat="location in data.locations"
-        | {{ location.city }}
-      li.text-muted ng-hide="data.locations" Anywhere
-      li: a (
-        title='Edit your locations'
-        bs-popover='UserLocationsCtrl'
-        data-placement='bottom'
-        data-template='users/locations_popover.html'
-      ) = fa_icon 'pencil'
+  .row
+    .col-md-9
+      .page-lead ng-controller='UserLocationsCtrl'
+        h1.h3 Dashboard
+        ul.list-inline.description
+          li.text-muted Displaying events from:
+          li.text-muted ng-repeat="location in data.locations"
+            | {{ location.city }}
+          li.text-muted ng-hide="data.locations" Anywhere
+          li: a (
+            title='Edit your locations'
+            bs-popover='UserLocationsCtrl'
+            data-placement='bottom'
+            data-template='users/locations_popover.html'
+          ) = fa_icon 'pencil'
+    .col-md-3
+      ul.nav.nav-pills.pull-right.nav-stacked-sm
+        li class="#{if @from == :past then 'active' end}"
+          = link_to 'Past', root_path(from: 'past')
+        li class="#{if @from == :future then 'active' end}"
+          = link_to 'Future', root_path
 
 = render 'shared/flash'
 = render 'events/events'
