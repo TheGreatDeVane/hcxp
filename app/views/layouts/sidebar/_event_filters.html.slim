@@ -1,4 +1,10 @@
 div ng-controller="EventFiltersCtrl"
+
+  / Initializers
+  div ng-init="filters.when='#{@filters[:when]}'"
+  div ng-init="filters.band_ids=#{@filters[:band_ids]}"
+  div ng-init="filters.venue_ids=#{@filters[:venue_ids]}"
+
   h5.sidebar-heading Filters
 
   .panel.panel-default
@@ -64,14 +70,22 @@ div ng-controller="EventFiltersCtrl"
       li.list-group-item ng-show="filters.displayLocations"
         input.form-control placeholder="Enter location"
 
-  h5.sidebar-heading Order
+  / h5.sidebar-heading Order
 
-  .panel.panel-default
-    ul.list-group
-      li.list-group-item ng-click="filters.order='date'" ng-class="{'active': filters.order=='date'}"
-        a By date
-        i.fa.fa-check.pull-right.fa-when-active
+  / .panel.panel-default
+  /   ul.list-group
+  /     li.list-group-item ng-click="filters.order='date'" ng-class="{'active': filters.order=='date'}"
+  /       a By date
+  /       i.fa.fa-check.pull-right.fa-when-active
 
-      li.list-group-item ng-click="filters.order='popularity'" ng-class="{'active': filters.order=='popularity'}"
-        a By popularity
-        i.fa.fa-check.pull-right.fa-when-active
+  /     li.list-group-item ng-click="filters.order='popularity'" ng-class="{'active': filters.order=='popularity'}"
+  /       a By popularity
+  /       i.fa.fa-check.pull-right.fa-when-active
+
+  = form_for search_index_path, method: 'get' do
+    input type="text" name="q" value=params[:q]
+    input type="text" name="when" ng-model="filters.when"
+    br
+    input type="checkbox" name="band_ids[]" checked="checked" ng-repeat="band_id in filters.band_ids" value="{{ band_id }}"
+    br
+    input type="submit"

@@ -52,50 +52,6 @@ class Event < ActiveRecord::Base
     title_or_bands
   end
 
-  def self.parse_search(query, user_id)
-    include_past = false
-    only_past    = false
-    only_saved   = false
-
-    # Only past events filter
-    if query.start_with? '--'
-      query     = query.reverse[0...-2].reverse
-      only_past = true
-      logger.info "-----> Double minus detected, display only past events"
-
-    # Also past events filter
-    elsif query.start_with? '-'
-      query        = query.reverse[0...-1].reverse
-      include_past = true
-      logger.info "-----> Minus detected, include events from the past"
-    end
-
-    # Saved filter
-    if query.include? ':s'
-      query      = query.gsub(':s', '')
-      only_saved = true
-      logger.info "-----> Saved flag detected, show only saved events"
-    end
-
-    # Remove useless spaces
-    query = query.strip
-
-    if query.empty?
-      logger.info "-----> Query is empty, do not use #search"
-      events = Event.all
-    else
-      logger.info "-----> Query is not empty, use #search"
-      events = Event.search(query)
-    end
-
-    # Apply conditional scopes
-    events = events.from_the_past if only_past
-    events = events.from_the_future if !only_past && !include_past
-    events = events.where(id: User.find(user_id).saved_events.map(&:id)) if only_saved && user_id.present?
-
-    events
-  end
-
   # Return title or bands list
   def title_or_bands
     if title.present?

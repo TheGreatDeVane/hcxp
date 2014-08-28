@@ -2,14 +2,18 @@
   '$scope'
   '$rootScope'
   '$http'
+  '$location'
 
-  ($scope, $rootScope, $http) ->
+  ($scope, $rootScope, $http, $location) ->
+
+    $location.path('/band_ids[]=1&band_ids[]=2')
 
     $scope.filters = {
-      when:   'future'
-      order:  'date'
-      bands:  []
-      venues: []
+      when:     'future'
+      order:    'date'
+      bands:    []
+      venues:   []
+      band_ids: []
     }
 
     $scope.$watch 'foundBand', (band) ->

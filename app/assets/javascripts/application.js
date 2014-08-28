@@ -23,6 +23,7 @@
 //= require angular-bootstrap
 //= require ./application/vendor/angular-strap.min
 //= require ./application/vendor/ngAutocomplete.js
+//= require ./application/vendor/arg.js.v1.1.min.js
 //= require angular-ui-utils
 //= require angular-sanitize
 //= require angular-translate
