@@ -6,8 +6,6 @@
 
   ($scope, $rootScope, $http, $location) ->
 
-    $location.path('/band_ids[]=1&band_ids[]=2')
-
     $scope.filters = {
       when:     'future'
       order:    'date'
