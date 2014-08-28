@@ -1,4 +1,6 @@
 Khcpl::Application.routes.draw do
+  Khcpl::Application.routes.default_url_options[:host] = Rails.application.config.action_mailer.default_url_options[:host]
+
   resources :venues do
     get :autocomplete, on: :collection
   end

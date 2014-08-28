@@ -122,6 +122,7 @@ end
 
 # Bower packages
 gem 'rails-assets-angular'
+gem 'rails-assets-angular-resource'
 gem 'rails-assets-restangular'
 gem 'rails-assets-underscore'
 # gem 'rails-assets-ngAutocomplete'

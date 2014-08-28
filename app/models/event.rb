@@ -118,6 +118,10 @@ class Event < ActiveRecord::Base
     slugged_event_path(self, self.slug)
   end
 
+  def url
+    slugged_event_url(self, self.slug)
+  end
+
   def sync(what = :all)
     return unless Settings.sync.enabled
 

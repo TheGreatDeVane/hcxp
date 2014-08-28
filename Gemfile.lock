@@ -216,6 +216,8 @@ GEM
     rails-assets-angular-moment (0.7.1)
       rails-assets-angular (>= 1.0.0, < 1.4.0)
       rails-assets-moment (>= 2.0.0, < 2.7.0)
+    rails-assets-angular-resource (1.2.16)
+      rails-assets-angular (= 1.2.16)
     rails-assets-angular-sanitize (1.2.16)
       rails-assets-angular (= 1.2.16)
     rails-assets-angular-translate (2.2.0)
@@ -380,6 +382,7 @@ DEPENDENCIES
   rails-assets-angular
   rails-assets-angular-bootstrap
   rails-assets-angular-moment
+  rails-assets-angular-resource
   rails-assets-angular-sanitize
   rails-assets-angular-translate
   rails-assets-angular-ui-select2

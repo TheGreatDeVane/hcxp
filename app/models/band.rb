@@ -1,6 +1,8 @@
 class Band < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
   extend FriendlyId
   include PgSearch
+
   friendly_id :name, use: :slugged
   pg_search_scope :search, against: [:name, :location],
                            using: {
@@ -32,6 +34,10 @@ class Band < ActiveRecord::Base
   def images
     lastfm_resources = self.resources.lastfm
     self.resources.lastfm.first.data[:images] if lastfm_resources.any? && lastfm_resources.first.data.present?
+  end
+
+  def url
+    search_index_url(q: self.name)
   end
 
   def foreign_profile_url(type = :bandcamp)

@@ -7,6 +7,10 @@ class Api::V1::EventsController < Api::V1Controller
 
   respond_to :json
 
+  def index
+    @events = Event.all
+  end
+
   def similar_by
     @events = Event.similar_by(
       title:       params[:event][:title],

@@ -1,11 +1,13 @@
 #= require_self
 #= require      ./locales
+#= require_tree ./factories
 #= require_tree ./controllers
 #= require_tree ./services
 
 @hcxpApp = angular.module "hcxpApp", [
   'restangular'
   'ngAutocomplete'
+  'ngResource'
   'ui.bootstrap'
   'mgcrea.ngStrap.popover'
   'ui.select2'
@@ -14,6 +16,7 @@
   'angularMoment'
   'pascalprecht.translate'
 
+  'hcxpApp.factories'
   'hcxpApp.controllers'
   'hcxpApp.services'
 ]
@@ -38,3 +41,6 @@
 
 # Services
 @services = angular.module('hcxpApp.services', [])
+
+# Factories
+@factories = angular.module('hcxpApp.factories', [])

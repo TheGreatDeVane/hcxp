@@ -3,13 +3,28 @@
   '$rootScope'
   '$modal'
   'Restangular'
+  'Event'
+  '$q'
 
-  ($scope, $rootScope, $modal, Restangular) ->
+  ($scope, $rootScope, $modal, Restangular, Event) ->
 
     $scope.isExpanded   = false
     $scope.event        = false
     $scope.isSaved      = false
     $scope.isPromoted   = false
+    $scope.events       = []
+
+    Event.query (data) ->
+      $scope.events = data
+
+      $scope.groupedByDay = _.groupBy $scope.events, (item) ->
+        item.beginning_at.substring(0, 10)
+
+      return
+
+    ###############################################################################
+    ###############################################################################
+    ###############################################################################
 
     loadEvent = () ->
       Restangular.one('events', $scope.eventId).get($scope.eventId).then (data) ->
@@ -31,16 +46,11 @@
       modalInstance.result.then (event) ->
         console.log 'ok'
 
-    $scope.toggleExpand = ($event) ->
-      console.log $event.target
+    $scope.toggleExpand = (event, $event) ->
       return false if $($event.target).is('.no-expand')
 
       # Event should be loaded just one time
-      if $scope.event is false
-        if loadEvent()
-          $scope.isExpanded = !$scope.isExpanded
-      else
-        $scope.isExpanded = !$scope.isExpanded
+      event.isExpanded = !event.isExpanded
 
     $scope.toggleIsSaved = () ->
       Restangular.one('events', $scope.eventId).post('toggle_save', $scope.eventId).then (data) ->
