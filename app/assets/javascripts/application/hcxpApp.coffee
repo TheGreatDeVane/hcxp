@@ -15,6 +15,7 @@
   'btford.markdown'
   'angularMoment'
   'pascalprecht.translate'
+  'cgBusy'
 
   'hcxpApp.factories'
   'hcxpApp.controllers'
@@ -29,11 +30,6 @@
 
     # Config API base url
     RestangularProvider.setBaseUrl('/api/v1/')
-
-    # Make Restangular work with our api response structure
-    RestangularProvider.addResponseInterceptor( (data, operation, what, url, response, deferred) ->
-      data[data.resource || response.headers('x-resource')]
-    )
 ])
 
 # Controllers

@@ -1,9 +1,3 @@
-object false
+object @event
 
-child @event => :event do
-  object @event
-
-  attributes :id, :is_promoted
-end
-
-node(:resource) { 'event' }
+attributes :id, :is_promoted

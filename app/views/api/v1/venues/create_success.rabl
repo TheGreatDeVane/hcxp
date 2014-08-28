@@ -1,7 +1,3 @@
-object false
+object @venue
 
-child @venue => :venue do
-  object @venue
-
-  extends 'api/v1/venues/venue'
-end
+extends 'api/v1/venues/venue'

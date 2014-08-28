@@ -1,11 +1,5 @@
-object false
+collection @events, root: false, object_root: false
 
-child @events => :events do
-  collection @events, root: false, object_root: false
+attributes :id, :title, :title_or_bands, :similarity
 
-  attributes :id, :title, :title_or_bands, :similarity
-
-  node(:bands) { |e| e.bands.map { |b| [b.name] } }
-end
-
-node(:resource) { 'events' }
+node(:bands) { |e| e.bands.map { |b| [b.name] } }

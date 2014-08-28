@@ -1,9 +1,3 @@
-object false
+collection @bands
 
-child @bands => :bands do
-  collection @bands
-
-  extends 'api/v1/bands/band'
-end
-
-node(:resource) { 'bands' }
+extends 'api/v1/bands/band'

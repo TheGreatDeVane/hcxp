@@ -20,6 +20,7 @@
       Restangular.one('users').one('locations').customPOST({location: $scope.data.location}).then () ->
         $scope.data.autocomplete = ''
         loadLocations()
+        $rootScope.$broadcast 'userLocationsChanged'
 
     loadLocations = () ->
       Restangular.one('users').getList('locations').then (locations) ->
@@ -28,10 +29,10 @@
     $scope.removeLocation = (index) ->
       Restangular.one('users').customDELETE('locations', {id: $scope.data.locations[index].id}).then () ->
         $scope.data.locations.splice(index, 1)
+        $rootScope.$broadcast 'userLocationsChanged'
 
     $scope.done = () ->
       $rootScope.$broadcast 'alert', {type: 'success', msg: 'Location has been saved.'}
-      console.log 'hide'
 
     loadLocations()
 ])

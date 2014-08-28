@@ -1,9 +1,3 @@
-object false
+collection @bands
 
-child @bands => :bands do
-  collection @bands
-
-  attributes :id, :name, :location, :images
-end
-
-node(:resource) { 'bands' }
+attributes :id, :name, :location, :images

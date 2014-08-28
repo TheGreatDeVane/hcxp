@@ -211,8 +211,13 @@ GEM
       railties (= 4.1.0)
       sprockets-rails (~> 2.0)
     rails-assets-angular (1.2.16)
+    rails-assets-angular-animate (1.2.20)
+      rails-assets-angular (~> 1.2.0)
     rails-assets-angular-bootstrap (0.11.0)
       rails-assets-angular (>= 1)
+    rails-assets-angular-busy (4.1.0)
+      rails-assets-angular (~> 1.2)
+      rails-assets-angular-animate (~> 1.2)
     rails-assets-angular-moment (0.7.1)
       rails-assets-angular (>= 1.0.0, < 1.4.0)
       rails-assets-moment (>= 2.0.0, < 2.7.0)
@@ -381,6 +386,7 @@ DEPENDENCIES
   rails (= 4.1.0)
   rails-assets-angular
   rails-assets-angular-bootstrap
+  rails-assets-angular-busy
   rails-assets-angular-moment
   rails-assets-angular-resource
   rails-assets-angular-sanitize

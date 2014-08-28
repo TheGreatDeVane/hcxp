@@ -1,7 +1,3 @@
-object false
+object @band
 
-child @band => :band do
-  object @band
-
-  node(:full_messages) { |b| b.errors.full_messages }
-end
+node(:full_messages) { |b| b.errors.full_messages }

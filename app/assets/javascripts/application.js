@@ -15,6 +15,7 @@
 //= require angular
 //= require angular-resource
 //= require angular-rails-templates
+//= require angular-busy
 //= require_tree ../templates
 //
 //= require underscore

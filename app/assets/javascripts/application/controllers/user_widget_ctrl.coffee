@@ -2,8 +2,9 @@
   '$scope'
   '$rootScope'
   '$http'
+  'Restangular'
 
-  ($scope, $rootScope, $http) ->
+  ($scope, $rootScope, $http, Restangular) ->
 
     $scope.user = {}
 
@@ -12,13 +13,8 @@
       $scope.user.saved = $scope.user.saved - 1 if args.type is 'unsaved'
 
     $scope.loadUser = () ->
-      $http({method: 'GET', url: '/api/v1/users/current'}).
-        success((data) ->
-          $scope.user = data.user
-        ).
-        error((data) ->
-          console.log 'Error', data
-        )
+      Restangular.one('users').one('current').get().then (data) ->
+        $scope.user = data
 
     $scope.loadUser()
 ])
