@@ -20,10 +20,6 @@ class Api::V1::EventsController < Api::V1Controller
     if params[:locations]
       @events = @events.from_cities(params[:locations].values)
     end
-
-    # if user_signed_in?
-    #   @events = @events.from_cities(current_user.locations.map(&:city)) if current_user.locations.any?
-    # end
   end
 
   def similar_by

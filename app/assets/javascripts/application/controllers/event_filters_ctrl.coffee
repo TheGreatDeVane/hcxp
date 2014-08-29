@@ -3,9 +3,14 @@
   '$rootScope'
   '$http'
   '$location'
+  'EventListService'
 
-  ($scope, $rootScope, $http, $location) ->
+  ($scope, $rootScope, $http, $location, EventListService) ->
 
+    # Load events on init
+    $rootScope.$emit 'eventListFiltersChanged'
+
+    $scope.eventListFilters = EventListService.filters()
     $scope.filters = {
       when:     'future'
       order:    'date'
@@ -23,6 +28,9 @@
       return false unless venue?
       $scope.foundVenue = null
       $scope.filters.venues.push venue
+
+    $scope.changeWhenFilter = (whenFilter) ->
+      EventListService.setFilters({when: whenFilter})
 
     $scope.removeBand = (index) ->
       $scope.filters.bands.splice(index, 1)
