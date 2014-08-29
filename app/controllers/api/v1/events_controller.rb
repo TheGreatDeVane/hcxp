@@ -8,11 +8,22 @@ class Api::V1::EventsController < Api::V1Controller
   respond_to :json
 
   def index
-    @events = Event.all
+    @events = Event
 
-    if user_signed_in?
-      @events = @events.from_cities(current_user.locations.map(&:city)) if current_user.locations.any?
+    case params[:when]
+    when 'past'
+      @events = @events.from_the_past.order(beginning_at: :desc)
+    else
+      @events = @events.from_the_future.order(beginning_at: :desc)
     end
+
+    if params[:locations]
+      @events = @events.from_cities(params[:locations].values)
+    end
+
+    # if user_signed_in?
+    #   @events = @events.from_cities(current_user.locations.map(&:city)) if current_user.locations.any?
+    # end
   end
 
   def similar_by

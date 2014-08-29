@@ -3,8 +3,9 @@
   '$rootScope'
   '$modal'
   'Restangular'
+  'EventListService'
 
-  ($scope, $rootScope, $modal, Restangular) ->
+  ($scope, $rootScope, $modal, Restangular, EventListService) ->
 
     $scope.isExpanded   = false
     $scope.event        = false
@@ -13,7 +14,7 @@
     $scope.events       = []
 
     $scope.loadEvents = () ->
-      $scope.eventsPromise = Restangular.one('events').get().then (data) ->
+      $scope.eventsPromise = Restangular.one('events').get(EventListService.filterQueryObject()).then (data) ->
         $scope.events = data
 
         $scope.groupedByDay = _.groupBy $scope.events, (item) ->
@@ -22,11 +23,11 @@
         return
 
     # Load all events on startup
-    $scope.loadEvents()
+    # $scope.loadEvents()
 
-    # Watch for userLocationsChanged event and reload
+    # Watch for eventLocationsChanged event and reload
     # events list if it occurs.
-    $rootScope.$on('userLocationsChanged', () ->
+    $rootScope.$on('eventListFiltersChanged', (e, data) ->
       $scope.loadEvents()
     )
 

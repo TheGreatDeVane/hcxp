@@ -1,10 +1,10 @@
 - if user_signed_in?
   - @title = 'Dashboard'
 
-  .row
+  .row ng-controller='UserLocationsCtrl'
     .col-md-9
-      .page-lead ng-controller='UserLocationsCtrl'
-        h1.h3 Dashboard
+      .page-lead
+        h1.h3 ng-click="go()" Dashboard
         ul.list-inline.description
           li.text-muted Displaying events from:
           li.text-muted ng-repeat="location in data.locations"
@@ -16,17 +16,19 @@
             data-placement='bottom'
             data-template='users/locations_popover.html'
           ) = fa_icon 'pencil'
+
     .col-md-3
       ul.nav.nav-pills.pull-right.nav-stacked-sm
-        li class="#{if @from == :past then 'active' end}"
-          = link_to 'Past', root_path(from: 'past')
-        li class="#{if @from == :future then 'active' end}"
-          = link_to 'Future', root_path
+        li ng-class="{true: 'active'}[eventListFilters.when == 'past']"
+          a ng-click="changeWhenFilter('past')" Past
+        li ng-class="{true: 'active'}[eventListFilters.when == 'future']"
+          a ng-click="changeWhenFilter('future')" Future
 
 = render 'shared/flash'
 / = render 'events/events'
 
 .events-list ng-controller="EventsListCtrl" cg-busy="eventsPromise"
+
   div ng-repeat="(day, events) in groupedByDay"
     h2.month-title
       | {{ day }}
