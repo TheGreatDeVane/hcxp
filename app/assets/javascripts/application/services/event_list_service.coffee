@@ -20,6 +20,7 @@
     filterQueryObject: () ->
       obj = {}
 
+      obj.q    = filters.q
       obj.when = filters.when
 
       # Locations

@@ -2,6 +2,8 @@ div ng-controller="EventFiltersCtrl"
 
   h5.sidebar-heading Filters
 
+  div ng-init="changeQueryFilter('#{params[:q]}')"
+
   .panel.panel-default
     ul.list-group
       li.list-group-item ng-class="{'active': eventListFilters.when == 'future'}" ng-click="changeWhenFilter('future')"

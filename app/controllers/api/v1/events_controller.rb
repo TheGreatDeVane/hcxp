@@ -17,6 +17,8 @@ class Api::V1::EventsController < Api::V1Controller
       @events = @events.from_the_future.order(beginning_at: :desc)
     end
 
+    @events = @events.search(params[:q]) if params[:q].present?
+
     if params[:locations]
       @events = @events.from_cities(params[:locations].values)
     end

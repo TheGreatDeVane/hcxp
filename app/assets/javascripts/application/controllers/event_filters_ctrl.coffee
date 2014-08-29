@@ -7,9 +7,6 @@
 
   ($scope, $rootScope, $http, $location, EventListService) ->
 
-    # Load events on init
-    $rootScope.$emit 'eventListFiltersChanged'
-
     $scope.eventListFilters = EventListService.filters()
     $scope.filters = {
       when:     'future'
@@ -31,6 +28,9 @@
 
     $scope.changeWhenFilter = (whenFilter) ->
       EventListService.setFilters({when: whenFilter})
+
+    $scope.changeQueryFilter = (queryFilter) ->
+      EventListService.setFilters({q: queryFilter})
 
     $scope.removeBand = (index) ->
       $scope.filters.bands.splice(index, 1)

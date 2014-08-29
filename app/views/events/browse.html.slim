@@ -1,2 +1,21 @@
-= render 'shared/flash'
+/ Set page title
+- @title = "Search results for: #{params[:q]}"
+
 = render 'events/events'
+
+- content_for :sidebar do
+
+  = render 'layouts/sidebar/event_filters'
+
+  /- if @bands.length > 0
+  /  .panel.panel-default.hide
+  /    .panel-heading: span Bands
+  /    .panel-body
+  /      - @bands.each do |band|
+  /        .media
+  /          a.pull-left
+  /            = image_tag band_thumb_url(band, :medium_s), size: '45x45'
+
+  /          .media-body
+  /            h5.media-heading = band.name
+  /            a.btn.btn-default.btn-xs href=edit_band_path(band) Edit
