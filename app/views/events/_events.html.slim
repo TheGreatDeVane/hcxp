@@ -1,5 +1,8 @@
 .events-list ng-controller="EventsListCtrl" cg-busy="eventsPromise"
 
+  div ng-hide="events.length > 0"
+    h5 No events to show
+
   div ng-repeat="(day, events) in groupedByDay"
     h2.month-title
       | {{ day | amDateFormat:'DD.MM.YYYY' }}

@@ -26,11 +26,31 @@
       $scope.foundVenue = null
       $scope.filters.venues.push venue
 
+    $scope.$watchCollection 'filters.bands', (val, newVal) ->
+      return false if val is newVal
+      reloadBandsFilter()
+
+    $scope.$watchCollection 'filters.venues', (val, newVal) ->
+      return false if val is newVal
+      reloadVenuesFilter()
+
+    reloadVenuesFilter = () ->
+      $scope.changeVenueIdsFilter(_.map($scope.filters.venues, (item) -> item.id))
+
+    reloadBandsFilter = () ->
+      $scope.changeBandIdsFilter(_.map($scope.filters.bands, (item) -> item.id))
+
     $scope.changeWhenFilter = (whenFilter) ->
       EventListService.setFilters({when: whenFilter})
 
     $scope.changeQueryFilter = (queryFilter) ->
       EventListService.setFilters({q: queryFilter})
+
+    $scope.changeBandIdsFilter = (bandIdsFilter) ->
+      EventListService.setFilters({band_ids: bandIdsFilter})
+
+    $scope.changeVenueIdsFilter = (venueIdsFilter) ->
+      EventListService.setFilters({venue_ids: venueIdsFilter})
 
     $scope.removeBand = (index) ->
       $scope.filters.bands.splice(index, 1)
@@ -66,10 +86,10 @@
           query: term
 
         transport: (queryParams, page) ->
-          $http.get("/api/v1/bands?query=" + queryParams.data.query).then(queryParams.success)
+          $http.get("/api/v1/bands?q=" + queryParams.data.query).then(queryParams.success)
 
         results: (data, page) ->
-          results: data.data.bands
+          results: data.data
     }
 
     # Venue Select2 options
@@ -86,10 +106,10 @@
           query: term
 
         transport: (queryParams, page) ->
-          $http.get("/api/v1/venues?query=" + queryParams.data.query).then(queryParams.success)
+          $http.get("/api/v1/venues?q=" + queryParams.data.query).then(queryParams.success)
 
         results: (data, page) ->
-          results: data.data.venues
+          results: data.data
     }
 
 ])

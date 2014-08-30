@@ -22,6 +22,14 @@ class Api::V1::EventsController < Api::V1Controller
     if params[:locations]
       @events = @events.from_cities(params[:locations].values)
     end
+
+    if params[:band_ids]
+      @events = @events.joins(:bands).where('bands.id IN (?)', params[:band_ids].values)
+    end
+
+    if params[:venue_ids]
+      @events = @events.where(venue_id: params[:venue_ids].values)
+    end
   end
 
   def similar_by

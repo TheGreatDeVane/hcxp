@@ -10,7 +10,7 @@ class Api::V1::VenuesController < Api::V1Controller
     response.headers['X-Resource'] = 'venues'
 
     @venues = Venue.all
-    @venues = @venues.search(params[:query])
+    @venues = @venues.search(params[:q])
     @venues
   end
 
