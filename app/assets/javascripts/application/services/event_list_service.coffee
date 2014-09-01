@@ -16,6 +16,11 @@
       filters = _.extend(filters, f)
       $rootScope.$emit 'eventListFiltersChanged', filters
 
+    # Reload events
+    #
+    reloadEvents: () ->
+      $rootScope.$emit 'eventListFiltersChanged'
+
 
     # Converts filters object to proper restangular query object
     #

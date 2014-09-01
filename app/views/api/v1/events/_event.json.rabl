@@ -14,7 +14,7 @@ node(:saves_count)       { |event| event.saves.count }
 node(:beginning_at_time) { |event| event.beginning_at_time.strftime('%H:%M') }
 node(:html_url)          { |event| event.url }
 node(:excerpt)           { |event| excerpt(event).to_s.truncate(170) }
-node(:is_saved)          { |event| current_user.saved_events.include? event }
+node(:is_saved)          { |event| current_user.saved_events.include? event } if user_signed_in?
 
 child :savegazers => 'savegazers' do
   collection locals[:object].savegazers

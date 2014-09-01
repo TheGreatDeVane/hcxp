@@ -35,9 +35,15 @@
         updateEventListFilters()
 
     loadLocations = () ->
-      Restangular.one('users').getList('locations').then (locations) ->
+      Restangular.one('users').getList('locations').then ((locations) ->
         $scope.data.locations = locations
         updateEventListFilters()
+      ), ((res) ->
+        # If response code is 401 (which means user is not authorized [not signed-in])
+        # we should reload the events list anyway to display all the events.
+        if res.status is 401
+          updateEventListFilters()
+      )
 
     $scope.removeLocation = (index) ->
       Restangular.one('users').customDELETE('locations', {id: $scope.data.locations[index].id}).then () ->
@@ -45,7 +51,7 @@
         updateEventListFilters()
 
     $scope.done = () ->
-      $rootScope.$broadcast 'alert', {type: 'success', msg: 'Location has been saved.'}
+      # $rootScope.$broadcast 'alert', {type: 'success', msg: 'Location has been saved.'}
 
     updateEventListFilters = () ->
       locations = _.map($scope.data.locations, (num, key) -> {

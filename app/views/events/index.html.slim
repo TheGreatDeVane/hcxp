@@ -1,28 +1,38 @@
-- if user_signed_in?
-  - @title = 'Dashboard'
+.row ng-controller='UserLocationsCtrl'
 
-  .row ng-controller='UserLocationsCtrl'
+  - if user_signed_in?
+    - @title = 'Dashboard'
+
     .col-md-9
       .page-lead
-        h1.h3 ng-click="go()" Dashboard
+        h1.h3 Dashboard
         ul.list-inline.description
           li.text-muted Displaying events from:
           li.text-muted ng-repeat="location in data.locations"
             | {{ location.city || location.country_name }}
           li.text-muted ng-hide="data.locations" Anywhere
           li: a (
-            title='Edit your locations'
-            bs-popover='UserLocationsCtrl'
-            data-placement='bottom'
-            data-template='users/locations_popover.html'
+            title="Edit your locations"
+            bs-popover="UserLocationsCtrl"
+            data-placement="bottom"
+            data-template="users/locations_popover.html"
           ) = fa_icon 'pencil'
 
-    .col-md-3
-      ul.nav.nav-pills.pull-right.nav-stacked-sm
-        li ng-class="{true: 'active'}[eventListFilters.when == 'past']"
-          a ng-click="changeWhenFilter('past')" Past
-        li ng-class="{true: 'active'}[eventListFilters.when == 'future']"
-          a ng-click="changeWhenFilter('future')" Future
+  - else
+    .col-md-9
+      .page-lead
+        h1.h3 Recent Events
+        ul.list-inline.description
+          li.text-muted Displaying events from:
+          li.text-muted Anywhere
+
+  .col-md-3
+    ul.nav.nav-pills.pull-right.nav-stacked-sm
+      li ng-class="{true: 'active'}[eventListFilters.when == 'past']"
+        a ng-click="changeWhenFilter('past')" Past
+
+      li ng-class="{true: 'active'}[eventListFilters.when == 'future']"
+        a ng-click="changeWhenFilter('future')" Future
 
 = render 'shared/flash'
 = render 'events/events'
