@@ -22,13 +22,13 @@
                 ul.list-inline.event-bands-labels
                   - event.bands.each do |band|
                     li: span.label.label-default.label-tag>
-                      = link_to band.name, search_index_path(q: band.name), class: 'no-expand'
+                      = link_to band.name, browse_events_path(q: band.name), class: 'no-expand'
 
             - else
               ul.list-inline.event-bands-labels
                 - event.bands.each do |band|
                   li: span.label.label-default.label-tag>
-                    = link_to band.name, search_index_path(q: band.name), class: 'no-expand'
+                    = link_to band.name, browse_events_path(q: band.name), class: 'no-expand'
 
           / Venue stuff
           .col-md-3.text-right

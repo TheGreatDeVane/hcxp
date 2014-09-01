@@ -37,7 +37,7 @@ class Band < ActiveRecord::Base
   end
 
   def url
-    search_index_url(q: self.name)
+    browse_events_url(q: self.name)
   end
 
   def foreign_profile_url(type = :bandcamp)

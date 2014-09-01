@@ -18,10 +18,6 @@ Khcpl::Application.routes.draw do
     get :events, on: :member
   end
 
-  resources :search do
-    get 'bands', on: :collection
-  end
-
   get 'style_guide' => 'application#style_guide'
 
   namespace :api, :defaults => { :format => 'json' } do

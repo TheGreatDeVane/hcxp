@@ -31,13 +31,13 @@
 
                   div ng-show="event.title"
                     h3.media-heading.event-title
-                      a ng-href="{{ event.html_url }}" {{ event.title }}
+                      a.no-expand ng-href="{{ event.html_url }}" {{ event.title }}
 
                     div ng-show="event.bands.length > 0"
                       ul.list-inline.event-bands-labels
                         li ng-repeat="band in event.bands"
                           span.label.label-default.label-tag>
-                            a ng-href="{{ band.html_url }}" {{ band.name }}
+                            a.no-expand ng-href="{{ band.html_url }}" {{ band.name }}
 
                     div ng-show="event.bands.length == 0"
                       p.text-muted.event-excerpt ng-hide="event.isExpanded"
@@ -47,7 +47,7 @@
                     ul.list-inline.event-bands-labels
                       li ng-repeat="band in event.bands"
                         span.label.label-default.label-tag>
-                          a ng-href="{{ band.html_url }}" {{ band.name }}
+                          a.no-expand ng-href="{{ band.html_url }}" {{ band.name }}
 
                     p.text-muted.event-excerpt ng-hide="event.isExpanded"
                       | {{ event.excerpt }}
@@ -71,8 +71,8 @@
                 li.savegazers
                   ul.list-inline.pull-left
                     li ng-repeat="savegazer in event.savegazers"
-                      a.no-expand ng-href="{{ savegazer.profile_path }}"
-                        img.img-rounded ng-src="{{ savegazer.avatar_url + '&size=35' }}" width="35" height="35"
+                      a ng-href="{{ savegazer.profile_path }}"
+                        img.img-rounded.no-expand ng-src="{{ savegazer.avatar_url + '&size=35' }}" width="35" height="35"
 
               p.text-muted ng-show="event.isExpanded"
                 | {{ event.description }}

@@ -47,7 +47,7 @@ html
                 a data-toggle="dropdown"
                   i.fa.fa-gear
                 ul.dropdown-menu.dropdown-menu-right role="menu"
-                  li: a href=search_index_path(q: current_user.username) = t 'main_nav.user.your_events'
+                  li: a href=browse_events_path(q: current_user.username) = t 'main_nav.user.your_events'
                   li: a = t 'main_nav.user.settings'
                   li.divider
                   li= link_to t('main_nav.user.sign_out'), destroy_user_session_path, method: :delete

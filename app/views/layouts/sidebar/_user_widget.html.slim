@@ -10,12 +10,12 @@
         .media-body
           h4.media-heading m.b.
           .btn-group.btn-group-justified.btn-counters
-            a.btn href=search_index_path(q: current_user.username)
+            a.btn href=browse_events_path(q: current_user.username)
               small = t('.hosted')
               h4
                 | {{ user.hosted }}
 
-            a.btn href=search_index_path(q: ':s')
+            a.btn href=browse_events_path(q: ':s')
               small = t('.saved')
               h4
                 | {{ user.saved }}
