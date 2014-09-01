@@ -6,7 +6,6 @@
   	  input.form-control (
   	  	ng-autocomplete=""
   	  	ng-model="data.autocomplete"
-  	  	options="{types: '(cities)'}"
   	  	details="data.locationDetails"
   	  	placeholder=(t 'sidebar.your_cities.placeholder')
   	  )
@@ -23,7 +22,7 @@
   	  	data-toggle='tooltip'
   	  )
 
-  	    | {{ location.city }}
+  	    | {{ location.city || location.country_name }}
   	    i.pull-right.fa.fa-times
 
   	.btn-group.btn-group-justified

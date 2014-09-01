@@ -9,11 +9,13 @@
     filters: ->
       filters
 
+
     # Sets new filter params
     #
     setFilters: (f) ->
       filters = _.extend(filters, f)
       $rootScope.$emit 'eventListFiltersChanged', filters
+
 
     # Converts filters object to proper restangular query object
     #
@@ -25,7 +27,8 @@
 
       # Locations
       for i of filters.locations
-        obj["locations[" + i + "]"] = filters.locations[i]
+        obj["locations[" + i + "][type]"] = filters.locations[i].location_type
+        obj["locations[" + i + "][q]"]    = filters.locations[i].q
 
       # Bands
       for i of filters.band_ids

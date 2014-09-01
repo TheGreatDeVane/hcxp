@@ -158,4 +158,24 @@ class Event < ActiveRecord::Base
   def self.from_cities(cities = [])
     self.joins(:venue).where('venues.city IN (?)', cities)
   end
+
+  def self.from_locations(locations)
+    localities = []
+    countries  = []
+
+    locations.each do |location|
+      case location['type']
+      when 'country'
+        countries << location['q']
+      when 'locality'
+        localities << location['q'].split(',').first
+      end
+    end
+    results = self
+
+    results = results.joins(:venue).where('venues.city IN (?)', localities)        if localities.any?
+    results = results.joins(:venue).where('venues.country_name IN (?)', countries) if countries.any?
+
+    results
+  end
 end

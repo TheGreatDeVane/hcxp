@@ -20,7 +20,13 @@ class Api::V1::EventsController < Api::V1Controller
     @events = @events.search(params[:q]) if params[:q].present?
 
     if params[:locations]
-      @events = @events.from_cities(params[:locations].values)
+      locations = params[:locations]
+      locations_arr = []
+
+      # Convert incoming params to array format
+      locations.keys.each { |key| locations_arr << locations[key] }
+
+      @events = @events.from_locations(locations_arr)
     end
 
     if params[:band_ids]

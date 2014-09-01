@@ -62,10 +62,24 @@ div ng-controller="EventFiltersCtrl"
       / Locations filter
       li.list-group-item ng-click="filters.displayLocations=!filters.displayLocations"
         a Locations
-        span.badge.badge-primary 1
+        span.badge.badge-primary ng-show="filters.locations.length"
+          | {{ filters.locations.length }}
 
       li.list-group-item ng-show="filters.displayLocations"
-        input.form-control placeholder="Enter location"
+        input.form-control (
+          placeholder="Enter location"
+          ng-autocomplete=""
+          ng-model="foundLocation.address"
+          details="foundLocation.address_details"
+        )
+
+        .media.band ng-repeat='location in filters.locations'
+
+          .media-body
+            h5.media-heading.pull-left
+              | {{ location.q }}
+            a.btn.btn-danger.btn-xs.pull-right ng-click="removeLocation($index)": i.fa.fa-times
+            .clearfix
 
   / h5.sidebar-heading Order
 

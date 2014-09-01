@@ -35,7 +35,7 @@ class Api::V1::UsersController < Api::V1Controller
   private
 
     def location_params
-      params.require(:location).permit(:city, :country_code)
+      params.require(:location).permit(:city, :country_code, :location_type, :country_name)
     end
 
 end

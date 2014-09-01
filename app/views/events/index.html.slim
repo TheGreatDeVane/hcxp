@@ -8,7 +8,7 @@
         ul.list-inline.description
           li.text-muted Displaying events from:
           li.text-muted ng-repeat="location in data.locations"
-            | {{ location.city }}
+            | {{ location.city || location.country_name }}
           li.text-muted ng-hide="data.locations" Anywhere
           li: a (
             title='Edit your locations'
