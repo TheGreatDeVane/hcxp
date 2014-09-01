@@ -1,4 +1,10 @@
-.events-list ng-controller="EventsListCtrl" cg-busy="eventsPromise"
+.events-list (
+  ng-controller="EventsListCtrl"
+  cg-busy="eventsPromise"
+  infinite-scroll="loadMore()"
+  infinite-scroll-distance="1"
+  infinite-scroll-disabled="isBusy"
+)
 
   div ng-hide="events.length > 0"
     h5 No events to show
@@ -12,7 +18,7 @@
       .row.event (
         ng-repeat="event in events"
         ng-click="toggleExpand(event, $event)"
-        ng-class="{'is-expanded': event.isExpanded, 'is-saved': event.is_saved, 'is-promoted': event.is_promoted}"
+        ng-class="{'is-expanded': event.isExpanded, 'is-saved': event.is_saved, 'is-promoted': event.is_promoted, 'has-passed': isPast(event)}"
       )
         .inner
           .media

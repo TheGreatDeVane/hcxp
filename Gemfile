@@ -91,6 +91,9 @@ gem "rails_config"
 # Impressions
 gem 'impressionist'
 
+# Pagination
+gem 'kaminari'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -135,3 +138,4 @@ gem 'rails-assets-angular-translate'
 gem 'rails-assets-angular-ui-utils'
 gem 'rails-assets-angular-ui-select2'
 gem 'rails-assets-angular-busy'
+gem 'rails-assets-angular-infinite-scroll'

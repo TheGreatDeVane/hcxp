@@ -16,6 +16,7 @@
   'angularMoment'
   'pascalprecht.translate'
   'cgBusy'
+  'infinite-scroll'
 
   'hcxpApp.factories'
   'hcxpApp.controllers'
@@ -30,6 +31,7 @@
 
     # Config API base url
     RestangularProvider.setBaseUrl('/api/v1/')
+    RestangularProvider.setFullResponse(true)
 ])
 
 # Controllers

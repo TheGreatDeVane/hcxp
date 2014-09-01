@@ -1,6 +1,7 @@
 class Api::V1::EventsController < Api::V1Controller
   before_action :authenticate_user!, only: [:toggle_save, :toggle_promote]
   before_action :set_event, only: [:promote, :toggle_save, :toggle_promote, :event_bands]
+  # after_action  :only => [:index] { set_pagination(:books) }
   impressionist actions: [:show], unique: [:impressionable_type, :impressionable_id, :session_hash]
   skip_before_filter :verify_authenticity_token
   load_and_authorize_resource :event, except: [:similar_by]
@@ -36,6 +37,14 @@ class Api::V1::EventsController < Api::V1Controller
     if params[:venue_ids]
       @events = @events.where(venue_id: params[:venue_ids].values)
     end
+
+    # Pagination
+    @events = @events.page(params[:page]).per(params[:per])
+
+    set_pagination_headers(:events)
+
+    # Set response headers
+    # request.headers['X-Next-Page-Link'] = link_to_next_page()
   end
 
   def similar_by

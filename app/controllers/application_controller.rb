@@ -21,4 +21,5 @@ class ApplicationController < ActionController::Base
         I18n.locale      = cookies[:locale]
       end
     end
+
 end

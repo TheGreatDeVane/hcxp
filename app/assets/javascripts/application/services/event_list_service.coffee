@@ -1,6 +1,10 @@
 @services.factory 'EventListService', ['$rootScope', ($rootScope) ->
 
-  filters = { when: 'future' }
+  filters = {
+    when: 'future'
+    page: 1
+    per:  10
+  }
 
   EventListService =
 
@@ -8,7 +12,6 @@
     #
     filters: ->
       filters
-
 
     # Sets new filter params
     #
@@ -21,14 +24,15 @@
     reloadEvents: () ->
       $rootScope.$emit 'eventListFiltersChanged'
 
-
     # Converts filters object to proper restangular query object
     #
     filterQueryObject: () ->
       obj = {}
 
-      obj.q    = filters.q
+      obj.q    = filters.q if filters.q
       obj.when = filters.when
+      obj.page = filters.page
+      obj.per  = filters.per
 
       # Locations
       for i of filters.locations
@@ -44,4 +48,20 @@
         obj["venue_ids[" + i + "]"] = filters.venue_ids[i]
 
       obj
+
+    getPaginationLinks: (response, rel) ->
+      links = []
+      links_header = response.headers('link')
+      return null if links_header is null
+
+      links = links_header.split(',')
+
+      for link in links
+        unless link.search(rel) is -1
+          return /\<(.*)\>/.exec(link)[1]
+
+      return null
+
+    hasMoreResults: (response) ->
+      EventListService.getPaginationLinks(response, 'next') != null
 ]

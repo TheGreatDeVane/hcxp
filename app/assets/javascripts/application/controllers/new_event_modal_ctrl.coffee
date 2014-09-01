@@ -36,15 +36,13 @@
     # existing event data
     if $scope.mode is 'edit'
       # Get event data
-      Restangular.one('events', eventId).get().then (event) ->
-        $scope.event = event
-        # console.log event.description
-        $scope.event.showDescription = true if event.description
+      Restangular.one('events', eventId).get().then (result) ->
+        $scope.event = result.data
+        $scope.event.showDescription = true if result.data.description
 
       # Get event_bands data
-      Restangular.one('events', eventId).getList('event_bands').then (event_bands) ->
-        $scope.eventBands = event_bands
-        console.log $scope.eventBands
+      Restangular.one('events', eventId).getList('event_bands').then (result) ->
+        $scope.eventBands = result.data
 
     # When user picked anything in select venue
     # search field.
@@ -84,8 +82,8 @@
     $scope.$watch 'event.venue_id', (venue_id) ->
       return if venue_id is ''
 
-      Restangular.one('venues', venue_id).get().then (venue) ->
-        $scope.venue = venue
+      Restangular.one('venues', venue_id).get().then (result) ->
+        $scope.venue = result.data
 
     $scope.saveTBAVenue = (details) ->
       # What the hell is that?
@@ -96,14 +94,14 @@
       }
 
       Restangular.one('venues').one('tba').customPOST({venue: venue}).then (result) ->
-        $scope.event.venue_id   = result.id
+        $scope.event.venue_id   = result.data.id
         $scope.editingTBA       = false
 
     # Create venue
     $scope.createVenue = () ->
       Restangular.one('venues').customPOST({venue: $scope.newVenue}).then((result) ->
         $scope.newVenue.active = false
-        $scope.event.venue_id  = result.id
+        $scope.event.venue_id  = result.data.id
 
         $rootScope.$broadcast 'alert', {type: 'success', msg: 'Venue has been created.'}
 
@@ -119,7 +117,7 @@
       Restangular.one('bands').customPOST({band: $scope.newBand}).then((result) ->
         $scope.eventBands.push _.extend result,
           index:   Math.round(new Date().getTime() / 1000)
-          band_id: result.id
+          band_id: result.data.id
           id:      null
 
         $rootScope.$broadcast 'alert', {type: 'success', msg: 'Band has been created.'}
@@ -230,7 +228,9 @@
       event.stopPropagation()
       $scope.event.beginningAtOpened = !$scope.event.beginningAtOpened
 
+
     # Saves event
+    #
     $scope.save = () ->
       $scope.resetAlerts()
       $scope.isLoading = true
@@ -260,7 +260,8 @@
       request.then((result) ->
         $scope.isLoading = false
         $scope.resetAlerts()
-        $rootScope.$broadcast 'alert', {type: 'success', msg: 'Event has been created!'}
+        $rootScope.$broadcast 'alert', { type: 'success', msg: 'Event has been saved' }
+        $rootScope.$broadcast 'eventUpdated', result.data
         $modalInstance.close(result)
 
       , (result) ->

@@ -13,8 +13,8 @@
       $scope.user.saved = $scope.user.saved - 1 if args.type is 'unsaved'
 
     $scope.loadUser = () ->
-      Restangular.one('users').one('current').get().then (data) ->
-        $scope.user = data
+      Restangular.one('users').one('current').get().then (result) ->
+        $scope.user = result.data
 
     $scope.loadUser()
 ])

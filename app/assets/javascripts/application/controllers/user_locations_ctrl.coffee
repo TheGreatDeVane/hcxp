@@ -35,8 +35,8 @@
         updateEventListFilters()
 
     loadLocations = () ->
-      Restangular.one('users').getList('locations').then ((locations) ->
-        $scope.data.locations = locations
+      Restangular.one('users').getList('locations').then ((result) ->
+        $scope.data.locations = result.data
         updateEventListFilters()
       ), ((res) ->
         # If response code is 401 (which means user is not authorized [not signed-in])
