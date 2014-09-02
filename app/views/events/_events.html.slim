@@ -1,5 +1,9 @@
+- ng_init       ||= ''
+- ng_controller ||= 'EventsListCtrl'
+
 .events-list (
-  ng-controller="EventsListCtrl"
+  ng-controller=ng_controller
+  ng-init=ng_init
   cg-busy="eventsPromise"
   infinite-scroll="loadMore()"
   infinite-scroll-distance="1"
@@ -20,108 +24,4 @@
         ng-click="toggleExpand(event, $event)"
         ng-class="{'is-expanded': event.isExpanded, 'is-saved': event.is_saved, 'is-promoted': event.is_promoted, 'has-passed': isPast(event)}"
       )
-        .inner
-          .media
-            a.pull-left.no-expand.event-poster
-              img.img-rounded ng-src="http://placehold.it/360x509&text=Poster+goes+here" width="65" height="65"
-
-            .media-body
-              .row
-                .col-md-9
-
-                  div ng-show="event.title"
-                    h3.media-heading.event-title
-                      a.no-expand ng-href="{{ event.html_url }}" {{ event.title }}
-
-                    div ng-show="event.bands.length > 0"
-                      ul.list-inline.event-bands-labels
-                        li ng-repeat="band in event.bands"
-                          span.label.label-default.label-tag>
-                            a.no-expand ng-href="{{ band.html_url }}" {{ band.name }}
-
-                    div ng-show="event.bands.length == 0"
-                      p.text-muted.event-excerpt ng-hide="event.isExpanded"
-                        | {{ event.excerpt }}
-
-                  div ng-show="!event.title"
-                    ul.list-inline.event-bands-labels
-                      li ng-repeat="band in event.bands"
-                        span.label.label-default.label-tag>
-                          a.no-expand ng-href="{{ band.html_url }}" {{ band.name }}
-
-                    p.text-muted.event-excerpt ng-hide="event.isExpanded"
-                      | {{ event.excerpt }}
-
-                / Venue stuff
-                .col-md-3.text-right.event-venue
-                  small.text-muted
-                    | {{ event.venue.city }}
-
-              ul.list-inline.counter-group ng-show="event.isExpanded"
-                li.counter
-                  .counter-number
-                    | {{ event.views_count }}
-                  .counter-label Views
-
-                li.counter
-                  .counter-number
-                    | {{ event.saves_count }}
-                  .counter-label Saves
-
-                li.savegazers
-                  ul.list-inline.pull-left
-                    li ng-repeat="savegazer in event.savegazers"
-                      a ng-href="{{ savegazer.profile_path }}"
-                        img.img-rounded.no-expand ng-src="{{ savegazer.avatar_url + '&size=35' }}" width="35" height="35"
-
-              p.text-muted ng-show="event.isExpanded"
-                | {{ event.description }}
-
-              ul.list-unstyled.event-meta ng-show="event.isExpanded"
-                li
-                  = fa_icon 'map-marker'
-                  |  {{ event.venue.name }}, {{ event.venue.address }}
-
-                li
-                  = fa_icon 'clock-o'
-                  |  {{ event.beginning_at_time }}
-
-                li
-                  = fa_icon 'ticket'
-                  |  {{ event.price }}
-
-              ul.list-inline.event-menu.pull-left.hide ng-show="event.isExpanded"
-                li: a
-                  i.glyphicon.glyphicon-chevron-up>
-                  | Collapse
-
-              ul.list-inline.event-menu.pull-right.hide ng-show="event.isExpanded"
-                li: a Save event
-                li: a More
-
-              - if user_signed_in?
-                .btn-group.event-menu
-                  a.btn.btn-link.dropdown-toggle data-toggle="dropdown"
-                    i.fa.fa-ellipsis-h.no-expand title='More' data-toggle='tooltip'
-
-                  ul.dropdown-menu.dropdown-menu-right
-                    li ng-show="event.permissions.edit": a.no-expand ng-click="edit(event)"
-                      = fa_icon 'pencil'
-                      |  Edit
-
-                    li ng-show="event.permissions.toggle_promote": a.no-expand ng-click='toggleIsPromoted()'
-                      = fa_icon 'asterisk'
-                      |  Promote
-
-                    li: a.no-expand
-                      = fa_icon 'flag'
-                      |  Report
-
-                    li.divider ng-show="event.permissions.destroy"
-
-                    li ng-show="event.permissions.destroy": a.no-expand href="" data-method="delete" data-confirm="Are you sure?"
-                      = fa_icon 'times'
-                      |  Remove
-
-                  a.btn.btn-link.event-save ng-click="toggleIsSaved(event)"
-                    i.fa.no-expand ng-class="{true: 'fa-star', false: 'fa-star-o'}[event.is_saved]" title='Save' data-toggle='tooltip'
+        = render 'event'

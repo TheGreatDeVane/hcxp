@@ -35,7 +35,7 @@
         a ng-click="changeWhenFilter('future')" Future
 
 = render 'shared/flash'
-= render 'events/events'
+= render 'events/events', ng_controller: 'EventsListCtrl'
 
 
 - content_for :sidebar do

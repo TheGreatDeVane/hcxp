@@ -29,7 +29,8 @@
     filterQueryObject: () ->
       obj = {}
 
-      obj.q    = filters.q if filters.q
+      obj.q    = filters.q    if filters.q
+      obj.id   = filters.id   if filters.id
       obj.when = filters.when
       obj.page = filters.page
       obj.per  = filters.per

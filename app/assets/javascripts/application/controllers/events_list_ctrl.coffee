@@ -7,10 +7,7 @@
 
   ($scope, $rootScope, $modal, Restangular, EventListService) ->
 
-    $scope.isExpanded   = false
     $scope.event        = false
-    $scope.isSaved      = false
-    $scope.isPromoted   = false
     $scope.events       = []
     $scope.isBusy       = false
 
@@ -25,6 +22,7 @@
         $scope.hasMoreResults = EventListService.hasMoreResults(response)
 
         regroupEvents()
+        $scope.events[0].isExpanded = true if $scope.isSingle
 
         return
 

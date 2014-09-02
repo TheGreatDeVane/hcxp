@@ -2,16 +2,7 @@
 - @title = event_page_title(@event)
 
 = render 'shared/flash'
-
-.events-list
-  h2.month-title
-    = event_date_to_words @event.beginning_at
-
-    - if !@event.beginning_at.today? && !(@event.beginning_at + 1.day).today? && !(@event.beginning_at.-1.day).today?
-      small< am-time-ago="'#{@event.beginning_at}'"
-
-  .month-events
-    = render 'event_show', event: @event
+= render 'events/events', ng_controller: 'EventsShowCtrl', ng_init: "loadEvent(#{@event.id})"
 
 - content_for :sidebar do
 
