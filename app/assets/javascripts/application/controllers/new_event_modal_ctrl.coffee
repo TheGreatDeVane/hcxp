@@ -115,7 +115,7 @@
     # Create band
     $scope.createBand = () ->
       Restangular.one('bands').customPOST({band: $scope.newBand}).then((result) ->
-        $scope.eventBands.push _.extend result,
+        $scope.eventBands.push _.extend result.data,
           index:   Math.round(new Date().getTime() / 1000)
           band_id: result.data.id
           id:      null
@@ -191,10 +191,10 @@
           query: term
 
         transport: (queryParams, page) ->
-          $http.get("/api/v1/bands?query=" + queryParams.data.query).then(queryParams.success)
+          $http.get("/api/v1/bands?q=" + queryParams.data.query).then(queryParams.success)
 
-        results: (data, page) ->
-          results: data.data.bands
+        results: (results, page) ->
+          results: results.data
     }
 
     # Venue Select2 options
@@ -218,10 +218,10 @@
         transport: (queryParams, page) ->
           # I was trying to use restangular here but it was not working
           # Sounds like i need to ask for that on stack overflow
-          $http.get("/api/v1/venues?query=" + queryParams.data.query).then(queryParams.success)
+          $http.get("/api/v1/venues?q=" + queryParams.data.query).then(queryParams.success)
 
-        results: (data, page) ->
-          results: data.data.venues
+        results: (results, page) ->
+          results: results.data
     }
 
     $scope.openBeginningAt = (event) ->
