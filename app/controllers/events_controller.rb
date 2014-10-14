@@ -6,9 +6,49 @@ class EventsController < ApplicationController
 
   # GET /events
   # GET /events.json
-  def index; end
+  def index
+    redirect_to browse_events_path
+  end
 
-  def browse; end
+  def browse
+    @events = Event.all
+    @events = @events.search(params[:q]) if params[:q]
+
+    if params[:when] && %w(future past).include?(params[:when])
+      @events = @events.send("from_the_#{params[:when]}")
+    end
+
+    if params[:locations]
+      locations = params[:locations]
+      locations_arr = []
+
+      # Convert incoming params to array format
+      locations.keys.each { |key| locations_arr << locations[key] }
+
+      @events = @events.from_locations(locations_arr)
+    end
+
+    if params[:band_ids]
+      @events = @events.joins(:bands).where('bands.id IN (?)', params[:band_ids].map(&:to_i))
+    end
+
+    if params[:venue_ids]
+      @events = @events.where(venue_id: params[:venue_ids])
+    end
+
+    # Pagination
+    @events = @events.page(params[:page])
+
+    @event_months = @events.group_by { |e| e.beginning_at.beginning_of_day }
+
+    # Format filter params for filters widget
+    @filter_params = params.slice(:when, :locations, :band_ids, :venue_ids)
+    if @filter_params[:locations]
+      locations = []
+      @filter_params[:locations].keys.each { |key| locations << @filter_params[:locations][key] }
+      @filter_params[:locations] = locations
+    end
+  end
 
   # GET /events/1
   # GET /events/1.json

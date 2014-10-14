@@ -1,0 +1,31 @@
+@import "bootstrap-variables";
+
+.navbar-nav > li > a {
+  font-size: 14px;
+
+  &> .glyphicon {
+    font-size: 10px;
+    color: $gray-light;
+  }
+
+  &> .glyphicon-chevron-down {
+    margin-left: 5px;
+  }
+}
+
+.navbar {
+  font-size: 14px;
+}
+
+.navbar-brand {
+  padding: 7px 15px 0 15px;
+}
+
+.navbar-form {
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.navbar-sub {
+  margin-top: -22px;
+}

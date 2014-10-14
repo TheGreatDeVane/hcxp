@@ -90,3 +90,6 @@ en:
       user:
         user_name: 'Username'
         password: 'Password'
+
+      venue:
+        name: 'Name'

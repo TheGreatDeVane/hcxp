@@ -26,6 +26,7 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 gem 'jquery-turbolinks'
+gem "rack-pjax"
 
 # Slim templates
 gem 'slim-rails'
@@ -74,7 +75,7 @@ gem 'watir'
 gem 'pg'
 
 # PostgreSQL full-text search
-gem 'pg_search', github: 'Casecommons/pg_search'
+gem 'search_cop'
 
 # Friendly IDs
 gem 'friendly_id', '~> 5.0.0'

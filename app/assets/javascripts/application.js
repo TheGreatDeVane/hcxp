@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require ./application/vendor/jquery.pjax
 //= require angular
 //= require angular-resource
 //= require angular-rails-templates
@@ -54,6 +55,20 @@
 
 $(document).on('ready page:load', function() {
   angular.bootstrap('body', ['hcxpApp'])
+
+  $(document).pjax('a.pjax', '.pjax-container')
+})
+
+$(document).on('pjax:complete', function() {
+  // angular.bootstrap('body', ['hcxpApp'])
+})
+
+$(document).on('pjax:start', function() {
+  $('.pjax-container').addClass('pjax-container-loading')
+})
+
+$(document).on('pjax:end', function() {
+  $('.pjax-container').removeClass('pjax-container-loading')
 })
 
 $(document).ready(function() {

@@ -1,9 +1,9 @@
 class Venue < ActiveRecord::Base
-  include PgSearch
-  pg_search_scope :search, against: [:name, :address],
-                           using: {
-                             tsearch: { prefix: true }
-                           }
+  include SearchCop
+
+  search_scope :search do
+    attributes :name, :address
+  end
 
   has_many :events
 

@@ -2,59 +2,6 @@
 @import "compass/css3/images";
 @import "compass/css3/transition";
 
-// Mixins
-@mixin event-preset($base-color) {
-  background:   lighten($base-color, 25%);
-  border-color: lighten($base-color, 15%);
-
-  .event-title a {
-    color: darken($base-color, 18%);
-  }
-
-  .event-menu > a > i { color: $base-color; }
-
-  .text-muted {
-    color: $base-color
-  }
-
-  .counter-group {
-    border-color: lighten($base-color, 18%);
-  }
-
-  .counter-group {
-    .counter-number {
-      color: darken($base-color, 18%);
-    }
-
-    .counter-label {
-      color: $base-color;
-    }
-  }
-
-  .event-meta {
-    color: $base-color;
-
-    i {
-      color: lighten($base-color, 10%);
-    }
-  }
-
-  &:hover {
-    background:   lighten($base-color, 25%);
-    border-color: lighten($base-color, 15%);
-  }
-
-  &.is-expanded {
-    background:   lighten($base-color, 25%);
-    box-shadow:   0 1px 1px rgba($base-color, 0.6);
-    border-color: lighten($base-color, 15%);
-
-    &:hover {
-      border-color: lighten($base-color, 15%);
-    }
-  }
-}
-
 // Events list, day by day
 .events-list {
   .month-title {
@@ -68,11 +15,8 @@
   .event {
     margin-left:  0;
     margin-right: 0;
-    padding:      15px;
     cursor: pointer;
-    border-left: 5px solid #fff;
     position: relative;
-    // @include transition(all 0.1s ease-in);
 
     .event-menu {
       position: absolute;
@@ -93,9 +37,6 @@
     }
 
     .media-body {
-      p.event-excerpt {
-        margin: 0;
-      }
     }
 
     .event-poster {
@@ -147,40 +88,11 @@
       }
     }
 
-    // Event presets
-    &.is-saved {
-      @include event-preset($brand-warning);
-    }
-
-    &.is-promoted {
-      @include event-preset($brand-info);
-    }
-
     &.has-passed {
       opacity: 0.6;
       @include transition(all 0.1s ease-in);
     }
 
-    &.is-expanded {
-      background: #f9f9f9;
-      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.10);
-      margin-bottom: 15px;
-      border-color: darken(#f9f9f9, 5%);
-
-      &:hover {
-        border-color: darken(#f9f9f9, 5%);
-      }
-    }
-
-    &:hover {
-      // @include transition(all 0.1s ease-in);
-      background: #f9f9f9;
-      border-color: #f9f9f9;
-
-      &.has-passed {
-        opacity: 1;
-      }
-    }
   }
 
   .month-events {
@@ -190,9 +102,10 @@
   .event-title {
     font-size: 16px;
     margin-bottom: 4px;
+    font-weight: 600;
 
     a {
-      color: #333;
+      color: darken($brand-primary, 15%);
     }
   }
 

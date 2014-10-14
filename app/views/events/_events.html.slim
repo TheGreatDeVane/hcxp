@@ -1,27 +1,17 @@
-- ng_init       ||= ''
-- ng_controller ||= 'EventsListCtrl'
+.events-list
 
-.events-list (
-  ng-controller=ng_controller
-  ng-init=ng_init
-  cg-busy="eventsPromise"
-  infinite-scroll="loadMore()"
-  infinite-scroll-distance="1"
-  infinite-scroll-disabled="isBusy"
-)
-
-  div ng-hide="events.length > 0"
+  - unless @event_months.any?
     h5 No events to show
 
-  div ng-repeat="(day, events) in groupedByDay"
+  - @event_months.each do |month, events|
     h2.month-title
-      | {{ day | amDateFormat:'DD.MM.YYYY' }}
-      small< am-time-ago="day"
+      = event_date_to_words month
+
+      - if !month.today? && !(month+1.day).today? && !(month.-1.day).today?
+        small< am-time-ago="'#{month}'"
 
     .month-events
-      .row.event (
-        ng-repeat="event in events"
-        ng-click="toggleExpand(event, $event)"
-        ng-class="{'is-expanded': event.isExpanded, 'is-saved': event.is_saved, 'is-promoted': event.is_promoted, 'has-passed': isPast(event)}"
-      )
-        = render 'event'
+      - events.each do |event|
+        = render event
+
+= paginate @events

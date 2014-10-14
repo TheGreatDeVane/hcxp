@@ -23,48 +23,60 @@ html
       alert close="alert.close()" ng-repeat="alert in alerts" type="{{ alert.type }}"
         | {{ alert.msg }}
 
-    .navbar.navbar-default.navbar-main
-
-      a.logo href=root_path
-        = image_tag 'logo.jpg'
-
+    .navbar.navbar-inverse.navbar-main
       .container
-        .row
-          ul.nav.navbar-nav
-            li: a href=root_path
-              i.fa.fa-home>
-              | Home
-            li: a href=browse_events_path
-              i.glyphicon.glyphicon-globe>
-              | Browse
-            / li: a
-            /   i.glyphicon.glyphicon-user>
-            /   | Me
+        a.navbar-brand href=root_path
+          = image_tag 'logo.png'
 
-          - if user_signed_in?
-            ul.nav.navbar-nav.navbar-right.nav-user-nav
-              li
-                a data-toggle="dropdown"
-                  i.fa.fa-gear
-                ul.dropdown-menu.dropdown-menu-right role="menu"
-                  li: a href=browse_events_path(q: current_user.username) = t 'main_nav.user.your_events'
-                  li: a = t 'main_nav.user.settings'
-                  li.divider
-                  li= link_to t('main_nav.user.sign_out'), destroy_user_session_path, method: :delete
+        ul.nav.navbar-nav
+          li.dropdown class=('active' if params[:controller] == 'events')
+            a href=events_path
+              | Events
+          li: a href=bands_path
+            | Bands
+          li: a
+            | Users
 
-              li = link_to new_event_path do
-                i.fa.fa-pencil-square-o
+        form.navbar-form.navbar-right.search-form role="search" action=browse_events_path
+          input type="text" class="form-control input-sm" placeholder="Search" name="q" value=params[:q]
 
-          - else
-            ul.list-inline.navbar-right
-              li: a.btn.btn-default.btn-sign-in href=new_user_session_path = t 'main_nav.user.sign_in'
+        - if user_signed_in?
+          ul.nav.navbar-nav.navbar-right.nav-user-nav
+            li
+              a data-toggle="dropdown"
+                i.fa.fa-gear
+              ul.dropdown-menu.dropdown-menu-right role="menu"
+                li: a href=browse_events_path(q: current_user.username) = t 'main_nav.user.your_events'
+                li: a = t 'main_nav.user.settings'
+                li.divider
+                li= link_to t('main_nav.user.sign_out'), destroy_user_session_path, method: :delete
 
-          form.navbar-form.navbar-right.search-form role="search" action=browse_events_path
-            input type="text" class="form-control" placeholder="Search" name="q" value=params[:q]
+            li = link_to new_event_path do
+              i.fa.fa-pencil-square-o
+
+        - else
+          p.navbar-text.navbar-right
+            a.navbar-link href=new_user_session_path = t 'main_nav.user.sign_in'
+
+    / .navbar.navbar-default.navbar-sub
+    /   .container
+    /     ul.nav.navbar-nav
+    /       li: a
+    /         | Future
+    /         i.glyphicon.glyphicon-chevron-down
+    /       li: a
+    /         | Bands
+    /         i.glyphicon.glyphicon-chevron-down
+    /       li: a
+    /         | Venues
+    /         i.glyphicon.glyphicon-chevron-down
+    /       li: a
+    /         | Locations
+    /         i.glyphicon.glyphicon-chevron-down
 
     .container
       .row
-        #content.col-md-9
+        #content.col-md-9.pjax-container
           = yield
 
         #sidebar.col-md-3

@@ -1,0 +1,96 @@
+form action='/browse' id='filtersForm' method='get'
+  input.hidden type="text" name="when" ng-model='filters.when'
+  input.hidden type="checkbox" name='band_ids[]' value='{{ band.id }}' checked="checked" ng-repeat='band in filters.bands'
+  input.hidden type="checkbox" name='venue_ids[]' value='{{ venue.id }}' checked="checked" ng-repeat='venue in filters.venues'
+  div ng-repeat="location in filters.locations"
+    input.hidden type='text' name='locations[{{$index}}][type]' value='{{ location.type }}'
+    input.hidden type='text' name='locations[{{$index}}][q]' value='{{ location.q }}'
+
+  .panel.panel-default
+    ul.list-group
+      li.list-group-item ng-class="{'active': filters.when == 'future'}" ng-click="filters.when = 'future'"
+        a Future events
+        i.fa.fa-check.pull-right.fa-when-active
+
+      li.list-group-item ng-class="{'active': filters.when == 'past'}" ng-click="filters.when = 'past'"
+        a Past events
+        i.fa.fa-check.pull-right.fa-when-active
+
+
+  .panel.panel-default
+    ul.list-group
+
+      / Bands filter
+      li.list-group-item ng-click="filters.displayBands=!filters.displayBands"
+        a
+          i.glyphicon.glyphicon-music>
+          | Bands
+        span.badge.badge-primary ng-show="filters.bands.length"
+          | {{ filters.bands.length }}
+
+      li.list-group-item ng-show="filters.displayBands"
+        input.form-control type="hidden" ui-select2="bandSearchOptions" ng-model="foundBand" data-placeholder="+ Add a band"
+
+        .media.band ng-repeat='band in filters.bands'
+
+          img.pull-left.img-rounded ng-src="{{ band.images.medium_s }}" width="40" height="40"
+          .media-body
+            h5.media-heading.pull-left
+              | {{ band.name }}
+            a.btn.btn-danger.btn-xs.pull-right ng-click="removeBand($index)": i.fa.fa-times
+            .clearfix
+
+            small.text-muted
+              | {{ band.location }}
+
+      / Venues filter
+      li.list-group-item ng-click="filters.displayVenues=!filters.displayVenues"
+        a
+          i.glyphicon.glyphicon-home>
+          | Venues
+
+        span.badge.badge-primary ng-show="filters.venues.length"
+          | {{ filters.venues.length }}
+
+      li.list-group-item ng-show="filters.displayVenues"
+        input.form-control type="hidden" ui-select2="venueSearchOptions" ng-model="foundVenue" data-placeholder="+ Add a venue"
+
+        .media.band ng-repeat='venue in filters.venues'
+
+          .media-body
+            h5.media-heading.pull-left
+              | {{ venue.name }}
+            a.btn.btn-danger.btn-xs.pull-right ng-click="removeVenue($index)": i.fa.fa-times
+            .clearfix
+
+            small.text-muted
+              | {{ venue.address }}
+
+      / Locations filter
+      li.list-group-item ng-click="filters.displayLocations=!filters.displayLocations"
+        a
+          i.glyphicon.glyphicon-map-marker>
+          | Locations
+        span.badge.badge-primary ng-show="filters.locations.length"
+          | {{ filters.locations.length }}
+
+      li.list-group-item ng-show="filters.displayLocations"
+        input.form-control (
+          placeholder="Enter location"
+          ng-autocomplete=""
+          ng-model="foundLocation.address"
+          details="foundLocation.address_details"
+        )
+
+        .media.band ng-repeat='location in filters.locations'
+
+          .media-body
+            h5.media-heading.pull-left
+              | {{ location.q }}
+            a.btn.btn-danger.btn-xs.pull-right ng-click="removeLocation($index)": i.fa.fa-times
+            .clearfix
+
+  .btn-group.btn-group-justified
+    a.btn.btn-primary ng-click="applyFilters()"
+      i.glyphicon.glyphicon-filter>
+      | Filter

@@ -1,21 +1,18 @@
 class Event < ActiveRecord::Base
   include Rails.application.routes.url_helpers
-  include PgSearch
+  include SearchCop
 
   is_impressionable counter_cache: true, unique: [:impressionable_type, :impressionable_id, :session_hash]
 
-  pg_search_scope :search, against: [:title, :beginning_at],
-                           associated_against: {
-                             bands: [:name],
-                             venue: [:name, :address, :city, :country_name, :country_code],
-                             user:  [:username]
-                           },
-                           using: {
-                             tsearch: { prefix: true }
-                           }
+  search_scope :search do
+    attributes :title
+    attributes :bands => ["bands.name"]
+    attributes :venue => ["venue.name", 'venue.address', 'venue.city', 'venue.country_name', 'venue.country_code']
+    attributes :user =>  ['user.username']
+  end
 
-  has_many   :event_bands
-  has_many   :bands, through: :event_bands
+  has_many   :event_bands, class_name: 'EventBand'
+  has_many   :bands, through: :event_bands, class_name: 'Band'
   belongs_to :venue, counter_cache: true
   belongs_to :user
   has_many   :saves
@@ -39,6 +36,7 @@ class Event < ActiveRecord::Base
 
   # Scopes
   default_scope              { order(:beginning_at) }
+  scope :from_the,        -> ( scope = :future ) { send("from_the_#{scope.to_s}") }
   scope :from_the_future, -> { where('beginning_at >= ?', Date.today.beginning_of_day) }
   scope :from_the_past,   -> { where('beginning_at < ?', Date.today) }
   scope :featured,        -> { where(is_promoted: true) }
@@ -177,5 +175,9 @@ class Event < ActiveRecord::Base
     results = results.joins(:venue).where('venues.country_name IN (?)', countries) if countries.any?
 
     results
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    %i(from_the)
   end
 end

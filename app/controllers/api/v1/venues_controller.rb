@@ -7,10 +7,10 @@ class Api::V1::VenuesController < Api::V1Controller
   respond_to :json
 
   def index
-    response.headers['X-Resource'] = 'venues'
-
     @venues = Venue.all
-    @venues = @venues.search(params[:q])
+
+    @venues = @venues.where(id: params[:id_in]) if params[:id_in].present?
+    @venues = @venues.search(params[:q])        if params[:q].present?
     @venues
   end
 
@@ -18,8 +18,6 @@ class Api::V1::VenuesController < Api::V1Controller
   end
 
   def create
-    response.headers['X-Resource'] = 'venue'
-
     @venue = Venue.new(venue_params)
 
     if @venue.save

@@ -1,13 +1,13 @@
 class Band < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   extend FriendlyId
-  include PgSearch
+  include SearchCop
 
   friendly_id :name, use: :slugged
-  pg_search_scope :search, against: [:name, :location],
-                           using: {
-                             tsearch: { prefix: true }
-                           }
+
+  search_scope :search do
+    attributes :name, :location
+  end
 
   has_many :resources, class_name: 'BandResource'
   has_many :event_bands, counter_cache: :events_count

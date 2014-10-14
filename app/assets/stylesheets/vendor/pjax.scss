@@ -1,0 +1,15 @@
+.pjax-container-loading {
+  position: relative;
+  opacity: 0.5;
+
+  &:before {
+    background: url(http://www.jacarandafm.com/static/kagiso_common/images/spinner.gif);
+    width: 36px;
+    height: 39px;
+    display: block;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    content: ''
+  }
+}

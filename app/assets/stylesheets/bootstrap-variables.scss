@@ -17,6 +17,8 @@ $font-size-base: 16px;
 
 $font-size-h1: floor($font-size-base * 4);
 
+$gray-light: lighten(#000, 70.7%);
+
 // Components
 $border-radius-base: 2px;
 $border-radius-large: 2px;
@@ -33,3 +35,14 @@ $label-default-bg: $gray-lighter;
 // Panels
 $panel-body-padding: 20px 0;
 $panel-default-heading-bg: #fff;
+
+// Navbar
+$navbar-inverse-bg: #333;
+$navbar-border-radius: 0;
+
+// Grid
+$grid-gutter-width: 30px;
+$container-large-desktop: ((1000px + $grid-gutter-width));
+
+// Thumbnails
+$thumbnail-border: none;

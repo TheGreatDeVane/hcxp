@@ -27,5 +27,5 @@ Khcpl::Application.configure do
   # number of complex assets.
   config.assets.debug = false
 
-  config.action_mailer.default_url_options = { :host => "http://localhost:3000" }
+  config.action_mailer.default_url_options = { :host => "http://hcxp.dev" }
 end

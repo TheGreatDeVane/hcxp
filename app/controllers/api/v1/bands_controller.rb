@@ -1,12 +1,11 @@
 class Api::V1::BandsController < Api::V1Controller
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:create]
   skip_before_filter :verify_authenticity_token
   before_action :set_band, only: [:show]
 
   respond_to :json
 
   def index
-    response.headers['X-Resource'] = 'bands'
     @bands = Band.all
 
     @bands = @bands.where(id: params[:id_in]) if params[:id_in].present?
@@ -14,7 +13,6 @@ class Api::V1::BandsController < Api::V1Controller
   end
 
   def create
-    response.headers['X-Resource'] = 'band'
     @band = Band.new(band_params)
 
     if @band.save

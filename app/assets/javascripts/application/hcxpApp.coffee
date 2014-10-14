@@ -3,6 +3,7 @@
 #= require_tree ./factories
 #= require_tree ./controllers
 #= require_tree ./services
+#= require_tree ./directives
 
 @hcxpApp = angular.module "hcxpApp", [
   'restangular'
@@ -21,6 +22,7 @@
   'hcxpApp.factories'
   'hcxpApp.controllers'
   'hcxpApp.services'
+  'hcxpApp.directives'
 ]
 
 # Config
@@ -42,3 +44,6 @@
 
 # Factories
 @factories = angular.module('hcxpApp.factories', [])
+
+# Directives
+@directives = angular.module('hcxpApp.directives', [])
