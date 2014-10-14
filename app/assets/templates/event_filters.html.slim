@@ -21,7 +21,7 @@ form action='/browse' id='filtersForm' method='get'
     ul.list-group
 
       / Bands filter
-      li.list-group-item ng-click="filters.displayBands=!filters.displayBands"
+      li.list-group-item ng-click="filters.displayBands=!filters.displayBands" ng-class="{'active':filters.displayBands}"
         a
           i.glyphicon.glyphicon-music>
           | Bands
@@ -31,20 +31,15 @@ form action='/browse' id='filtersForm' method='get'
       li.list-group-item ng-show="filters.displayBands"
         input.form-control type="hidden" ui-select2="bandSearchOptions" ng-model="foundBand" data-placeholder="+ Add a band"
 
-        .media.band ng-repeat='band in filters.bands'
-
-          img.pull-left.img-rounded ng-src="{{ band.images.medium_s }}" width="40" height="40"
-          .media-body
-            h5.media-heading.pull-left
+        ul.list-inline.list-filter-results ng-show='filters.bands.length'
+          li ng-repeat='band in filters.bands'
+            .label.label-default.label-tag
               | {{ band.name }}
-            a.btn.btn-danger.btn-xs.pull-right ng-click="removeBand($index)": i.fa.fa-times
-            .clearfix
-
-            small.text-muted
-              | {{ band.location }}
+              a.addon ng-click="removeBand($index)"
+                i.glyphicon.glyphicon-remove
 
       / Venues filter
-      li.list-group-item ng-click="filters.displayVenues=!filters.displayVenues"
+      li.list-group-item ng-click="filters.displayVenues=!filters.displayVenues" ng-class="{'active':filters.displayVenues}"
         a
           i.glyphicon.glyphicon-home>
           | Venues
@@ -55,19 +50,15 @@ form action='/browse' id='filtersForm' method='get'
       li.list-group-item ng-show="filters.displayVenues"
         input.form-control type="hidden" ui-select2="venueSearchOptions" ng-model="foundVenue" data-placeholder="+ Add a venue"
 
-        .media.band ng-repeat='venue in filters.venues'
-
-          .media-body
-            h5.media-heading.pull-left
+        ul.list-inline.list-filter-results ng-show='filters.venues.length'
+          li ng-repeat='venue in filters.venues'
+            .label.label-default.label-tag
               | {{ venue.name }}
-            a.btn.btn-danger.btn-xs.pull-right ng-click="removeVenue($index)": i.fa.fa-times
-            .clearfix
-
-            small.text-muted
-              | {{ venue.address }}
+              a.addon ng-click="removeVenue($index)"
+                i.glyphicon.glyphicon-remove
 
       / Locations filter
-      li.list-group-item ng-click="filters.displayLocations=!filters.displayLocations"
+      li.list-group-item ng-click="filters.displayLocations=!filters.displayLocations" ng-class="{'active':filters.displayLocations}"
         a
           i.glyphicon.glyphicon-map-marker>
           | Locations
@@ -82,15 +73,14 @@ form action='/browse' id='filtersForm' method='get'
           details="foundLocation.address_details"
         )
 
-        .media.band ng-repeat='location in filters.locations'
-
-          .media-body
-            h5.media-heading.pull-left
+        ul.list-inline.list-filter-results ng-show='filters.locations.length'
+          li ng-repeat='location in filters.locations'
+            .label.label-default.label-tag
               | {{ location.q }}
-            a.btn.btn-danger.btn-xs.pull-right ng-click="removeLocation($index)": i.fa.fa-times
-            .clearfix
+              a.addon ng-click="removeLocation($index)"
+                i.glyphicon.glyphicon-remove
 
   .btn-group.btn-group-justified
     a.btn.btn-primary ng-click="applyFilters()"
-      i.glyphicon.glyphicon-filter>
-      | Filter
+      i.glyphicon.glyphicon-search>
+      | Search

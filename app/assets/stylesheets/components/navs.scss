@@ -34,5 +34,10 @@
   	&> .fa-when-active {
   	  display: inline;
     }
+
+    .badge {
+      background: #fff;
+      color: $brand-primary;
+    }
   }
 }

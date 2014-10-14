@@ -5,4 +5,21 @@
   line-height: 34px;
   border-bottom: 2px solid lighten($gray, 25%);
   border-radius: 3px;
+
+  .addon {
+    background: #bdc7d2;
+    color: #fff;
+    font-size: 80%;
+    padding: 0 3px;
+    border-radius: 2px;
+    margin-left: 5px;
+
+    &> .glyphicon {
+      font-size: 93%;
+    }
+  }
+
+  a.addon {
+    cursor: pointer;
+  }
 }

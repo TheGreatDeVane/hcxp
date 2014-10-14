@@ -1,0 +1,10 @@
+$sidebar-font-size: 15px;
+
+#sidebar {
+  font-size: $sidebar-font-size;
+
+  & .btn,
+  & .form-control {
+    font-size: $sidebar-font-size;
+  }
+}

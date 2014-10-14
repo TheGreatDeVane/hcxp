@@ -27,8 +27,14 @@
         return false if val is oldVal
         $scope.applyFilters()
 
+      $scope.$watchCollection 'filters.venue_ids', (val, oldVal) ->
+        return false if val is oldVal
+        $scope.applyFilters()
+
       $scope.$watchCollection 'filters.band_ids', (val, oldVal) ->
-        return false unless val.length
+        unless val.length
+          $scope.filters.bands = []
+          return false
 
         query = ''
         _.each val, (i) -> query += '&id_in[]=' + i
@@ -38,14 +44,13 @@
           $scope.filters.bands = bands.data
 
       $scope.$watchCollection 'filters.venue_ids', (val, oldVal) ->
-        return false unless val.length
+        unless val.length
+          $scope.filters.venues = []
+          return false
 
         query = ''
         _.each val, (i) -> query += '&id_in[]=' + i
         query = query.replace(/^\&/, "?")
-
-        # Reload events
-        $scope.applyFilters()
 
         Restangular.all('venues').customGET(query).then (venues) ->
           $scope.filters.venues = venues.data
@@ -87,22 +92,15 @@
       #
 
       $scope.removeBand = (index) ->
-        _.forEach $scope.filters.band_ids, (row, index) ->
-          $scope.filters.band_ids.splice(index, 1) if $scope.filters.bands[index].id is row
-
-        $scope.filters.bands.splice(index, 1)
-        $scope.applyFilters()
+        $scope.filters.band_ids = _.reject $scope.filters.band_ids, (row) ->
+          $scope.filters.bands[index].id is row
 
       $scope.removeVenue = (index) ->
-        _.forEach $scope.filters.venue_ids, (row, index) ->
-          $scope.filters.venue_ids.splice(index, 1) if $scope.filters.venues[index].id is row
-
-        $scope.filters.venues.splice(index, 1)
-        $scope.applyFilters()
+        $scope.filters.venue_ids = _.reject $scope.filters.venue_ids, (row) ->
+          $scope.filters.venues[index].id is row
 
       $scope.removeLocation = (index) ->
         $scope.filters.locations.splice(index, 1)
-        $scope.applyFilters()
 
       $scope.applyFilters = () ->
         query = 'when=' + $scope.filters.when
