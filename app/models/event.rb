@@ -15,7 +15,7 @@ class Event < ActiveRecord::Base
   has_many   :bands, through: :event_bands, class_name: 'Band'
   belongs_to :venue, counter_cache: true
   belongs_to :user
-  has_many   :saves
+  has_many   :saves, as: :saveable
   has_many   :savegazers, through: :saves, source: :user
 
   mount_uploader :poster, PosterUploader
@@ -179,5 +179,15 @@ class Event < ActiveRecord::Base
 
   def self.ransackable_scopes(auth_object = nil)
     %i(from_the)
+  end
+
+  def toggle_save(user)
+    save = saves.where(user: user)
+
+    if save.any?
+      save.last.destroy
+    else
+      saves.create(user: user)
+    end
   end
 end

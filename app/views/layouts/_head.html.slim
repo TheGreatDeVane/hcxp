@@ -1,0 +1,15 @@
+head
+  title= page_title(@title)
+  = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+  script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"
+  link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'
+  = javascript_include_tag "application", "data-turbolinks-track" => true
+  = javascript_include_tag "angular-strap.tpl.min", "data-turbolinks-track" => true
+  = csrf_meta_tags
+  meta name="viewport" content="width=device-width, initial-scale=1"
+
+  javascript:
+    /* Sets moment.js lang based on app
+    /* language currently being set */
+    lang = '#{cookies[:locale]}'
+    moment.lang(lang)

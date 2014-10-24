@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140901095820) do
+ActiveRecord::Schema.define(version: 20141024065902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20140901095820) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
+    t.integer  "position"
   end
 
   add_index "event_bands", ["band_id"], name: "index_event_bands_on_band_id", using: :btree
@@ -77,6 +78,9 @@ ActiveRecord::Schema.define(version: 20140901095820) do
     t.boolean  "is_promoted",       default: false
     t.hstore   "bindings"
     t.integer  "impressions_count", default: 0
+    t.boolean  "is_removed",        default: false
+    t.boolean  "is_canceled",       default: false
+    t.boolean  "is_private",        default: false
   end
 
   add_index "events", ["short_id"], name: "index_events_on_short_id", unique: true, using: :btree
@@ -124,6 +128,8 @@ ActiveRecord::Schema.define(version: 20140901095820) do
     t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "saveable_id"
+    t.string   "saveable_type"
   end
 
   add_index "saves", ["event_id"], name: "index_saves_on_event_id", using: :btree

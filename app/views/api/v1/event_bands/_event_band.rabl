@@ -2,7 +2,8 @@ attributes :id
 attributes :band_id
 attributes :event_id
 attributes :description
+attributes :position
 
-node(:name) { |eb| eb.band.name }
-node(:location) { |eb| eb.band.location }
-node(:images) { |eb| eb.band.images }
+child(:band) do |eb|
+  extends 'api/v1/bands/band'
+end

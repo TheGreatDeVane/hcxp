@@ -12,11 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/core
+//= require jquery-ui/widget
+//= require jquery-ui/mouse
+//= require jquery-ui/sortable
 //= require ./application/vendor/jquery.pjax
 //= require angular
 //= require angular-resource
 //= require angular-rails-templates
-//= require angular-busy
 //= require_tree ../templates
 //
 //= require underscore
@@ -27,16 +30,17 @@
 //= require ./application/vendor/angular-strap.min
 //= require ./application/vendor/ngAutocomplete.js
 //= require ./application/vendor/arg.js.v1.1.min.js
-//= require ./application/vendor/ng-infinite-scroll.min.js
 //= require angular-ui-utils
 //= require angular-sanitize
 //= require angular-translate
+//= require angular-ui-sortable
 //= require showdown
 //= require ./application/vendor/markdown
 //= require moment
 //= require_tree ./application/vendor/moment
 //= require angular-moment
 //= require angular-ui-select2
+//= require angular-elastic
 //
 //= require jquery.turbolinks
 //= require turbolinks
@@ -61,6 +65,7 @@ $(document).on('ready page:load', function() {
 
 $(document).on('pjax:complete', function() {
   // angular.bootstrap('body', ['hcxpApp'])
+  ngRefresh();
 })
 
 $(document).on('pjax:start', function() {
@@ -176,3 +181,11 @@ $(document).ready(function() {
     return data.name;
   }
 });
+
+var ngRefresh = function() {
+  var scope = angular.element("body").scope();
+  var compile = angular.element("body").injector().get('$compile');
+
+  compile($("body").contents())(scope);
+  scope.$apply();
+}

@@ -1,0 +1,24 @@
+.container#footer
+  .row
+    .col-md-4
+      p
+        = app_version
+
+    .col-md-4
+      ul.list-inline
+        li: a =t 'footer.nav.about'
+        li: a =t 'footer.nav.api'
+        li: a =t 'footer.nav.contact'
+        li = "/"
+        li: a href="http://github.com/mbajur/hcxp" github
+        li: a href="http://twitter.com/hcxphq" twitter
+
+    .col-md-4.text-right.dropup
+      =t 'footer.language_picker.language'
+      a.dropdown-toggle< data-toggle="dropdown" href='javascript:void(0)'
+        = (cookies[:locale] == 'en') ? 'English' : 'Polski'
+        b.caret<
+
+      ul.dropdown-menu.dropdown-menu-right
+        li= link_to 'English', params.merge(locale: 'en'), data: { :'no-turbolink' => '' }
+        li= link_to 'Polski', params.merge(locale: 'pl'), data: { :'no-turbolink' => '' }

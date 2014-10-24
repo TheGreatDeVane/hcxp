@@ -1,109 +1,20 @@
 doctype html
 html
-  head
-    title= page_title(@title)
-    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
-    script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"
-    link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'
-    = javascript_include_tag "application", "data-turbolinks-track" => true
-    = javascript_include_tag "angular-strap.tpl.min", "data-turbolinks-track" => true
-    = csrf_meta_tags
-    meta name="viewport" content="width=device-width, initial-scale=1"
-
-    javascript:
-      /* Sets moment.js lang based on app
-      /* language currently being set */
-      lang = '#{cookies[:locale]}'
-      moment.lang(lang)
+  = render 'layouts/head'
 
   body class="#{params[:controller]}-#{params[:action]}" ng-controller="AppCtrl"
 
-    / Alerts
-    div.container-alert ng-show='alerts.length > 0'
-      alert close="alert.close()" ng-repeat="alert in alerts" type="{{ alert.type }}"
-        | {{ alert.msg }}
-
-    .navbar.navbar-inverse.navbar-main
-      .container
-        a.navbar-brand href=root_path
-          = image_tag 'logo.png'
-
-        ul.nav.navbar-nav
-          li.dropdown class=('active' if params[:controller] == 'events')
-            a href=events_path
-              | Events
-          li: a href=bands_path
-            | Bands
-          li: a
-            | Users
-
-        form.navbar-form.navbar-right.search-form role="search" action=browse_events_path
-          input type="text" class="form-control input-sm" placeholder="Search" name="q" value=params[:q]
-
-        - if user_signed_in?
-          ul.nav.navbar-nav.navbar-right.nav-user-nav
-            li
-              a data-toggle="dropdown"
-                i.fa.fa-gear
-              ul.dropdown-menu.dropdown-menu-right role="menu"
-                li: a href=browse_events_path(q: current_user.username) = t 'main_nav.user.your_events'
-                li: a = t 'main_nav.user.settings'
-                li.divider
-                li= link_to t('main_nav.user.sign_out'), destroy_user_session_path, method: :delete
-
-            li = link_to new_event_path do
-              i.fa.fa-pencil-square-o
-
-        - else
-          p.navbar-text.navbar-right
-            a.navbar-link href=new_user_session_path = t 'main_nav.user.sign_in'
-
-    / .navbar.navbar-default.navbar-sub
-    /   .container
-    /     ul.nav.navbar-nav
-    /       li: a
-    /         | Future
-    /         i.glyphicon.glyphicon-chevron-down
-    /       li: a
-    /         | Bands
-    /         i.glyphicon.glyphicon-chevron-down
-    /       li: a
-    /         | Venues
-    /         i.glyphicon.glyphicon-chevron-down
-    /       li: a
-    /         | Locations
-    /         i.glyphicon.glyphicon-chevron-down
+    = render 'layouts/alerts'
+    = render 'layouts/nav'
 
     .container
       .row
-        #content.col-md-9.pjax-container
+        #content.pjax-container class=(@content_class || (content_for?(:sidebar) ? 'col-md-9' : 'col-md-10 col-md-offset-1'))
           = yield
 
-        #sidebar.col-md-3
-          div data-spy="affix" data-offset-top="100" data-offset-bottom="25"
-            = yield :sidebar
+        - if content_for?(:sidebar)
+          #sidebar.col-md-3
+            div data-spy="affix" data-offset-top="100" data-offset-bottom="25"
+              = yield :sidebar
 
-    .container#footer
-      .row
-        .col-md-4
-          p
-            = app_version
-
-        .col-md-4
-          ul.list-inline
-            li: a =t 'footer.nav.about'
-            li: a =t 'footer.nav.api'
-            li: a =t 'footer.nav.contact'
-            li = "/"
-            li: a href="http://github.com/mbajur/hcxp" github
-            li: a href="http://twitter.com/hcxphq" twitter
-
-        .col-md-4.text-right.dropup
-          =t 'footer.language_picker.language'
-          a.dropdown-toggle< data-toggle="dropdown" href='javascript:void(0)'
-            = (cookies[:locale] == 'en') ? 'English' : 'Polski'
-            b.caret<
-
-          ul.dropdown-menu.dropdown-menu-right
-            li= link_to 'English', params.merge(locale: 'en'), data: { :'no-turbolink' => '' }
-            li= link_to 'Polski', params.merge(locale: 'pl'), data: { :'no-turbolink' => '' }
+    = render 'layouts/footer'

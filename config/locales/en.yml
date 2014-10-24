@@ -2,6 +2,15 @@ en:
   delete: 'Delete'
   are_you_sure: 'Are you sure?'
 
+  hosted_by: 'Hosted by'
+  save: 'Save'
+  unsave: 'Unsave'
+  save_event: 'Save event'
+  save_changes: 'Save changes'
+
+  long:
+    you_can_leave_it_blank: 'You can leave it blank'
+
   sidebar:
     bands:
       heading: 'Bands'
@@ -93,3 +102,10 @@ en:
 
       venue:
         name: 'Name'
+
+      event:
+        is_private: 'Private'
+        is_canceled: 'Canceled'
+        is_removed: 'Removed'
+        social_link_fb: 'Facebook link'
+        social_link_lfm: 'Last.fm link'

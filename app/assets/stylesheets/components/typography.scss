@@ -1,9 +1,23 @@
-@import "bootstrap-variables";
-
 strong {
   font-weight: 600;
 }
 
 .text-muted {
   color: $gray-light;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  &.underlined {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+  }
+}
+
+p {
+  margin-bottom: 13px;
+}
+
+h2, h3, h4 {
+  font-weight: 600;
 }

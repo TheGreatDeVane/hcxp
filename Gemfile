@@ -22,6 +22,7 @@ gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -44,7 +45,7 @@ gem 'cancancan', '~> 1.8'
 # file uploads
 gem 'carrierwave'
 gem 'carrierwave-azure'
-gem 'rmagick'
+gem 'rmagick', :require => 'RMagick'
 # gem 'mini_magick'
 
 # nested forms
@@ -95,6 +96,9 @@ gem 'impressionist'
 # Pagination
 gem 'kaminari'
 
+# Model ordering
+gem 'acts_as_list'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -138,5 +142,5 @@ gem 'rails-assets-angular-moment'
 gem 'rails-assets-angular-translate'
 gem 'rails-assets-angular-ui-utils'
 gem 'rails-assets-angular-ui-select2'
-gem 'rails-assets-angular-busy'
-gem 'rails-assets-angular-infinite-scroll'
+gem 'rails-assets-angular-ui-sortable'
+gem 'rails-assets-angular-elastic'

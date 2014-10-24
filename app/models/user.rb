@@ -19,4 +19,8 @@ class User < ActiveRecord::Base
   def recent_venues
     Venue.where(id: events.select(:venue_id)).uniq
   end
+
+  def has_saved(object)
+    saves.where(saveable_type: object.class.name, saveable_id: object.id).any?
+  end
 end

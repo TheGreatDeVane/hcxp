@@ -1,0 +1,33 @@
+.panel.panel-default.panel-content
+
+  .panel-body
+    h3.underlined =t('add_band')
+
+    div hcxp-search-event-band="" event-id=@event.id
+
+    script type="text/ng-template" id="search_event_band.html"
+      p.lead.text-center Search for a band to add it to this event
+      .row
+        .col-md-8.col-md-offset-2
+          input.form-control.input-lg ng-model="searchQuery"
+
+          hr
+
+          .list-group ng-show="searchQuery"
+            a.list-group-item ng-repeat="band in bands" href="javascript:void(0)" ng-click="addBand($index)"
+              .media
+                .pull-left
+                  img ng-src="{{ band.images.medium_s }}" height="48" width="48"
+                .media-body
+                  h4.media-heading
+                    | {{ band.name }}
+                    span.badge.pull-right title="{{band.events_count}} events"
+                      | {{ band.events_count }}
+                  p.text-muted.no-margin
+                    | {{ band.location }}
+
+          div ng-show="searchQuery && !bands.length"
+            p Sorry, no bands found.
+
+- content_for :sidebar do
+  = render 'events/edit_nav', tab: :bands

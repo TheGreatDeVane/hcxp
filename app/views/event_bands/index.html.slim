@@ -1,0 +1,42 @@
+.panel.panel-default.panel-content
+  .panel-controls.panel-controls-top
+    a.btn.btn-default.btn-sm href=add_event_event_bands_path(@event)
+      i.glyphicon.glyphicon-plus>
+      = t('add_band')
+
+  .panel-body
+    h3.underlined =t('events.editing_event')
+
+    - if @event.event_bands.any?
+      = form_for @event do |f|
+
+        div hcxp-event-bands-form="" event-id=@event.id
+        script type="text/ng-template" id="event_band.html"
+          ul.media-list ui-sortable="uiSortableOptions" ng-model="event_bands"
+            li ng-repeat="event_band in event_bands" ng-hide="event_band.destroy"
+              .panel.panel-default: .panel-body: .media
+                a.pull-left href=''
+                  img ng-src='{{ event_band.band.images.medium_s }}' width=74
+
+                .media-body
+                  h4.media-heading.pull-left
+                    | {{ event_band.band.name }}
+                    small<
+                      | ({{ event_band.band.country_code }})
+
+                  input.hidden type="checkbox" ng-model="event_band.destroy" name="event[event_bands_attributes][{{ event_band.id }}][_destroy]"
+                  a.btn.btn-default.btn-xs.pull-right ng-click="event_band.destroy = true"
+                    | Remove
+
+                  input.form-control type="hidden" value="{{ event_band.id }}" ng-model="event_band.id" name="event[event_bands_attributes][{{ event_band.id }}][id]"
+                  input.form-control type="hidden" value="{{ $index + 1 }}" name="event[event_bands_attributes][{{ event_band.id }}][position]"
+                  textarea.form-control.msd-elastic ng-model="event_band.description" name="event[event_bands_attributes][{{ event_band.id }}][description]"
+
+        = link_to t('back'), @event.path
+        = f.submit t('save_changes'), class: 'btn btn-default pull-right'
+
+    - else
+      p No bands set.
+
+- content_for :sidebar do
+  = render 'events/edit_nav', tab: :bands

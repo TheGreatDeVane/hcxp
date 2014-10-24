@@ -26,6 +26,7 @@ module Khcpl
     # config.i18n.default_locale = :de
 
     config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/app/presenters)
     config.eager_load_paths += %W(#{config.root}/lib)
 
     RailsConfig.load_and_set_settings(

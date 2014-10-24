@@ -1,1 +1,8 @@
-== render 'form'
+.panel.panel-default.panel-content
+  .panel-body
+    h3.underlined =t('events.editing_event')
+
+    == render 'form'
+
+- content_for :sidebar do
+  = render 'edit_nav', tab: :general

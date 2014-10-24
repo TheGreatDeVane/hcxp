@@ -1,0 +1,25 @@
+.list-group-item-danger {
+  .media-avatar-glyphicon {
+    color: lighten($brand-danger, 10%);
+  }
+
+  .text-muted {
+    color: lighten($brand-danger, 10%);
+  }
+}
+
+.list-group-item-warning {
+  .media-avatar-glyphicon {
+    color: lighten($brand-warning, 5%);
+  }
+
+  .text-muted {
+    color: lighten($brand-warning, 5%);
+  }
+}
+
+.list-group-bigger {
+  &> .list-group-item {
+    padding: 15px;
+  }
+}

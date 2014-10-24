@@ -1,0 +1,7 @@
+.panel.panel-default
+  .list-group
+    a.list-group-item href=edit_event_path(@event) class=('active' if tab == :general)
+      = t('general')
+
+    a.list-group-item href=event_event_bands_path(@event) class=('active' if tab == :bands)
+      = t('bands')

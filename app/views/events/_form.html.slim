@@ -1,284 +1,96 @@
-= nested_form_for @event, html: {class: 'form-horizontal', ng_controller: 'EventsFormCtrl'}, :multipart => true do |f|
+= nested_form_for @event, html: {class: 'form-horizontal'}, :multipart => true do |f|
 
   = render 'shared/form_errors', resource: @event
 
-  .page-header.first
-    - if @event.persisted?
-      h3 =t 'events.editing_event'
-    - else
-      h3 =t 'events.creating_new_event'
+  .form-group
+    = f.label :title, class: 'control-label col-sm-3'
+
+    .col-sm-8
+      = f.text_field :title, class: 'form-control', ng_model: 'event.title', ng_init: "event.title='#{@event.title}'"
+      span.help-block =t('long.you_can_leave_it_blank')
 
   .form-group
-    = f.label :title, class: 'control-label col-sm-2'
+    label.control-label.col-sm-3
+      = t('activerecord.attributes.event.beginning_at')
 
-    .col-sm-10
-      = f.text_field :title, class: 'form-control input-lg', ng_model: 'event.title', ng_init: "event.title='#{@event.title}'"
-      span.help-block =t 'forms.help.you_can_leave_it_blank'
-
-  .form-group
-    label.control-label.col-sm-2 =t 'events.timing'
-
-    .col-sm-10
+    .col-sm-8
       .row
-        .col-md-6
-          .row
-            .col-md-7
-              .input-group
-                | {{ opened }}
-                = f.text_field :beginning_at, ng_init: "event.beginningAt='#{f.object.beginning_at.try(:strftime, '%d.%m.%Y')}'", class: 'form-control', :'datepicker-popup' => 'dd.MM.yyyy', ng_model: 'event.beginningAt', is_open: 'event.beginningAtOpened', min_date: '', max_date: "'2015-06-22'", datepicker_options: '', date_disabled: '', close_text: 'Close', placeholder: 'dd.mm.yyyy'
-                a.input-group-addon ng-click="openBeginningAt($event)": i.glyphicon.glyphicon-calendar
-              span.help-block =t 'activerecord.attributes.event.beginning_at'
+        .col-md-7
+          .input-group
+            = f.text_field :beginning_at, ng_init: "event.beginningAt='#{f.object.beginning_at.try(:strftime, '%d.%m.%Y')}'", class: 'form-control', :'datepicker-popup' => 'dd.MM.yyyy', ng_model: 'event.beginningAt', is_open: 'event.beginningAtOpened', min_date: '', max_date: "'2015-06-22'", datepicker_options: '', date_disabled: '', close_text: 'Close', placeholder: 'dd.mm.yyyy'
+            a.input-group-addon ng-click="openBeginningAt($event)": i.glyphicon.glyphicon-calendar
 
-            .col-md-5
-              = f.time_field :beginning_at_time, class: 'form-control',
-                  value: (@event.beginning_at_time.blank? ? '' : @event.beginning_at_time.strftime('%H:%M')),
-                  placeholder: 'hh:mm'
-
-
-        .col-md-6.hide
-          .row
-            .col-md-7
-              = f.date_field :ending_at, class: 'form-control'
-              span.help-block
-                = t 'events.ending_at'
-                |  "(#{t 'forms.optional'})"
-
-            .col-md-5
-              = f.time_field :ending_at_time, class: 'form-control', value: (@event.ending_at_time.blank? ? '' : @event.ending_at_time.strftime('%H:%M'))
-
-  .form-group
-    = f.label :price, class: 'control-label col-sm-2'
-
-    .col-sm-3
-      = f.text_field :price, class: 'form-control'
-
-    / .col-sm-3
-    /   .checkbox
-    /     label
-    /       input type="checkbox"
-    /       | Hidden
-
-    / .col-sm-2
-    /   .checkbox
-    /     label
-    /       input type="checkbox"
-    /       | Canceled
+        .col-md-5
+          = f.time_field :beginning_at_time, class: 'form-control',
+              value: (@event.beginning_at_time.blank? ? '' : @event.beginning_at_time.strftime('%H:%M')),
+              placeholder: 'hh:mm'
 
   hr
 
   .form-group
-    label.control-label.col-sm-2 =t '.bands'
+    = f.label :social_link_fb, class: 'control-label col-md-3'
 
-    .col-sm-10 ng-init="event.event_bands=#{f.object.event_bands.select('event_bands.*, bands.name, bands.location').joins(:band).to_json}"
-      .media ng-repeat='band in event.event_bands' ng-hide='band._destroy'
+    .col-md-8
+      = f.text_field :social_link_fb, class: 'form-control', placeholder: 'https://facebook.com/events/...'
+      span.help-block Link to event on facebook
 
-        / Hidden fields used by rails nested attributes
-        input.hide name='event[event_bands_attributes][{{ band.index || $index }}][id]' ng-model='band.id'
-        input.hide name='event[event_bands_attributes][{{ band.index || $index }}][band_id]' ng-model='band.band_id'
-        input.hide name='event[event_bands_attributes][{{ band.index || $index }}][description]' ng-model='band.description'
-        input.hide type="checkbox" name='event[event_bands_attributes][{{ band.index || $index }}][_destroy]' ng-model='band._destroy' ng-init='band._destroy=false'
-
-        img.pull-left ng-src="{{ band.images.medium_s }}" width="45" height="45"
-        .media-body
-          h4.media-heading.pull-left
-            | {{ band.name }}
-            small<
-              | {{ band.location }}
-
-          .btn-group.pull-right
-            a.btn.btn-default.btn-xs ng-click="band.isEdited=true" ng-hide="band.isEdited"
-              i.glyphicon.glyphicon-pencil>
-              =t 'events.edit'
-            a.btn.btn-success.btn-xs ng-click="band.isEdited=false" ng-show="band.isEdited"
-              i.glyphicon.glyphicon-ok>
-              =t 'events.done'
-            a.btn.btn-danger.btn-xs ng-click="band._destroy=true" &times;
-
-          .clearfix
-          textarea.form-control ng-model="band.description" ng-show="band.isEdited" ng-blur="band.isEdited=false"
-          .text-muted.band-description ng-hide="band.isEdited" btf-markdown="band.description || '-'"
-
-      / That line causes 10 digest iteration error or something. Need to investigate it.
-      / hr ng-show='(event.event_bands | filter: {_destroy: false})'
-
-      a.btn.btn-primary ng-click='addBand()'
-        i.glyphicon.glyphicon-plus>
-        =t 'events.form.add_band'
-
-  hr
-
-  = f.text_field :venue_id, ng_model: 'event.venue_id', ng_init: "event.venue_id='#{f.object.venue_id}'", class: 'hide'
   .form-group
-    label.control-label.col-sm-2 =t '.venue'
+    = f.label :social_link_lfm, class: 'control-label col-md-3'
 
-    .col-sm-5 ng-show="!event.venue_id"
-
-      p =t 'events.form.if_you_know_the_venue'
-      a.btn.btn-primary ng-click="setVenue()"
-        i.glyphicon.glyphicon-map-marker>
-        span =t 'events.form.set_venue'
-
-    .col-sm-5 ng-show="!event.venue_id"
-      p =t 'events.form.if_you_know_only_the_city'
-      a.btn.btn-primary ng-click="editingTBA=true" ng-hide="editingTBA"
-        i.glyphicon.glyphicon-map-marker>
-        span =t 'events.form.set_city'
-
-      .input-group ng-show="editingTBA"
-        input.form-control ng-autocomplete="" ng-model='newTBACity' details="TBADetails" options="{types: '(cities)'}" placeholder=(t 'events.form.enter_a_location')
-        .input-group-btn
-          a.btn ng-class="{true:'btn-success', false:'btn-default disabled'}[tbaValid]" ng-click="saveTBA(TBADetails)": i.glyphicon.glyphicon-ok
-
-    .col-sm-5 ng-show='event.venue_id'
-      h4
-        | {{ venue.name }}
-      p.text-muted
-        | {{ venue.address }}
-
-    .col-sm-5 ng-show='event.venue_id'
-      a.btn.btn-primary.btn-sm ng-click="setVenue()"
-        i.glyphicon.glyphicon-map-marker>
-        span =t 'events.form.change_venue'
-      br
-      br
-      a.btn.btn-primary.btn-sm ng-click="editingTBA=true" ng-hide="editingTBA"
-        i.glyphicon.glyphicon-map-marker>
-        span =t 'events.form.set_city'
-
-      .input-group ng-show="editingTBA"
-        input.form-control ng-autocomplete="" ng-model='newTBACity' details="TBADetails" options="{types: '(cities)'}" placeholder=(t '.address_city_placeholder')
-        .input-group-btn
-          a.btn ng-class="{true:'btn-success', false:'btn-default disabled'}[tbaValid]" ng-click="saveTBA(TBADetails)": i.glyphicon.glyphicon-ok
+    .col-md-8
+      = f.text_field :social_link_lfm, class: 'form-control', placeholder: 'http://last.fm/events/...'
+      span.help-block Link to event on last.fm
 
   hr
 
   .form-group
-    = f.label :poster, class: 'control-label col-sm-2'
+    = f.label :poster, class: 'control-label col-sm-3'
 
-    .col-sm-10
-      .row
-        - if @event.poster?
+    .col-sm-8
+      - if @event.poster?
+        .row
           .col-md-3
             = image_tag f.object.poster.square, width: '100%'
 
           .col-md-9
             = f.label :poster, t('events.form.choose_other_file')
+            = f.file_field :poster, class: 'form-control'
 
-            .row
-              .col-md-5
-                = f.file_field :poster, class: 'form-control'
-
-              .col-md-1
-                =t '.or'
-
-              .col-md-6
-                = f.text_field :remote_poster_url, class: 'form-control', placeholder: (t '.file_url')
-
-            hr
             .checkbox
               label
                 = f.check_box :remove_poster
                 =t 'events.form.remove_poster'
 
-        - else
-          .col-md-5
-            = f.file_field :poster, class: 'form-control'
-
-          .col-md-1
-            =t '.or'
-
-          .col-md-6
-            = f.text_field :remote_poster_url, class: 'form-control', placeholder: (t '.file_url')
+      - else
+        = f.file_field :poster, class: 'form-control'
 
   hr
 
   .form-group
-    = f.label :description, class: 'control-label col-sm-2'
 
-    .col-sm-10
-      #epiceditor data-user-id=current_user.id data-event-id=@event.id
-      = f.text_area :description, class: 'form-control hide', rows: 10, :'ng-model' => 'event.description', :'ng-init' => "event.description='#{@event.description}'"
-      span.help-block =t 'forms.help.you_can_leave_it_blank'
+    label.control-label.col-sm-3
+      | Additional
 
-      / p.help-block
-      /   | Event description is used only for informational purposes and is not searchable
-      /     (users are not able to search for your event by it's description keywords).
+    .col-sm-8
+      .checkbox
+        label
+          = f.check_box :is_private
+          = t('activerecord.attributes.event.is_private')
+      span.help-block Only event host is able to view that event
 
+      .checkbox
+        label
+          = f.check_box :is_canceled
+          = t('activerecord.attributes.event.is_canceled')
+      span.help-block Event is canceled and is not gonna happen
 
-  /     #description.tab-pane
-  /       .form-group
-  /         = f.label :description, class: 'control-label sr-only'
-  /         = f.text_area :description, class: 'form-control', rows: 24
-  /         p.help-block
-  /           | Event description is used only for informational purposes and is not searchable
-  /             (users are not able to search for your event by it's description keywords).
-
-  /     #social.tab-pane
-  /       p
-  /         | Here you can provide a links to events created on a different social media portals.
-  /           They'll be visible on your event's main page and can be helpfull for anyone to find
-  /           what they're looking for.
-
-  /       hr
-
-  /       .form-horizontal
-  /         .form-group
-  /           = f.label :social_link_fb, 'Facebook', class: 'control-label col-md-3'
-  /           .col-md-9
-  /             = f.text_field :social_link_fb, class: 'form-control', placeholder: 'http://facebook.com/events/...'
-
-  /         .form-group
-  /           = f.label :social_link_lfm, 'Last.fm', class: 'control-label col-md-3'
-  /           .col-md-9
-  /             = f.text_field :social_link_lfm, class: 'form-control', placeholder: 'http://last.fm/events/...'
-
-  /         .form-group
-  /           = f.label :social_link_hcpl, 'hard-core.pl', class: 'control-label col-md-3'
-  /           .col-md-9
-  /             = f.text_field :social_link_hcpl, class: 'form-control', placeholder: 'http://forum.hard-core.pl/...'
-
+      - if can? :destroy, @event
+        hr
+        p.help-block Click the button below if you want to completely remove that event
+        a.btn.btn-danger.btn-sm type="submit" href=event_path(@event, event: { is_removed: true }) data-confirm=t('are_you_sure') data-method="put"
+          = t('.delete')
 
   hr
-  = f.submit t('.save_event'), class: 'btn btn-default btn-primary pull-right'
 
-  - if can? :destroy, @event
-    = link_to t('.delete'), @event, class: 'btn btn-danger', data: { confirm: t('are_you_sure') }, method: :delete
-
-  script type="text/ng-template" id="help_for_title.html"
-    p Help for title
-
-  script type="text/ng-template" id="help_for_date.html"
-    p Help for date
-
-
-
-- content_for :sidebar do
-
-  / .panel.panel-default
-  /   ul.nav.nav-pills.nav-stacked style=""
-  /     li.active: a href="#general" data-toggle="tab" General
-  /     li: a href="#description" data-toggle="tab" Description
-  /     li: a href="#social" data-toggle="tab" Social
-  /     li.hide: a Authors
-  /     li.hide: a Revisions
-
-  /   br
-
-  /   p.text-center
-  /     a.btn.btn-success Save
-
-  .panel.panel-default.hide
-    .panel-heading: span Formatting
-    .panel-body
-      ng-include src="'help_for_title.html'"
-
-    script type="javasctipt/ng-template" id="help_for_title.html"
-      p Help for title
-
-  div ng-controller="SimilarEventsCtrl"
-    .panel.panel-default ng-show="events"
-      .panel-heading: span =t 'sidebar.similar_events.heading'
-      .panel-body
-      .list-group.list-group-plused
-        a.list-group-item ng-repeat="event in events" ng-href="#{events_path}/{{ event.id }}"
-          | {{ event.title_or_bands }}
+  = link_to t('.back'), @event.path, class: 'btn btn-link'
+  = f.submit t('.save_event'), class: 'btn btn-default pull-right'

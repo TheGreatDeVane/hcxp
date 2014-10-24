@@ -1,6 +1,9 @@
-= link_to toggle_event_saves_path(event, from: 'single'), class: "btn btn-default btn-sm event-#{event.id}-save #{(try(:current_user).saved_events.include? event) ? 'btn-warning' : ''}", method: :post, remote: true do
-  i.glyphicon> class="#{(try(:current_user).saved_events.include? event) ? 'glyphicon-star' : 'glyphicon-star-empty'}"
-  - if try(:current_user).saved_events.include? event
-    = t 'saved'
+a.btn.btn-default href=toggle_prop_event_path(@event, :save) data-method="post"
+
+  - if current_user.has_saved(@event)
+    i.glyphicon.glyphicon-star>
+    = t 'unsave'
+
   - else
+    i.glyphicon.glyphicon-star-empty>
     = t 'save'

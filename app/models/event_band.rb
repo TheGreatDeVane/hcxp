@@ -2,8 +2,12 @@ class EventBand < ActiveRecord::Base
   belongs_to :event
   belongs_to :band
 
+  acts_as_list scope: :event
+
   after_create :update_band_events_counter_cache
   after_destroy :update_band_events_counter_cache
+
+  default_scope { order(position: :asc) }
 
   private
 

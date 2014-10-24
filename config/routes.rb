@@ -26,7 +26,8 @@ Khcpl::Application.routes.draw do
         get :similar_by, on: :collection
         post :toggle_promote, on: :member
         post :toggle_save, on: :member
-        get :event_bands, on: :member
+
+        resources :event_bands
       end
 
       resources :venues do
@@ -55,12 +56,16 @@ Khcpl::Application.routes.draw do
 
   resources :events, path: '/' do
     get :edit, on: :member
-    # get :autocomplete, on: :collection
+    post 'toggle/:what' => 'events#toggle', on: :member, as: :toggle_prop
 
     get :browse, on: :collection
 
     resources :saves do
       post :toggle, on: :collection
+    end
+
+    resources :event_bands, path: 'edit/bands', on: :member do
+      get :add, on: :collection
     end
 
     get ':slug' => 'events#show', on: :member, as: :slugged

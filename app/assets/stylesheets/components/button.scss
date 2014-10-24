@@ -1,6 +1,7 @@
-@import "bootstrap-variables";
-
 .btn-default {
+  @include background-image(linear-gradient(#fcfcfc, #eee));
+  color: #777;
+
   .glyphicon {
     color: $gray-light;
   }

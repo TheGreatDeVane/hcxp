@@ -57,12 +57,6 @@ class Api::V1::EventsController < Api::V1Controller
   end
 
   def show; end
-  def event_bands
-    response.headers['X-Resource'] = 'event_bands'
-
-    @event_bands = @event.event_bands
-    render '/api/v1/event_bands/index'
-  end
 
   def create
     response.headers['X-Resource'] = 'event'

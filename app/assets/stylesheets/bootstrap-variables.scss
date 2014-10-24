@@ -5,6 +5,7 @@ $brand-success: #A3BE8C;
 $brand-info: #8FB1B3;
 $brand-warning: #D7D09A;
 $brand-danger: #B88888;
+$text-color: #555;
 
 $gray-light: lighten(#000, 80%);
 $gray-lighter: lighten(#000, 95%);
@@ -20,9 +21,9 @@ $font-size-h1: floor($font-size-base * 4);
 $gray-light: lighten(#000, 70.7%);
 
 // Components
-$border-radius-base: 2px;
-$border-radius-large: 2px;
-$border-radius-small: 2px;
+$border-radius-base: 3px;
+$border-radius-large: 3px;
+$border-radius-small: 3px;
 
 // Buttons
 $btn-font-weight: 300;

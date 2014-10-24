@@ -1,0 +1,8 @@
+.panel.panel-default.panel-content
+  .panel-body
+    h3.underlined =t('editing_bands')
+
+    == render 'events/edit/bands'
+
+- content_for :sidebar do
+  = render 'edit_nav'

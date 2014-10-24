@@ -1,8 +1,10 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :bands]
+  before_action :set_event, only: [:show, :edit, :edit_bands, :update, :destroy, :bands, :toggle]
   before_action :authenticate_user!, only: [:edit, :update, :new, :create]
   impressionist actions: [:show], unique: [:impressionable_type, :impressionable_id, :session_hash]
-  load_and_authorize_resource :event
+  load_and_authorize_resource :event, except: [:toggle, :edit_bands]
+
+  layout 'event', only: [:show]
 
   # GET /events
   # GET /events.json
@@ -53,6 +55,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    @event_presenter = EventPresenter.new(@event)
     redirect_to @event.path if @event.slug != params[:slug]
   end
 
@@ -69,6 +72,10 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+  end
+
+  def edit_bands
+    authorize! :edit, @event
   end
 
   # POST /events
@@ -110,11 +117,6 @@ class EventsController < ApplicationController
     end
   end
 
-  def bands
-    @tab_content_partial = 'bands'
-    render action: :show
-  end
-
   private
 
     # Use callbacks to share common setup or constraints between actions.
@@ -124,14 +126,15 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :remote_poster_url, :user_id, :description,
-                                    :beginning_at, :beginning_at_time, :ending_at,
-                                    :ending_at_time, :price, :address, {band_ids: []},
-                                    :venue_id, :remove_poster, :poster,
-                                    :social_link_fb, :social_link_lfm, :social_link_hcpl,
-                                    bands_attributes: [:id, :name, :location, :_destroy],
-                                    venue_attributes: [:id, :name, :address],
-                                    event_bands_attributes: [:id, :band_id, :description, :_destroy]
+      params.require(:event).permit(
+        :title, :remote_poster_url, :user_id, :description,
+        :beginning_at, :beginning_at_time, :ending_at,
+        :ending_at_time, :price, :address, {band_ids: []},
+        :venue_id, :remove_poster, :poster, :is_canceled, :is_private,
+        :is_removed, :social_link_fb, :social_link_lfm,
+        bands_attributes:       [:id, :name, :location, :_destroy],
+        venue_attributes:       [:id, :name, :address],
+        event_bands_attributes: [:id, :band_id, :description, :position, :_destroy]
       )
     end
 end

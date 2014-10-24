@@ -9,20 +9,47 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require select2
- *= require angular-busy
  *= require font-awesome
- *= require_tree ./vendor
- *= require_tree ./components
- * require_tree ./application
  */
 
 @import "compass/css3/box-shadow";
 @import "bootstrap-variables";
 @import "bootstrap-custom";
 @import "bootstrap-overwrites";
+// @import "bootstrap/glyphicons";
 
 @import "application/events";
 @import "application/misc";
 
+// Vendors
+@import "vendor/glyphicons";
+@import "vendor/ng-autocomplete";
+@import "vendor/pjax";
+@import "select2";
+@import "vendor/select2-bootstrap";
 @import "base/epiceditor";
+
+// Components
+@import "components/alert";
+@import "components/button";
+@import "components/counter-group";
+@import "components/dropdown";
+@import "components/epic-editor";
+@import "components/form";
+@import "components/label";
+@import "components/list";
+@import "components/media";
+@import "components/misc";
+@import "components/modal";
+@import "components/nav";
+@import "components/navbar";
+@import "components/page-header";
+@import "components/panel";
+@import "components/popover";
+@import "components/sidebar";
+@import "components/stacked-tab";
+@import "components/thumbnail";
+@import "components/typography";
+@import "components/well";
+@import "components/list-group";
+@import "components/bandcamp-player";

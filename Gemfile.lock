@@ -48,6 +48,8 @@ GEM
       tzinfo (~> 1.1)
     acts-as-taggable-on (3.2.6)
       activerecord (>= 3, < 5)
+    acts_as_list (0.4.0)
+      activerecord (>= 3.0)
     arel (5.0.1.20140414130214)
     azure (0.6.4)
       json (~> 1.8)
@@ -147,6 +149,8 @@ GEM
     jquery-turbolinks (2.0.2)
       railties (>= 3.1.0)
       turbolinks
+    jquery-ui-rails (5.0.1)
+      railties (>= 3.2.16)
     json (1.8.1)
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
@@ -208,14 +212,10 @@ GEM
       railties (= 4.1.0)
       sprockets-rails (~> 2.0)
     rails-assets-angular (1.2.16)
-    rails-assets-angular-animate (1.2.20)
-      rails-assets-angular (~> 1.2.0)
     rails-assets-angular-bootstrap (0.11.0)
       rails-assets-angular (>= 1)
-    rails-assets-angular-busy (4.1.0)
-      rails-assets-angular (~> 1.2)
-      rails-assets-angular-animate (~> 1.2)
-    rails-assets-angular-infinite-scroll (0.0.1)
+    rails-assets-angular-elastic (2.4.0)
+      rails-assets-angular (>= 1.0.6)
     rails-assets-angular-moment (0.7.1)
       rails-assets-angular (>= 1.0.0, < 1.4.0)
       rails-assets-moment (>= 2.0.0, < 2.7.0)
@@ -228,9 +228,14 @@ GEM
       rails-assets-angular (>= 1.2.0)
       rails-assets-jquery (>= 1.6.4)
       rails-assets-select2 (~> 3.4)
+    rails-assets-angular-ui-sortable (0.13.0)
+      rails-assets-angular (>= 1.2)
+      rails-assets-jquery-ui (>= 1.9)
     rails-assets-angular-ui-utils (0.1.1)
       rails-assets-angular (>= 1.0.2)
     rails-assets-jquery (2.1.1)
+    rails-assets-jquery-ui (1.11.2)
+      rails-assets-jquery (>= 1.6)
     rails-assets-lodash (2.4.1)
     rails-assets-moment (2.6.0)
     rails-assets-restangular (1.4.0)
@@ -357,6 +362,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
+  acts_as_list
   angular-rails-templates!
   bootstrap-sass (~> 3.1.1)
   cancancan (~> 1.8)
@@ -377,6 +383,7 @@ DEPENDENCIES
   impressionist
   jquery-rails
   jquery-turbolinks
+  jquery-ui-rails
   kaminari
   mechanize
   nested_form
@@ -387,13 +394,13 @@ DEPENDENCIES
   rails (= 4.1.0)
   rails-assets-angular
   rails-assets-angular-bootstrap
-  rails-assets-angular-busy
-  rails-assets-angular-infinite-scroll
+  rails-assets-angular-elastic
   rails-assets-angular-moment
   rails-assets-angular-resource
   rails-assets-angular-sanitize
   rails-assets-angular-translate
   rails-assets-angular-ui-select2
+  rails-assets-angular-ui-sortable
   rails-assets-angular-ui-utils
   rails-assets-moment
   rails-assets-restangular

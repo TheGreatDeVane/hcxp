@@ -1,0 +1,50 @@
+.navbar.navbar-inverse.navbar-main
+  .container
+    a.navbar-brand href=root_path
+      = image_tag 'logo.png'
+
+    ul.nav.navbar-nav
+      li.dropdown class=('active' if params[:controller] == 'events')
+        a href=events_path
+          | Events
+      li: a href=bands_path
+        | Bands
+      li: a
+        | Users
+
+    form.navbar-form.navbar-right.search-form role="search" action=browse_events_path
+      input type="text" class="form-control input-sm" placeholder="Search" name="q" value=params[:q]
+
+    - if user_signed_in?
+      ul.nav.navbar-nav.navbar-right.nav-user-nav
+        li
+          a data-toggle="dropdown"
+            i.fa.fa-gear
+          ul.dropdown-menu.dropdown-menu-right role="menu"
+            li: a href=browse_events_path(q: current_user.username) = t 'main_nav.user.your_events'
+            li: a = t 'main_nav.user.settings'
+            li.divider
+            li= link_to t('main_nav.user.sign_out'), destroy_user_session_path, method: :delete
+
+        li = link_to new_event_path do
+          i.fa.fa-pencil-square-o
+
+    - else
+      p.navbar-text.navbar-right
+        a.navbar-link href=new_user_session_path = t 'main_nav.user.sign_in'
+
+/ .navbar.navbar-default.navbar-sub
+/   .container
+/     ul.nav.navbar-nav
+/       li: a
+/         | Future
+/         i.glyphicon.glyphicon-chevron-down
+/       li: a
+/         | Bands
+/         i.glyphicon.glyphicon-chevron-down
+/       li: a
+/         | Venues
+/         i.glyphicon.glyphicon-chevron-down
+/       li: a
+/         | Locations
+/         i.glyphicon.glyphicon-chevron-down
