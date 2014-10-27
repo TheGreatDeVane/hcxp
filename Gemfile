@@ -99,6 +99,9 @@ gem 'kaminari'
 # Model ordering
 gem 'acts_as_list'
 
+# ActiveRecord filtering
+gem 'ransack'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

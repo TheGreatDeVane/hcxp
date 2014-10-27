@@ -1,6 +1,9 @@
+- content_for :heading do
+  = render 'edit_heading'
+
 .panel.panel-default.panel-content
   .panel-body
-    h3.underlined =t('events.editing_event')
+    - #h3.underlined =t('events.editing_event')
 
     == render 'form'
 

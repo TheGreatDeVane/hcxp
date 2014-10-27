@@ -2,7 +2,7 @@ class EventBandsController < ApplicationController
   before_action :set_event
   before_action :set_event_band, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  # load_and_authorize_resource
+  load_and_authorize_resource
 
   # GET /bands
   def index

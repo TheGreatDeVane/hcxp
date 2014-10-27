@@ -8,6 +8,10 @@ html
     = render 'layouts/nav'
 
     .container
+      - if content_for?(:heading)
+        .row
+          = yield :heading
+
       .row
         #content.pjax-container class=(@content_class || (content_for?(:sidebar) ? 'col-md-9' : 'col-md-10 col-md-offset-1'))
           = yield

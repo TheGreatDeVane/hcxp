@@ -9,6 +9,8 @@ class Band < ActiveRecord::Base
     attributes :name, :location
   end
 
+  default_scope { order(events_count: :desc) }
+
   has_many :resources, class_name: 'BandResource'
   has_many :event_bands, counter_cache: :events_count
   has_many :events, through: :event_bands
@@ -46,5 +48,11 @@ class Band < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  private
+
+  def self.ransackable_attributes(auth_object = nil)
+    super & %w(name location)
   end
 end

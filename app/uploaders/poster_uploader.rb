@@ -35,6 +35,14 @@ class PosterUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :square do
+    def default_url
+      # For Rails 3.1+ asset pipeline compatibility:
+      # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
+
+      # "/images/fallback/" + [version_name, "default.gif"].compact.join('_')
+      "http://placehold.it/153x153&text=x"
+    end
+
     process :resize_to_fill => [153, 153]
   end
 

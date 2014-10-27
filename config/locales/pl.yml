@@ -4,6 +4,8 @@ pl:
     today: 'Dzisiaj'
     tomorrow: 'Jutro'
 
+  search: 'Szukaj'
+
   are_you_sure: 'Jesteś pewien?'
   delete: 'Usuń'
   no_description: 'Brak opisu'
@@ -42,16 +44,7 @@ pl:
         # description: 'Use your credentials from forum.hard-core.pl to sign in to hcxp.'
         description: 'Aby zalogować się w hcxp, możesz użyć swoich danych z <a href="http://forum.hard-core.pl">forum.hard-core.pl</a>.'
 
-  search:
-    no_results:
-      # oops: 'Oops!'
-      oops: 'Ups!'
-      # description: "Sorry, no events found for <strong>%{query}</strong>"
-      description: "Sory, nie znaleźliśmy żadnych wydarzeń dla frazy <strong>%{query}</strong>"
-      # description_without_q: "Sorry, no events found."
-      description_without_q: "Sory, nie znaleźliśmy żadnych wydarzeń."
-      # advice: "Maybe you should try <a href='%{url}'>searching the archives? &rarr;</a>"
-      advice: "Może powinieneś spróbować <a href='%{url}'>przeszukać archiwum? &rarr;</a>"
+
 
   sidebar:
     bands:

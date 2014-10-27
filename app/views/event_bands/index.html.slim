@@ -1,11 +1,9 @@
+- content_for :heading do
+  = render 'events/edit_heading'
+
 .panel.panel-default.panel-content
-  .panel-controls.panel-controls-top
-    a.btn.btn-default.btn-sm href=add_event_event_bands_path(@event)
-      i.glyphicon.glyphicon-plus>
-      = t('add_band')
 
   .panel-body
-    h3.underlined =t('events.editing_event')
 
     - if @event.event_bands.any?
       = form_for @event do |f|
@@ -32,7 +30,11 @@
                   input.form-control type="hidden" value="{{ $index + 1 }}" name="event[event_bands_attributes][{{ event_band.id }}][position]"
                   textarea.form-control.msd-elastic ng-model="event_band.description" name="event[event_bands_attributes][{{ event_band.id }}][description]"
 
-        = link_to t('back'), @event.path
+        hr
+        a.btn.btn-default.btn-sm href=add_event_event_bands_path(@event)
+          i.glyphicon.glyphicon-plus>
+          = t('add_band')
+
         = f.submit t('save_changes'), class: 'btn btn-default pull-right'
 
     - else

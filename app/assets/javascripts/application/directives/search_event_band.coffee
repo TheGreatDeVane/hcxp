@@ -1,14 +1,16 @@
 @directives.directive "hcxpSearchEventBand", [
   '$rootScope'
-  '$http'
+  '$timeout'
   'Restangular'
-  ($rootScope, $http, Restangular) ->
+  ($rootScope, $timeout, Restangular) ->
 
     controller: ($scope) ->
       $scope.bands = []
+      timer = false
 
-      $scope.searchForBand = () ->
-        Restangular.all('bands').getList({ q: $scope.searchQuery }).then (results) ->
+      $scope.searchForBand = (q) ->
+
+        Restangular.all('bands').getList({ q: q }).then (results) ->
           $scope.bands = results.data
 
       $scope.addBand = (index) ->
@@ -17,13 +19,22 @@
             band_id: $scope.bands[index].id
           }
         }
-        console.log params
+
         Restangular.one('events', $scope.eventId).one('event_bands').customPOST(params).then (results) ->
           $.pjax({url: '/' + $scope.eventId + '/edit/bands', container: '.pjax-container'})
 
       $scope.$watchCollection 'searchQuery', (val, oldVal) ->
         return false if val is oldVal
-        $scope.searchForBand()
+
+        if val is ''
+          $timeout.cancel timer
+          $scope.bands = []
+        else
+          $timeout.cancel timer if timer
+          timer = $timeout(->
+            $scope.searchForBand(val)
+          , 500)
+        end
 
     link: (scope, element, attrs) ->
       return

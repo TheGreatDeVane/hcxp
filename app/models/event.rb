@@ -153,6 +153,16 @@ class Event < ActiveRecord::Base
     impressions_count
   end
 
+  def toggle_save(user)
+    save = saves.where(user: user)
+
+    if save.any?
+      save.last.destroy
+    else
+      saves.create(user: user)
+    end
+  end
+
   def self.from_cities(cities = [])
     self.joins(:venue).where('venues.city IN (?)', cities)
   end
@@ -181,13 +191,4 @@ class Event < ActiveRecord::Base
     %i(from_the)
   end
 
-  def toggle_save(user)
-    save = saves.where(user: user)
-
-    if save.any?
-      save.last.destroy
-    else
-      saves.create(user: user)
-    end
-  end
 end

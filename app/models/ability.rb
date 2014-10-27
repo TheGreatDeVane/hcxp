@@ -13,6 +13,7 @@ class Ability
       can [:edit, :update, :new, :create], Event, user_id: user.id
       can [:edit, :update, :new, :create], Band
       can [:edit, :update, :new, :create], Venue
+      can [:create], EventBand, event: { user_id: user.id }
       can [:toggle_save], Event
 
       # Controller stuff
@@ -23,6 +24,7 @@ class Ability
       can [:toggle_promote], Event
       can [:destroy], Event, persisted?: true
       can [:edit, :update], Event
+      can [:manage], EventBand
     end
   end
 end

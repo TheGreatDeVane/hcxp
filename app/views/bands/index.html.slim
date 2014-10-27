@@ -1,27 +1,42 @@
-h1 Listing bands
+- @bands.each do |band|
+  .media.media-underlined
+    a.pull-left href=band_path(band)
+      = image_tag band_thumb_url(band), class: 'img-rounded', size: '80x80'
 
-table
-  tr
-    th Name
-    th Location
-    th City
-    th Country name
-    th Country code
-    th
-    th
-    th
+    .media-body
+      .row
+        .col-md-6
+          h4.media-heading.no-margin = link_to band.name, band
+          small.text-muted
+            i.glyphicon.glyphicon-map-marker>
+            = band.location
 
-  - @bands.each do |band|
-    tr
-      td = band.name
-      td = band.location
-      td = band.city
-      td = band.country_name
-      td = band.country_code
-      td = link_to 'Show', band
-      td = link_to 'Edit', edit_band_path(band)
-      td = link_to 'Destroy', band, data: {:confirm => 'Are you sure?'}, :method => :delete
+        .col-md-6
+          ul.list-inline.pull-right.no-margin-bottom
+            - band.events.limit(3).each do |event|
+              li: a.thumbnail.no-margin href=event.path
+                = image_tag event.poster.square.url, size: '72x72'
 
-br
+= paginate @bands
 
-= link_to 'New Band', new_band_path
+- unless @bands.any?
+  p No results found
+
+- content_for :sidebar do
+  .panel.panel-default
+    .panel-body
+      = search_form_for @f, as: 'f' do |f|
+
+        .form-group
+          label = t('name')
+          = f.search_field :name_cont, class: 'form-control input-sm'
+
+        .form-group
+          label = t('location')
+          = f.search_field :location_cont, class: 'form-control input-sm'
+
+        = f.submit t('search'), class: 'btn btn-default btn-block'
+
+  coffee:
+    $(document).on 'submit', '#band_search', (e) ->
+      $.pjax.submit e, '.pjax-container'

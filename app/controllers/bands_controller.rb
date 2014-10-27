@@ -1,13 +1,13 @@
 class BandsController < ApplicationController
   before_action :set_band, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  # load_and_authorize_resource
+  load_and_authorize_resource
 
   # GET /bands
-  # GET /bands.json
-  # def index
-  #   @bands = Band.all
-  # end
+  def index
+    @f = Band.search(params[:f])
+    @bands = @f.result.page(params[:page])
+  end
 
   # GET /bands/1
   # GET /bands/1.json

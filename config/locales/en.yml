@@ -8,6 +8,8 @@ en:
   save_event: 'Save event'
   save_changes: 'Save changes'
 
+  search: 'Search'
+
   long:
     you_can_leave_it_blank: 'You can leave it blank'
 
@@ -77,13 +79,6 @@ en:
         info:      'Info'
         links:     'Links'
         resources: 'Resources'
-
-  search:
-    no_results:
-      oops: 'Oops!'
-      description: "Sorry, no events found for <strong>%{query}</strong>"
-      description_without_q: "Sorry, no events found."
-      advice: "Maybe you should try <a href='%{url}'>searching the archives? &rarr;</a>"
 
   footer:
     nav:

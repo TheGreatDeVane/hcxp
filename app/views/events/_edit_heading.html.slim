@@ -1,0 +1,9 @@
+.col-md-12
+  .media
+    a.pull-left
+      = image_tag @event.poster.square, size: '50x50', class: 'thumbnail'
+
+    .media-body
+      h2.h4.media-heading
+        = link_to @event.title, @event.path
+      p.text-muted = @event.venue
