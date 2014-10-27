@@ -1,0 +1,35 @@
+- @users.each do |user|
+  .media.media-underlined
+    a.pull-left href=user_path(user)
+      = image_tag 'https://avatars1.githubusercontent.com/u/581569?v=2&s=460', class: 'img-circle', size: '80x80'
+
+    .media-body
+      .row
+        .col-md-6
+          h4.media-heading.no-margin = link_to user.username, user
+
+        .col-md-6
+          ul.list-inline.pull-right.no-margin-bottom
+            - user.events.limit(3).each do |event|
+              li: a.thumbnail.no-margin href=event.path
+                = image_tag event.poster.square.url, size: '72x72'
+
+= paginate @users
+
+- unless @users.any?
+  p No results found
+
+- content_for :sidebar do
+  .panel.panel-default
+    .panel-body
+      = search_form_for @f, as: 'f' do |f|
+
+        .form-group
+          label = t('username')
+          = f.search_field :username_cont, class: 'form-control input-sm'
+
+        = f.submit t('search'), class: 'btn btn-default btn-block'
+
+  coffee:
+    $(document).on 'submit', '#band_search', (e) ->
+      $.pjax.submit e, '.pjax-container'

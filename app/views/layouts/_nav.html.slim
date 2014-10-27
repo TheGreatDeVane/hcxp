@@ -7,10 +7,12 @@
       li.dropdown class=('active' if params[:controller] == 'events')
         a href=events_path
           | Events
-      li: a href=bands_path
-        | Bands
-      li: a
-        | Users
+      li class=('active' if params[:controller] == 'bands')
+        a href=bands_path
+          | Bands
+      li class=('active' if params[:controller] == 'users')
+        a href=users_path
+          | Users
 
     form.navbar-form.navbar-right.search-form role="search" action=browse_events_path
       input type="text" class="form-control input-sm" placeholder="Search" name="q" value=params[:q]

@@ -23,4 +23,10 @@ class User < ActiveRecord::Base
   def has_saved(object)
     saves.where(saveable_type: object.class.name, saveable_id: object.id).any?
   end
+
+  private
+
+  def self.ransackable_attributes(auth_object = nil)
+    super & %w(username)
+  end
 end
