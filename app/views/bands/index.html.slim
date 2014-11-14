@@ -22,7 +22,7 @@
 = paginate @bands
 
 - unless @bands.any?
-  p No results found
+  p =t('no_results')
 
 - content_for :sidebar do
   .panel.panel-default

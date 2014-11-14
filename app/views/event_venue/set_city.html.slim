@@ -8,7 +8,7 @@
       .col-md-8.col-md-offset-2
         = form_for @venue, url: set_city_event_event_venue_index_path(@event) do |f|
           .form-group
-            input.form-control.input-lg type="text" placeholder="Search for city..." ng-autocomplete="" ng-model="location" details="details"
+            input.form-control.input-lg type="text" placeholder=t('search_for_city') ng-autocomplete="" ng-model="location" details="details"
             = f.hidden_field :latitude, class: 'form-control input-lg', value: '{{details.geometry.location.k}}'
             = f.hidden_field :longitude, class: 'form-control input-lg', value: '{{details.geometry.location.B}}'
 

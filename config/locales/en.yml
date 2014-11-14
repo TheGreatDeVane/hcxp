@@ -1,52 +1,85 @@
 en:
-  delete: 'Delete'
+  about: 'About'
+  api: 'API'
+  contact: 'Contact'
+  add_band: 'Add Band'
+  add_story: 'Add Story'
+  adding_band_to_event: 'Adding band to event'
+  additional: 'Additional'
   are_you_sure: 'Are you sure?'
+  at: 'at'
+  band: 'Band'
+  bands: 'Bands'
+  cancel: 'Cancel'
+  canceled: 'Canceled'
+  change_venue: 'Change venue'
+  create_a_new_band: 'Create a new Band'
+  crowd: 'Crowd'
+
+  devise:
+    failure:
+      invalid: ''
+    sessions:
+      signed_in: ''
+      signed_in_with_fhcpl: 'Use your credentials from <a href="http://forum.hard-core.pl">forum.hard-core.pl</a> to sign in to hcxp.'
+
+  edit: 'Edit'
+  events: 'Events'
+  events: 'Events'
+  future: 'Future'
+  future_events: 'Future events'
+  general: 'General'
+  language: 'Language'
+  location: 'Location'
+  name: 'Name'
+  new_event: 'New Event'
+  none: 'None'
+  past: 'Past'
+  past_events: 'Past events'
+  price: 'Price'
+  private: 'Private'
+  publish: 'Publish'
+  removed: 'Removed'
+  set_city: 'Set city'
+  set_venue: 'Set venue'
+  settings: 'Settings'
+  sign_in: 'Sign In'
+  sign_out: 'Sign Out'
+  stories: 'Stories'
+
+  time:
+    today: 'Today'
+    tomorrow: 'Tomorrow'
+    yesterday: 'Yesterday'
+
+  undo: 'Undo'
+  unset: 'Unset'
+  username: 'Username'
+  users: 'Users'
+  venue: 'Venue'
 
   hosted_by: 'Hosted by'
   save: 'Save'
   unsave: 'Unsave'
-  save_event: 'Save event'
   save_band: 'Save band'
   save_changes: 'Save changes'
 
+  no_results: 'Sorry, no results found.'
+
   search: 'Search'
+  search_placeholder: 'Search...'
+  search_for_city: 'Search for city...'
+
+  validation_error_heading: 'Oops! Please fix following errors:'
+  your_events: 'Your events'
 
   long:
     you_can_leave_it_blank: 'You can leave it blank'
-
-  sidebar:
-    bands:
-      heading: 'Bands'
-
-    your_cities:
-      heading: 'Your cities'
-      placeholder: 'Search for city'
-
-    similar_events:
-      heading: 'Similar events'
-
-    featured_events:
-      heading: 'Featured events'
-
-  main_nav:
-    search:
-      placeholder: 'Search for events, bands, venues, cities or anything...'
-
-    user:
-      sign_in: 'Sign in'
-      your_events: 'Your events'
-      settings: 'Settings'
-      sign_out: 'Sign out'
-      add_event: 'Add Event'
-      saved_events: 'Saved events'
-
-  add_band_modal:
-    nothing_found: 'No bands found'
-    nothing_found_desc: "Looks like the band you\'ve been searching for is not in our database. Perhaps it\'s a good idea to"
-    create_it_btn: 'create it &rarr;'
-
-  new_band_modal:
-    heading: 'Creating new band'
+    search_band_to_add_to_event: 'Search for a band to add it to this event'
+    search_venue_for_event: 'Search for a venue to assign it to that event'
+    canceled_full: 'This event has been canceled.'
+    private_full: 'This event is private.'
+    removed_full: 'This event has been removed.'
 
   sessions:
     new:
@@ -56,39 +89,6 @@ en:
 
       fhcpl:
         description: 'Use your credentials from <a href="http://forum.hard-core.pl">forum.hard-core.pl</a> to sign in to hcxp.'
-
-  events: 'Events'
-  save: 'Save'
-  saved: 'Saved'
-  edit: 'Edit'
-  promote: 'Promote'
-  promoted: 'Promoted'
-  timing: 'Timing'
-  if_you_know_venue: 'If you know the venue'
-
-  form:
-    remove_poster: 'Remove that poster'
-    save_event: 'Save event'
-    if_you_know_the_venue: 'If you know the venue:'
-    if_you_know_only_the_city: 'If you know only the city:'
-    address_city_placeholder: 'City, Country'
-    enter_a_location: 'Enter a location'
-    file_url: 'File URL'
-
-  show:
-    nav:
-      info:      'Info'
-      links:     'Links'
-      resources: 'Resources'
-
-  footer:
-    nav:
-      about: 'about'
-      api: 'api'
-      contact: 'contact'
-
-    language_picker:
-      language: 'Language:'
 
   activerecord:
     attributes:
@@ -101,10 +101,18 @@ en:
 
       event:
         is_private: 'Private'
+        is_private_help: 'Only event host is able to view that event'
         is_canceled: 'Canceled'
+        is_canceled_help: 'Event is canceled and is not gonna happen'
         is_removed: 'Removed'
+        is_removed_help: 'Click the button below if you want to completely remove that event'
         social_link_fb: 'Facebook link'
+        social_link_fb_help: 'Link to event on facebook'
         social_link_lfm: 'Last.fm link'
+        social_link_lfm_help: 'Link to event on last.fm'
+        beginning_at: 'Beginning at'
+        description: 'Description'
+        price: 'Price'
         beginning_at_time: 'Time'
 
       story:

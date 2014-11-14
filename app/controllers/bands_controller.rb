@@ -33,24 +33,6 @@ class BandsController < ApplicationController
     render json: Band.search(params[:q]).map(&:name)
   end
 
-  # GET /bands/1/edit
-  def edit
-  end
-
-  # PATCH/PUT /bands/1
-  # PATCH/PUT /bands/1.json
-  def update
-    respond_to do |format|
-      if @band.update(band_params)
-        format.html { redirect_to @band, notice: 'Band was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @band.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_band

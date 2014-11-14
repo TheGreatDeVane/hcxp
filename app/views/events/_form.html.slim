@@ -38,14 +38,16 @@
 
     .col-md-8
       = f.text_field :social_link_fb, class: 'form-control', placeholder: 'https://facebook.com/events/...'
-      span.help-block Link to event on facebook
+      span.help-block
+        = t('activerecord.attributes.event.social_link_fb_help')
 
   .form-group
     = f.label :social_link_lfm, class: 'control-label col-md-3'
 
     .col-md-8
       = f.text_field :social_link_lfm, class: 'form-control', placeholder: 'http://last.fm/events/...'
-      span.help-block Link to event on last.fm
+      span.help-block
+        = t('activerecord.attributes.event.social_link_lfm_help')
 
   hr
 
@@ -76,25 +78,34 @@
     .form-group
 
       label.control-label.col-sm-3
-        | Additional
+        = t('additional')
 
       .col-sm-8
         .checkbox
           label
             = f.check_box :is_private
             = t('activerecord.attributes.event.is_private')
-        span.help-block Only event host is able to view that event
+
+        span.help-block = t('activerecord.attributes.event.is_private_help')
 
         .checkbox
           label
             = f.check_box :is_canceled
             = t('activerecord.attributes.event.is_canceled')
-        span.help-block Event is canceled and is not gonna happen
+        span.help-block
+          = t('activerecord.attributes.event.is_canceled_help')
 
         - if can? :destroy, @event
           hr
-          p.help-block Click the button below if you want to completely remove that event
-          a.btn.btn-danger.btn-sm type="submit" href=event_path(@event, event: { is_removed: true }) data-confirm=t('are_you_sure') data-method="put"
+          p.help-block
+            = t('activerecord.attributes.event.is_removed_help')
+
+          a.btn.btn-danger.btn-sm(
+            type="submit"
+            href=event_path(@event, event: { is_removed: true })
+            data-confirm=t('are_you_sure')
+            data-method="put"
+          )
             = t('.delete')
 
     hr

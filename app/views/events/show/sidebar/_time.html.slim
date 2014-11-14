@@ -6,4 +6,5 @@ li.list-group-item
     .media-body
       h5.media-heading.no-margin
         = @event.beginning_at.strftime('%d %B')
-      small.text-muted #{@event.beginning_at.strftime('%d %B')} at #{@event.beginning_at_time.strftime('%H:%M')}
+
+      small.text-muted #{@event.beginning_at.strftime('%d %B')} #{t 'at'} #{@event.beginning_at_time.strftime('%H:%M')}

@@ -6,7 +6,9 @@
 
       .media-body
         h5.media-heading.no-margin
-          | Removed
+          = t('removed')
+
         small.text-muted
-          | This event has been removed.
-          a< href=event_path(@event, event: { is_removed: false }) data-method="put" Undo
+          = t('long.removed_full')
+          a< href=event_path(@event, event: { is_removed: false }) data-method="put"
+            = t('undo')

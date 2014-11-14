@@ -1,5 +1,11 @@
 = form_for [@band, @story], html: { class: 'form-horizontal' } do |f|
-  p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec augue sed ipsum semper aliquet. In nec purus non felis consequat scelerisque. Quisque sit amet lacinia velit.
+  p Resources are used to populate band's infos in
+    a various places all over the website. For example,
+    <strong>Bandcamp</strong> links are used to display
+    band's players on event page and <strong>Last.fm</strong>
+    resources handles band thumbnails. Apart of that, they
+    are also a good way to provide a basic information about
+    a band. Please keep'em clean!
 
   = render 'shared/form_errors', resource: @story
 

@@ -1,6 +1,7 @@
 - if resource.errors.any?
   .alert.alert-danger
-    h4 Oops! Please fix following errors:
+    h4
+      = t('validation_error_heading')
     ul
       - resource.errors.full_messages.each do |message|
         li = message

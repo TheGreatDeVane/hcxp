@@ -6,15 +6,15 @@
     ul.nav.navbar-nav
       li.dropdown class=('active' if params[:controller] == 'events')
         a href=events_path
-          | Events
+          = t('events')
 
       li class=('active' if params[:controller] == 'bands')
         a href=bands_path
-          | Bands
+          = t('bands')
 
       li class=('active' if params[:controller] == 'users')
         a href=users_path
-          | Users
+          = t('users')
 
     == cell(:search_form, params)
 
@@ -24,14 +24,14 @@
           a data-toggle="dropdown"
             i.fa.fa-gear
           ul.dropdown-menu.dropdown-menu-right role="menu"
-            li: a href=browse_events_path(q: current_user.username) = t 'main_nav.user.your_events'
-            li: a = t 'main_nav.user.settings'
+            li: a href=browse_events_path(q: current_user.username) = t('your_events')
+            li: a = t('settings')
             li.divider
-            li= link_to t('main_nav.user.sign_out'), destroy_user_session_path, method: :delete
+            li= link_to t('sign_out'), destroy_user_session_path, method: :delete
 
         li = link_to new_event_path do
           i.fa.fa-pencil-square-o
 
     - else
       p.navbar-text.navbar-right
-        a.navbar-link href=new_user_session_path = t 'main_nav.user.sign_in'
+        a.navbar-link href=new_user_session_path = t 'sign_in'

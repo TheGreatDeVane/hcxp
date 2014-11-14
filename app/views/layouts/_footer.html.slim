@@ -6,15 +6,15 @@
 
     .col-md-4
       ul.list-inline
-        li: a =t 'footer.nav.about'
-        li: a =t 'footer.nav.api'
-        li: a =t 'footer.nav.contact'
+        li: a =t('about')
+        li: a =t('api')
+        li: a =t('contact')
         li = "/"
         li: a href="http://github.com/hcxp/hcxp" github
         li: a href="http://twitter.com/hcxphq" twitter
 
     .col-md-4.text-right.dropup
-      =t 'footer.language_picker.language'
+      | #{t('language')}:
       a.dropdown-toggle< data-toggle="dropdown" href='javascript:void(0)'
         = (cookies[:locale] == 'en') ? 'English' : 'Polski'
         b.caret<

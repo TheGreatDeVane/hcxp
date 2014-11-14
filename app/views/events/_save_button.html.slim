@@ -2,8 +2,8 @@ a.btn.btn-default href=toggle_event_saves_path(@event) data-method="post"
 
   - if current_user.has_saved(@event)
     i.glyphicon.glyphicon-star>
-    = t 'unsave'
+    = t('unsave')
 
   - else
     i.glyphicon.glyphicon-star-empty>
-    = t 'save'
+    = t('save')

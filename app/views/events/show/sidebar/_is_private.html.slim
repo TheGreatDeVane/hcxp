@@ -6,7 +6,9 @@
 
       .media-body
         h5.media-heading.no-margin
-          | Private
+          = t('private')
+
         small.text-muted
-          | This event is private.
-          a< href=event_path(@event, event: { is_private: false }) data-method="put" Publish
+          = t('long.private_full')
+          a< href=event_path(@event, event: { is_private: false }) data-method="put"
+            = t('publish')

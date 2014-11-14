@@ -1,7 +1,8 @@
 - if @event.savegazers.any?
   .panel.panel-default
     .panel-heading
-      .panel-title Crowd
+      .panel-title = t('crowd')
+
     .panel-body
       ul.list-inline.no-margin-bottom
         - @event.savegazers.each do |user|

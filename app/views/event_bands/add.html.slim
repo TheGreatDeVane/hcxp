@@ -1,14 +1,16 @@
 .panel.panel-default.panel-content
 
   .panel-heading
-    = render 'events/edit_heading', title: 'Adding band to event'
+    = render 'events/edit_heading', title: t('adding_band_to_event')
 
   .panel-body
 
     div hcxp-search-event-band="" event-id=@event.id
 
     script type="text/ng-template" id="search_event_band.html"
-      p.lead.text-center Search for a band to add it to this event
+      p.lead.text-center
+        = t('long.search_band_to_add_to_event')
+
       .row
         .col-md-8.col-md-offset-2
           input.form-control.input-lg ng-model="searchQuery"
@@ -30,10 +32,10 @@
 
             a.list-group-item ng-href="#{new_event_event_band_path(@event)}?band[name]={{ searchQuery }}"
               i.glyphicon.glyphicon-plus>
-              | Create a new band
+              = t('create_a_new_band')
 
           div ng-show="noResults"
-            p Sorry, no bands found.
+            = t('no_results')
 
 - content_for :sidebar do
   = render 'events/edit_nav', tab: :bands

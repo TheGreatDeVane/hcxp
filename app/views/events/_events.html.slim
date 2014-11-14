@@ -1,7 +1,7 @@
 .events-list
 
   - unless event_months.any?
-    h5 No events to show
+    h5 = t('no_results')
 
   - event_months.each do |month, events|
     h2.month-title

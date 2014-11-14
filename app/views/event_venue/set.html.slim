@@ -6,7 +6,9 @@
     div hcxp-search-event-venue="" event-id=@event.id
 
     script type="text/ng-template" id="search_event_venue.html"
-      p.lead.text-center Search for a venue to assign it to that event
+      p.lead.text-center
+        = t('search_venue_for_event')
+
       .row
         .col-md-8.col-md-offset-2
           input.form-control.input-lg ng-model="searchQuery"
@@ -22,7 +24,7 @@
                 | {{ venue.address }}
 
           div ng-show="searchQuery && !venues.length"
-            p Sorry, no venues found.
+            p = t('no_results')
 
 - content_for :sidebar do
   = render 'events/edit_nav', tab: :venue
