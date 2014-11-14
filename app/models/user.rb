@@ -1,8 +1,14 @@
 class User < ActiveRecord::Base
+  include SearchCop
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :rememberable, :trackable, :validatable
+
+  search_scope :fulltext_search do
+    attributes :username
+  end
 
   validates :username, presence: true, uniqueness: true
 

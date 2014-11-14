@@ -1,0 +1,9 @@
+- if @event.savegazers.any?
+  .panel.panel-default
+    .panel-heading
+      .panel-title Crowd
+    .panel-body
+      ul.list-inline.no-margin-bottom
+        - @event.savegazers.each do |user|
+          li: a
+            = image_tag 'https://avatars1.githubusercontent.com/u/581569?v=2&s=460', class: 'img-circle', size: '30x30'

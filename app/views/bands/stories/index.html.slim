@@ -1,0 +1,23 @@
+= render 'bands/show_heading'
+
+.row
+  .col-md-12.pjax-container
+    = render 'bands/nav', tab: :stories
+
+    - @band.stories.each do |story|
+      - story = story.decorate
+
+      .media
+        - if story.thumbnail.present?
+          a.pull-left
+            = image_tag story.thumbnail.url, size: '40x40'
+
+        .media-body
+          h4.media-heading = link_to (story.title || story.url), story.url
+          ul.list-inline.text-muted.text-sm
+            li = story.domain
+            li.separator &#8226;
+            li = link_to story.user, '#'
+
+- content_for :sidebar do
+  = render 'bands/show_sidebar'

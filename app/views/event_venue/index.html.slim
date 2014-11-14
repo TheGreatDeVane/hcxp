@@ -1,0 +1,37 @@
+.panel.panel-default
+  .panel-heading
+    = render 'events/edit_heading'
+
+  .panel-body
+
+    - if @event.venue.present?
+
+      .media
+        .pull-left
+          = image_tag "https://maps.googleapis.com/maps/api/staticmap?center=#{@event.venue.address}&zoom=15&size=300x150&maptype=roadmap&markers=color:blue%7C#{@event.venue.latitude},#{@event.venue.longitude}", width: 300
+
+        .media-body
+          h3.media-heading = @event.venue.name
+          p.text-muted = @event.venue.address
+
+          a.btn.btn-default.btn-sm> data-confirm=t('are_you_sure') data-method="post" href=unset_event_event_venue_index_path(@event)
+            i.glyphicon.glyphicon-remove>
+            = t('unset')
+
+          a.btn.btn-default.btn-sm href=set_event_event_venue_index_path(@event)
+            i.glyphicon.glyphicon-pencil>
+            = t('change_venue')
+
+    - else
+      .text-center
+        p.lead No venue set.
+        a.btn.btn-default.btn-sm> href=set_event_event_venue_index_path(@event)
+          i.glyphicon.glyphicon-home>
+          = t('set_venue')
+
+        a.btn.btn-default.btn-sm href=set_city_event_event_venue_index_path(@event)
+          i.glyphicon.glyphicon-map-marker>
+          = t('set_city')
+
+- content_for :sidebar do
+  = render 'events/edit_nav', tab: :venue

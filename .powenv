@@ -1,0 +1,8 @@
+export PATH="/Volumes/HDD/Users/michal/.rvm/gems/ruby-2.0.0-p594/bin:/Volumes/HDD/Users/michal/.rvm/gems/ruby-2.0.0-p594@global/bin:/Volumes/HDD/Users/michal/.rvm/rubies/ruby-2.0.0-p594/bin:$PATH"
+export GEM_HOME='/Volumes/HDD/Users/michal/.rvm/gems/ruby-2.0.0-p594'
+export GEM_PATH='/Volumes/HDD/Users/michal/.rvm/gems/ruby-2.0.0-p594:/Volumes/HDD/Users/michal/.rvm/gems/ruby-2.0.0-p594@global'
+export MY_RUBY_HOME='/Volumes/HDD/Users/michal/.rvm/rubies/ruby-2.0.0-p594'
+export IRBRC='/Volumes/HDD/Users/michal/.rvm/rubies/ruby-2.0.0-p594/.irbrc'
+unset MAGLEV_HOME
+unset RBXOPT
+export RUBY_VERSION='ruby-2.0.0-p594'

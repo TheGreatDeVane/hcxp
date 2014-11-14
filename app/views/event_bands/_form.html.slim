@@ -1,0 +1,19 @@
+= form_for @band, url: event_event_bands_path(@event), html: {class: 'form-horizontal'} do |f|
+
+  = render 'shared/form_errors', resource: @band
+
+  .form-group
+    = f.label :name, class: 'control-label col-sm-3'
+
+    .col-sm-8
+      = f.text_field :name, class: 'form-control'
+
+  .form-group
+    = f.label :location, class: 'control-label col-sm-3'
+
+    .col-sm-8
+      = f.text_field :location, class: 'form-control', ng_autocomplete: '', ng_model: 'location'
+
+  hr
+
+  = f.submit t('save_band'), class: 'btn btn-default pull-right'

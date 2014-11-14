@@ -1,0 +1,27 @@
+= render 'heading', collection: @bands
+
+- @bands.each do |band|
+  - band = band.decorate
+
+  .media.media-underlined
+    a.pull-left href=band_path(band)
+      = image_tag band.thumb_url, class: 'img-rounded', size: '80x80'
+
+    .media-body
+      .row
+        .col-md-6
+          h4.media-heading.no-margin = link_to band.name, band
+          small.text-muted
+            i.glyphicon.glyphicon-map-marker>
+            = band.location
+
+        .col-md-6
+          ul.list-inline.pull-right.no-margin-bottom
+            - band.events.limit(3).each do |event|
+              li: a.thumbnail.no-margin href=event.path
+                = image_tag event.poster.square.url, size: '72x72', class: 'img-rounded'
+
+= paginate @bands
+
+- content_for :sidebar do
+  = render 'nav', tab: :bands

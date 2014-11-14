@@ -1,0 +1,14 @@
+li.list-group-item
+  .media
+    .pull-left
+      i.glyphicon.glyphicon-map-marker.media-avatar-glyphicon
+
+    .media-body
+      - if @event.venue.present?
+        h5.media-heading.no-margin = @event.venue.name
+        small.text-muted = @event.venue.address
+
+      - else
+        h5.media-heading.no-margin = t('none')
+        small.text-muted: a href=set_event_event_venue_index_path(@event)
+          = t('set_venue')

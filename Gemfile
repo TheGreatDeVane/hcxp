@@ -81,14 +81,12 @@ gem 'search_cop'
 # Friendly IDs
 gem 'friendly_id', '~> 5.0.0'
 
-# EpicEditor
-gem 'epic-editor-rails'
-
 # Use your angular templates with rails asset pipeline
 gem 'angular-rails-templates', github: 'pitr/angular-rails-templates'
 
 # Rails settings
 gem "rails_config"
+gem 'dotenv-rails', :groups => [:development, :test]
 
 # Impressions
 gem 'impressionist'
@@ -101,6 +99,22 @@ gem 'acts_as_list'
 
 # ActiveRecord filtering
 gem 'ransack'
+
+# View Components
+gem 'cells', github: 'apotonick/cells'
+
+# Decorators / Presenters
+gem 'draper'
+
+# Fast remote image processing
+gem 'fastimage'
+
+# Background processing
+gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sidekiq'
+
+# Last.fm API wrapper
+gem 'lastfm'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

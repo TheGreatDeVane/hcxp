@@ -1,8 +1,6 @@
 / Set page title
 - @title = event_page_title(@event)
 
-= render 'shared/flash'
-
 .panel.panel-default
   .panel-poster
     .panel-poster-overlay
@@ -30,104 +28,40 @@
 .panel.panel-default
   - if can? :edit, @event
     .panel-heading
-      = t('bands')
+      .panel-title.pull-left
+        = t('bands')
+
       a.btn.btn-default.btn-xs.pull-right href=event_event_bands_path(@event)
         = t('edit')
+      .clearfix
 
   .list-group.list-group-bigger
-    - @event.event_bands.each do |event_band|
+    - @event.event_bands.each do |event_band, band = event_band.band.decorate|
       li.list-group-item: .media
-        a.pull-left href="#"
-          = image_tag band_thumb_url(event_band.band), width: '74'
+        a.pull-left href=band_path(event_band.band)
+          = image_tag band.thumb_url, width: '74', class: 'img-rounded'
 
         .media-body.no-margin-last-child
           h4.media-heading
-            = event_band.band.name
+            = link_to event_band.band.name, event_band.band, class: 'link-text'
             small< = "(#{event_band.band.country_code})"
-          = embed_player(event_band.band, '#fff', nil, 'small')
+
+          == cell(:player, event_band.band, size: 'small', bgcolor: 'fff')
           .text-muted= markdown event_band.description
 
 
 .panel.panel-default
   = render 'events/show/description'
 
-
-
 - content_for :sidebar do
   .panel.panel-default
     ul.list-group
+      = render 'events/show/sidebar/is_private'
+      = render 'events/show/sidebar/is_removed'
+      = render 'events/show/sidebar/is_canceled'
+      = render 'events/show/sidebar/time'
+      = render 'events/show/sidebar/venue'
+      = render 'events/show/sidebar/price'
 
-      - if @event.is_private
-        li.list-group-item.list-group-item-warning
-          .media
-            .pull-left
-              i.glyphicon.glyphicon-lock.media-avatar-glyphicon
-
-            .media-body
-              h5.media-heading.no-margin
-                | Private
-              small.text-muted
-                | This event is private.
-                a< href=event_path(@event, event: { is_private: false }) data-method="put" Publish
-
-      - if @event.is_removed
-        li.list-group-item.list-group-item-danger
-          .media
-            .pull-left
-              i.glyphicon.glyphicon-trash.media-avatar-glyphicon
-
-            .media-body
-              h5.media-heading.no-margin
-                | Removed
-              small.text-muted
-                | This event has been removed.
-                a< href=event_path(@event, event: { is_removed: false }) data-method="put" Undo
-
-      - if @event.is_canceled
-        li.list-group-item.list-group-item-danger
-          .media
-            .pull-left
-              i.glyphicon.glyphicon-remove.media-avatar-glyphicon
-
-            .media-body
-              h5.media-heading.no-margin
-                | Canceled
-              small.text-muted
-                | This event has been canceled.
-                a< href=event_path(@event, event: { is_canceled: false }) data-method="put" Undo
-
-      li.list-group-item
-        .media
-          .pull-left
-            i.glyphicon.glyphicon-time.media-avatar-glyphicon
-
-          .media-body
-            h5.media-heading.no-margin
-              = @event.beginning_at.strftime('%d %B')
-            small.text-muted #{@event.beginning_at.strftime('%d %B')} at #{@event.beginning_at_time.strftime('%H:%M')}
-
-      li.list-group-item
-        .media
-          .pull-left
-            i.glyphicon.glyphicon-map-marker.media-avatar-glyphicon
-
-          .media-body
-            h5.media-heading.no-margin = @event.venue.name
-            small.text-muted = @event.venue.address
-
-  - if @event_presenter.links.any?
-    .panel.panel-default
-      .panel-body.panel-body-text
-        ul.list-unstyled.list-truncated.no-margin
-          - @event_presenter.links.each do |link|
-            li.text-muted
-              i.glyphicon.glyphicon-link>
-              = link_to link[:formatted], link[:url]
-
-  .panel.panel-default
-    .panel-heading Crowd
-    .panel-body
-      ul.list-inline
-        - @event.savegazers.each do |user|
-          li: a
-            = image_tag 'https://avatars1.githubusercontent.com/u/581569?v=2&s=460', class: 'img-circle', size: '30x30'
+  = render 'events/show/sidebar/links'
+  = render 'events/show/sidebar/crowd'

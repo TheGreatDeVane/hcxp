@@ -1,8 +1,12 @@
 - if can? :edit, @event
   .panel-heading
-    = t('activerecord.attributes.event.description')
+    .panel-title.pull-left
+      = t('activerecord.attributes.event.description')
+
     a.btn.btn-default.btn-xs.pull-right ng-click="event.displayEditDescriptionForm = !event.displayEditDescriptionForm"
       = t('edit')
+
+    .clearfix
 
 - if @event.description.present?
   .panel-body.panel-body-text ng-hide='event.displayEditDescriptionForm'

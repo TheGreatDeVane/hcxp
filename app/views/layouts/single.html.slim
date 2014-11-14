@@ -1,0 +1,21 @@
+doctype html
+html
+  = render 'layouts/head'
+
+  body class="#{params[:controller]}-#{params[:action]}" ng-controller="AppCtrl"
+
+    = render 'layouts/alerts'
+    = render 'layouts/nav'
+
+    .container
+      .row
+
+        #sidebar.col-md-4
+          div data-spy="affix" data-offset-top="100" data-offset-bottom="25"
+            = yield :sidebar
+
+        #content.col-md-8
+          = render 'shared/flash'
+          = yield
+
+    = render 'layouts/footer'

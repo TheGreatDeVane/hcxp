@@ -1,0 +1,20 @@
+- unless @users.any?
+  p No results found
+
+- users.each do |user|
+  .media.media-underlined
+    a.pull-left href=user_path(user)
+      = image_tag 'https://avatars1.githubusercontent.com/u/581569?v=2&s=460', class: 'img-circle', size: '80x80'
+
+    .media-body
+      .row
+        .col-md-6
+          h4.media-heading.no-margin = link_to user.username, user
+
+        .col-md-6
+          ul.list-inline.pull-right.no-margin-bottom
+            - user.events.limit(3).each do |event|
+              li: a.thumbnail.no-margin href=event.path
+                = image_tag event.poster.square.url, size: '72x72', class: 'img-rounded'
+
+= paginate @users

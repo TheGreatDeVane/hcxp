@@ -1,0 +1,10 @@
+= render 'bands/show_heading'
+
+.row
+  .col-md-12.pjax-container
+    = render 'bands/nav', tab: :stories
+
+    = render 'form'
+
+- content_for :sidebar do
+  = render 'bands/show_sidebar'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141024065902) do
+ActiveRecord::Schema.define(version: 20141112160011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,31 @@ ActiveRecord::Schema.define(version: 20141024065902) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "stories", force: true do |t|
+    t.string   "url"
+    t.text     "body"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.json     "meta"
+    t.string   "title"
+    t.string   "status"
+    t.string   "thumbnail"
+    t.string   "story_type"
+  end
+
+  add_index "stories", ["user_id"], name: "index_stories_on_user_id", using: :btree
+
+  create_table "story_bands", force: true do |t|
+    t.integer  "story_id"
+    t.integer  "band_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "story_bands", ["band_id"], name: "index_story_bands_on_band_id", using: :btree
+  add_index "story_bands", ["story_id"], name: "index_story_bands_on_story_id", using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"

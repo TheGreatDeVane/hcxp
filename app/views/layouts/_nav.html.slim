@@ -7,15 +7,16 @@
       li.dropdown class=('active' if params[:controller] == 'events')
         a href=events_path
           | Events
+
       li class=('active' if params[:controller] == 'bands')
         a href=bands_path
           | Bands
+
       li class=('active' if params[:controller] == 'users')
         a href=users_path
           | Users
 
-    form.navbar-form.navbar-right.search-form role="search" action=browse_events_path
-      input type="text" class="form-control input-sm" placeholder="Search" name="q" value=params[:q]
+    == cell(:search_form, params)
 
     - if user_signed_in?
       ul.nav.navbar-nav.navbar-right.nav-user-nav
@@ -34,19 +35,3 @@
     - else
       p.navbar-text.navbar-right
         a.navbar-link href=new_user_session_path = t 'main_nav.user.sign_in'
-
-/ .navbar.navbar-default.navbar-sub
-/   .container
-/     ul.nav.navbar-nav
-/       li: a
-/         | Future
-/         i.glyphicon.glyphicon-chevron-down
-/       li: a
-/         | Bands
-/         i.glyphicon.glyphicon-chevron-down
-/       li: a
-/         | Venues
-/         i.glyphicon.glyphicon-chevron-down
-/       li: a
-/         | Locations
-/         i.glyphicon.glyphicon-chevron-down

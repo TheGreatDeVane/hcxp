@@ -9,9 +9,15 @@ class Api::V1::VenuesController < Api::V1Controller
   def index
     @venues = Venue.all
 
-    @venues = @venues.where(id: params[:id_in]) if params[:id_in].present?
-    @venues = @venues.search(params[:q])        if params[:q].present?
-    @venues
+    if params[:f]
+      @f = Venue.ransack(params[:f])
+      @venues = @f.result
+    elsif params[:q]
+      @venues = Venue.fulltext_search(params[:q])
+    end
+
+    # Paginate
+    @venues = @venues.page(params[:page])
   end
 
   def show

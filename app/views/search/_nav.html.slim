@@ -1,0 +1,19 @@
+.panel.panel-default
+  .list-group
+    a.list-group-item(
+      class=('active' if tab == :events)
+      href=search_index_path(q: params[:q])
+    )
+      = t('events')
+
+    a.list-group-item(
+      class=('active' if tab == :bands)
+      href=bands_search_index_path(q: params[:q])
+    )
+      = t('bands')
+
+    a.list-group-item(
+      class=('active' if tab == :users)
+      href=users_search_index_path(q: params[:q])
+    )
+      = t('users')

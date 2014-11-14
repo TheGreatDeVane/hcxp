@@ -1,10 +1,8 @@
-- content_for :heading do
-  = render 'edit_heading'
-
 .panel.panel-default.panel-content
-  .panel-body
-    - #h3.underlined =t('events.editing_event')
+  .panel-heading
+    = render 'edit_heading'
 
+  .panel-body
     == render 'form'
 
 - content_for :sidebar do

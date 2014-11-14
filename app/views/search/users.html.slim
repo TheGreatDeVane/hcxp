@@ -1,0 +1,5 @@
+= render 'heading', collection: @users
+= render 'users/users', users: @users
+
+- content_for :sidebar do
+  = render 'nav', tab: :users

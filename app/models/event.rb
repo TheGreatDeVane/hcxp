@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
 
   is_impressionable counter_cache: true, unique: [:impressionable_type, :impressionable_id, :session_hash]
 
-  search_scope :search do
+  search_scope :fulltext_search do
     attributes :title
     attributes :bands => ["bands.name"]
     attributes :venue => ["venue.name", 'venue.address', 'venue.city', 'venue.country_name', 'venue.country_code']
@@ -23,7 +23,10 @@ class Event < ActiveRecord::Base
   # Validations
   validates :user_id, presence: true
   validates :beginning_at, presence: true
-  validates :venue_id, presence: true
+
+  with_options unless: :is_private do |e|
+    e.validates :venue_id, presence: true
+  end
 
   # Nested attributes
   accepts_nested_attributes_for :event_bands, allow_destroy: true,
@@ -40,6 +43,7 @@ class Event < ActiveRecord::Base
   scope :from_the_future, -> { where('beginning_at >= ?', Date.today.beginning_of_day) }
   scope :from_the_past,   -> { where('beginning_at < ?', Date.today) }
   scope :featured,        -> { where(is_promoted: true) }
+  scope :visible,         -> { where(is_private: false, is_removed: false) }
 
   # Callbacks
   after_save    :puts_changes

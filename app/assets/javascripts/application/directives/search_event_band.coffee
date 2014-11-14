@@ -6,12 +6,18 @@
 
     controller: ($scope) ->
       $scope.bands = []
+      $scope.noResults = false
       timer = false
 
       $scope.searchForBand = (q) ->
 
-        Restangular.all('bands').getList({ q: q }).then (results) ->
+        Restangular.all('bands').getList({ 'f[name_cont]': q }).then (results) ->
           $scope.bands = results.data
+
+          if results.data.length > 0
+            $scope.noResults = false
+          else
+            $scope.noResults = true
 
       $scope.addBand = (index) ->
         params = {
@@ -26,6 +32,8 @@
       $scope.$watchCollection 'searchQuery', (val, oldVal) ->
         return false if val is oldVal
 
+        $scope.noResults = false
+
         if val is ''
           $timeout.cancel timer
           $scope.bands = []
@@ -34,7 +42,6 @@
           timer = $timeout(->
             $scope.searchForBand(val)
           , 500)
-        end
 
     link: (scope, element, attrs) ->
       return

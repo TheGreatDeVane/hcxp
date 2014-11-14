@@ -5,7 +5,7 @@ class Band < ActiveRecord::Base
 
   friendly_id :name, use: :slugged
 
-  search_scope :search do
+  search_scope :fulltext_search do
     attributes :name, :location
   end
 
@@ -14,6 +14,8 @@ class Band < ActiveRecord::Base
   has_many :resources, class_name: 'BandResource'
   has_many :event_bands, counter_cache: :events_count
   has_many :events, through: :event_bands
+  has_many :story_bands
+  has_many :stories, through: :story_bands
 
   validates :name, presence: true, no_capslock: true
   validates :location, presence: true
@@ -34,8 +36,8 @@ class Band < ActiveRecord::Base
   before_validation :geocode, if: :location_changed?
 
   def images
-    lastfm_resources = self.resources.lastfm
-    self.resources.lastfm.first.data[:images] if lastfm_resources.any? && lastfm_resources.first.data.present?
+    lastfm_stories = self.stories.lastfm
+    lastfm_stories.first.meta['images'] if lastfm_stories.any? && lastfm_stories.first.meta.present?
   end
 
   def url

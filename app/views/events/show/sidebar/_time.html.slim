@@ -1,0 +1,9 @@
+li.list-group-item
+  .media
+    .pull-left
+      i.glyphicon.glyphicon-time.media-avatar-glyphicon
+
+    .media-body
+      h5.media-heading.no-margin
+        = @event.beginning_at.strftime('%d %B')
+      small.text-muted #{@event.beginning_at.strftime('%d %B')} at #{@event.beginning_at_time.strftime('%H:%M')}

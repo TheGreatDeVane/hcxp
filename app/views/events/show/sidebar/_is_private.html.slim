@@ -1,0 +1,12 @@
+- if @event.is_private
+  li.list-group-item.list-group-item-warning
+    .media
+      .pull-left
+        i.glyphicon.glyphicon-lock.media-avatar-glyphicon
+
+      .media-body
+        h5.media-heading.no-margin
+          | Private
+        small.text-muted
+          | This event is private.
+          a< href=event_path(@event, event: { is_private: false }) data-method="put" Publish

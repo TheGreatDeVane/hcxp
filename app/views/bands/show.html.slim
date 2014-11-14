@@ -1,23 +1,9 @@
-.container
-  .row
-    .col-md-12
-      p#notice = notice
-      .row
-        .col-md-4
-          = image_tag band_thumb_url(@band, :mega), width: '100%'
+= render 'show_heading'
 
-        .col-md-8
-          - if user_signed_in?
-            .btn-group.pull-right
-              = link_to edit_band_path(@band), class: 'btn btn-default'
-                i.glyphicon.glyphicon-pencil
+.row
+  .col-md-12.pjax-container
+    = render 'bands/nav', tab: @tab
+    = render 'events/events', event_months: @event_months, events: @events
 
-          h1
-            = @band.name
-
-          ul.list-unstyled.text-muted
-            li
-              i.glyphicon.glyphicon-map-marker>
-              = @band.location
-
-          hr
+- content_for :sidebar do
+  = render 'show_sidebar'

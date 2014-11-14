@@ -2,7 +2,7 @@ doctype html
 html
   = render 'layouts/head'
 
-  body class="#{params[:controller]}-#{params[:action]}" ng-controller="AppCtrl"
+  body class="#{params[:controller]}-#{params[:action]}"
 
     = render 'layouts/alerts'
     = render 'layouts/nav'
@@ -13,7 +13,8 @@ html
           = yield :heading
 
       .row
-        #content.pjax-container class=(@content_class || (content_for?(:sidebar) ? 'col-md-9' : 'col-md-10 col-md-offset-1'))
+        #content class=(@content_class || (content_for?(:sidebar) ? 'col-md-9' : 'col-md-10 col-md-offset-1'))
+          = render 'shared/flash'
           = yield
 
         - if content_for?(:sidebar)

@@ -1,9 +1,12 @@
-.col-md-12
-  .media
-    a.pull-left
-      = image_tag @event.poster.square, size: '50x50', class: 'thumbnail'
+- title ||= 'Editing event'
 
-    .media-body
-      h2.h4.media-heading
-        = link_to @event.title, @event.path
-      p.text-muted = @event.venue
+.media
+  a.pull-left.no-margin-bottom
+    = image_tag @event.poster.square, size: '40x40', class: 'img-rounded'
+
+  .media-body
+    h2.h4.media-heading.no-margin-bottom
+      = title || ''
+
+    p.text-muted.no-margin
+      small= link_to @event.title_or_bands, @event.path

@@ -1,7 +1,6 @@
-- content_for :heading do
-  = render 'events/edit_heading'
-
 .panel.panel-default.panel-content
+  .panel-heading
+    = render 'events/edit_heading'
 
   .panel-body
 
@@ -38,7 +37,12 @@
         = f.submit t('save_changes'), class: 'btn btn-default pull-right'
 
     - else
-      p No bands set.
+      .text-center
+        p.lead No bands set.
+        a.btn.btn-default.btn-sm href=add_event_event_bands_path(@event)
+          i.glyphicon.glyphicon-plus>
+          = t('add_band')
+
 
 - content_for :sidebar do
   = render 'events/edit_nav', tab: :bands

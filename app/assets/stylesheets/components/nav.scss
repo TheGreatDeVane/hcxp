@@ -39,3 +39,24 @@
     }
   }
 }
+
+.nav-sm {
+  font-size: 14px;
+
+  &> li > a {
+    padding: 6px 12px;
+  }
+}
+
+.result-scopes {
+  margin-bottom: 25px;
+
+  li > a {
+    color: #bbb;
+  }
+
+  li.active > a {
+    background: url(bg.png);
+    color: #666;
+  }
+}

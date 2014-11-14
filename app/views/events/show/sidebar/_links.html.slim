@@ -1,0 +1,9 @@
+- if @event.links.any?
+  .panel.panel-default
+    .panel-body.panel-body-text
+      ul.list-unstyled.list-truncated.no-margin
+
+        - @event.links.each do |link|
+          li.text-muted
+            i.glyphicon.glyphicon-link>
+            = link_to link[:formatted], link[:url]

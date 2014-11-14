@@ -1,0 +1,12 @@
+- if @event.is_canceled
+  li.list-group-item.list-group-item-danger
+    .media
+      .pull-left
+        i.glyphicon.glyphicon-remove.media-avatar-glyphicon
+
+      .media-body
+        h5.media-heading.no-margin
+          | Canceled
+        small.text-muted
+          | This event has been canceled.
+          a< href=event_path(@event, event: { is_canceled: false }) data-method="put" Undo

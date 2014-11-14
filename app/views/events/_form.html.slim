@@ -16,14 +16,20 @@
     .col-sm-8
       .row
         .col-md-7
-          .input-group
-            = f.text_field :beginning_at, ng_init: "event.beginningAt='#{f.object.beginning_at.try(:strftime, '%d.%m.%Y')}'", class: 'form-control', :'datepicker-popup' => 'dd.MM.yyyy', ng_model: 'event.beginningAt', is_open: 'event.beginningAtOpened', min_date: '', max_date: "'2015-06-22'", datepicker_options: '', date_disabled: '', close_text: 'Close', placeholder: 'dd.mm.yyyy'
-            a.input-group-addon ng-click="openBeginningAt($event)": i.glyphicon.glyphicon-calendar
+          .form-inline
+            = f.date_select :beginning_at, {order: [:day, :month, :year]}, class: "form-control"
 
         .col-md-5
-          = f.time_field :beginning_at_time, class: 'form-control',
-              value: (@event.beginning_at_time.blank? ? '' : @event.beginning_at_time.strftime('%H:%M')),
-              placeholder: 'hh:mm'
+          .form-inline
+            label> = t('activerecord.attributes.event.beginning_at_time')
+            = f.time_select :beginning_at_time, { minute_step: 5, prompt: '-' }, class: 'form-control'
+
+  .form-group
+    label.control-label.col-sm-3
+      = t('activerecord.attributes.event.price')
+
+    .col-sm-8
+      = f.text_field :price, class: 'form-control'
 
   hr
 
@@ -66,31 +72,34 @@
 
   hr
 
-  .form-group
+  - if @event.persisted?
+    .form-group
 
-    label.control-label.col-sm-3
-      | Additional
+      label.control-label.col-sm-3
+        | Additional
 
-    .col-sm-8
-      .checkbox
-        label
-          = f.check_box :is_private
-          = t('activerecord.attributes.event.is_private')
-      span.help-block Only event host is able to view that event
+      .col-sm-8
+        .checkbox
+          label
+            = f.check_box :is_private
+            = t('activerecord.attributes.event.is_private')
+        span.help-block Only event host is able to view that event
 
-      .checkbox
-        label
-          = f.check_box :is_canceled
-          = t('activerecord.attributes.event.is_canceled')
-      span.help-block Event is canceled and is not gonna happen
+        .checkbox
+          label
+            = f.check_box :is_canceled
+            = t('activerecord.attributes.event.is_canceled')
+        span.help-block Event is canceled and is not gonna happen
 
-      - if can? :destroy, @event
-        hr
-        p.help-block Click the button below if you want to completely remove that event
-        a.btn.btn-danger.btn-sm type="submit" href=event_path(@event, event: { is_removed: true }) data-confirm=t('are_you_sure') data-method="put"
-          = t('.delete')
+        - if can? :destroy, @event
+          hr
+          p.help-block Click the button below if you want to completely remove that event
+          a.btn.btn-danger.btn-sm type="submit" href=event_path(@event, event: { is_removed: true }) data-confirm=t('are_you_sure') data-method="put"
+            = t('.delete')
 
-  hr
+    hr
 
-  = link_to t('.back'), @event.path, class: 'btn btn-link'
+  - if @event.persisted?
+    = link_to t('.back'), @event.path, class: 'btn btn-link'
+
   = f.submit t('.save_event'), class: 'btn btn-default pull-right'

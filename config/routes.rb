@@ -1,12 +1,18 @@
 Khcpl::Application.routes.draw do
   Khcpl::Application.routes.default_url_options[:host] = Rails.application.config.action_mailer.default_url_options[:host]
 
+  require 'sidekiq/web'
+  # mount Sidekiq::Web => '/sidekiq'
+
   resources :venues do
     get :autocomplete, on: :collection
   end
 
   resources :bands do
     get :autocomplete, on: :collection
+    get 'events/past', controller: 'bands', action: 'past_events', on: :member
+
+    resources :stories
   end
 
   devise_for :users, controllers: {
@@ -54,6 +60,11 @@ Khcpl::Application.routes.draw do
 
   root 'events#index'
 
+  resources :search do
+    get :bands, on: :collection
+    get :users, on: :collection
+  end
+
   resources :events, path: '/' do
     get :edit, on: :member
     post 'toggle/:what' => 'events#toggle', on: :member, as: :toggle_prop
@@ -66,6 +77,15 @@ Khcpl::Application.routes.draw do
 
     resources :event_bands, path: 'edit/bands', on: :member do
       get :add, on: :collection
+      post :create, on: :collection
+    end
+
+    resources :event_venue, path: 'edit/venue', on: :member do
+      post :unset, on: :collection
+      post ':set/:venue_id' => 'event_venue#set', on: :collection
+      get :set, on: :collection
+      get :set_city, on: :collection
+      post :set_city, on: :collection
     end
 
     get ':slug' => 'events#show', on: :member, as: :slugged

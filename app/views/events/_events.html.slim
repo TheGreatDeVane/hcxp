@@ -1,9 +1,9 @@
 .events-list
 
-  - unless @event_months.any?
+  - unless event_months.any?
     h5 No events to show
 
-  - @event_months.each do |month, events|
+  - event_months.each do |month, events|
     h2.month-title
       = event_date_to_words month
 
@@ -14,4 +14,4 @@
       - events.each do |event|
         = render event
 
-= paginate @events
+= paginate events

@@ -5,3 +5,6 @@
 
     a.list-group-item href=event_event_bands_path(@event) class=('active' if tab == :bands)
       = t('bands')
+
+    a.list-group-item href=event_event_venue_index_path(@event) class=('active' if tab == :venue)
+      = t('venue')

@@ -10,7 +10,7 @@
         li: a =t 'footer.nav.api'
         li: a =t 'footer.nav.contact'
         li = "/"
-        li: a href="http://github.com/mbajur/hcxp" github
+        li: a href="http://github.com/hcxp/hcxp" github
         li: a href="http://twitter.com/hcxphq" twitter
 
     .col-md-4.text-right.dropup
@@ -20,5 +20,5 @@
         b.caret<
 
       ul.dropdown-menu.dropdown-menu-right
-        li= link_to 'English', params.merge(locale: 'en'), data: { :'no-turbolink' => '' }
-        li= link_to 'Polski', params.merge(locale: 'pl'), data: { :'no-turbolink' => '' }
+        li= link_to 'English', params.merge(locale: 'en'), data: { :'no-turbolink' => '' }, rel: 'nofollow'
+        li= link_to 'Polski', params.merge(locale: 'pl'), data: { :'no-turbolink' => '' }, rel: 'nofollow'

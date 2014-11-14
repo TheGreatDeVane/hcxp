@@ -6,6 +6,7 @@ en:
   save: 'Save'
   unsave: 'Unsave'
   save_event: 'Save event'
+  save_band: 'Save band'
   save_changes: 'Save changes'
 
   search: 'Search'
@@ -56,29 +57,29 @@ en:
       fhcpl:
         description: 'Use your credentials from <a href="http://forum.hard-core.pl">forum.hard-core.pl</a> to sign in to hcxp.'
 
-  events:
-    save: 'Save'
-    saved: 'Saved'
-    edit: 'Edit'
-    promote: 'Promote'
-    promoted: 'Promoted'
-    timing: 'Czas'
-    if_you_know_venue: 'If you know the venue'
+  events: 'Events'
+  save: 'Save'
+  saved: 'Saved'
+  edit: 'Edit'
+  promote: 'Promote'
+  promoted: 'Promoted'
+  timing: 'Timing'
+  if_you_know_venue: 'If you know the venue'
 
-    form:
-      remove_poster: 'Remove that poster'
-      save_event: 'Save event'
-      if_you_know_the_venue: 'If you know the venue:'
-      if_you_know_only_the_city: 'If you know only the city:'
-      address_city_placeholder: 'City, Country'
-      enter_a_location: 'Enter a location'
-      file_url: 'File URL'
+  form:
+    remove_poster: 'Remove that poster'
+    save_event: 'Save event'
+    if_you_know_the_venue: 'If you know the venue:'
+    if_you_know_only_the_city: 'If you know only the city:'
+    address_city_placeholder: 'City, Country'
+    enter_a_location: 'Enter a location'
+    file_url: 'File URL'
 
-    show:
-      nav:
-        info:      'Info'
-        links:     'Links'
-        resources: 'Resources'
+  show:
+    nav:
+      info:      'Info'
+      links:     'Links'
+      resources: 'Resources'
 
   footer:
     nav:
@@ -104,3 +105,7 @@ en:
         is_removed: 'Removed'
         social_link_fb: 'Facebook link'
         social_link_lfm: 'Last.fm link'
+        beginning_at_time: 'Time'
+
+      story:
+        url: 'Link'

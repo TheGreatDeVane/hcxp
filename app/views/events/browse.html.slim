@@ -1,7 +1,46 @@
 / Set page title
 - @title = "Browse events"
 
-= render 'events/events'
+.result-scopes
+  ul.nav.nav-tabs.no-margin
+    = time_scope_filter_link(@q, t('future_events'), :future)
+    = time_scope_filter_link(@q, t('past_events'), :past)
+  .clearfix
+
+= render 'events/events', event_months: @event_months, events: @events
 
 - content_for :sidebar do
-  div event-filters="" event-filter-params="#{@filter_params.to_json}"
+
+  .panel.panel-default
+    .panel-body
+      = search_form_for @q, url: browse_events_path do |f|
+
+        .form-group.hidden
+          h6.form-label Events from
+          label.radio-inline
+            = f.radio_button :from_the, 'future'
+            | Future
+
+          label.radio-inline
+            = f.radio_button :from_the, 'past'
+            | Past
+
+        .form-group
+          h6.form-label Band
+          = f.search_field :bands_name_cont, class: 'form-control input-sm'
+
+        .form-group
+          h6.form-label Location
+          = f.search_field :venue_address_cont, class: 'form-control input-sm'
+
+        = f.submit 'Search', class: 'btn btn-default btn-sm btn-block'
+
+  coffee:
+    #$(document).on 'change', '#q_from_the_future', (e) ->
+    #  $('#event_search').submit()
+
+    #$(document).on 'change', '#q_from_the_past', (e) ->
+    #  $('#event_search').submit()
+
+    $(document).on 'submit', '#event_search', (e) ->
+      #$.pjax.submit e, '.pjax-container'

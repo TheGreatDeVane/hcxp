@@ -1,0 +1,9 @@
+.panel.panel-default.panel-content
+  .panel-heading
+    = render 'events/edit_heading'
+
+  .panel-body
+    = render 'form'
+
+- content_for :sidebar do
+  = render 'events/edit_nav', tab: :bands

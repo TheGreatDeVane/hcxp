@@ -1,0 +1,12 @@
+- if @event.is_removed
+  li.list-group-item.list-group-item-danger
+    .media
+      .pull-left
+        i.glyphicon.glyphicon-trash.media-avatar-glyphicon
+
+      .media-body
+        h5.media-heading.no-margin
+          | Removed
+        small.text-muted
+          | This event has been removed.
+          a< href=event_path(@event, event: { is_removed: false }) data-method="put" Undo

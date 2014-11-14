@@ -1,0 +1,6 @@
+h4.underlined.no-margin-top
+  | Found #{pluralize collection.total_count, collection.model_name.to_s.downcase}
+
+  - if params[:q].present?
+    = " for"
+    i.text-muted<> = params[:q]

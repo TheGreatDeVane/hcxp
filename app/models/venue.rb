@@ -1,7 +1,7 @@
 class Venue < ActiveRecord::Base
   include SearchCop
 
-  search_scope :search do
+  search_scope :fulltext_search do
     attributes :name, :address
   end
 
@@ -47,12 +47,16 @@ class Venue < ActiveRecord::Base
     string << ", #{country_name}" if country_name.present?
   end
 
-  def self.find_or_create_tba(city, country_code)
-    fail ArgumentError, "City and country code can't be blank" if city.blank? || country_code.blank?
+  def self.find_or_create_tba(latitude, longitude)
+    fail ArgumentError, "Latitude and longitude can't be blank" if latitude.blank? || longitude.blank?
+    geo = Geocoder.search("#{latitude}, #{longitude}")[0].data['address_components']
 
-    venue = Venue.find_by(name: 'TBA', city: city, country_code: country_code)
+    city = geo.select { |c| c['types'].include? 'locality' }.first['long_name']
+    country = geo.select { |c| c['types'].include? 'country' }.first['long_name']
+
+    venue = Venue.find_by(name: 'TBA', city: city, country_name: country)
     return venue if venue
 
-    Venue.create(name: 'TBA', address: "#{city}, #{country_code}")
+    Venue.create(name: 'TBA', address: "#{city}, #{country}")
   end
 end

@@ -1,7 +1,9 @@
 .panel.panel-default.panel-content
 
+  .panel-heading
+    = render 'events/edit_heading', title: 'Adding band to event'
+
   .panel-body
-    h3.underlined =t('add_band')
 
     div hcxp-search-event-band="" event-id=@event.id
 
@@ -26,7 +28,11 @@
                   p.text-muted.no-margin
                     | {{ band.location }}
 
-          div ng-show="searchQuery && !bands.length"
+            a.list-group-item ng-href="#{new_event_event_band_path(@event)}?band[name]={{ searchQuery }}"
+              i.glyphicon.glyphicon-plus>
+              | Create a new band
+
+          div ng-show="noResults"
             p Sorry, no bands found.
 
 - content_for :sidebar do

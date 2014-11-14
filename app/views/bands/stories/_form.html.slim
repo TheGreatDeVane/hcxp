@@ -1,0 +1,14 @@
+= form_for [@band, @story], html: { class: 'form-horizontal' } do |f|
+  p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec augue sed ipsum semper aliquet. In nec purus non felis consequat scelerisque. Quisque sit amet lacinia velit.
+
+  = render 'shared/form_errors', resource: @story
+
+  .form-group
+    = f.label :url, class: 'col-md-2 control-label'
+
+    .col-md-10
+      = f.text_field :url, class: 'form-control', placeholder: 'http://...'
+      p.help-block
+
+  .text-center
+    = f.submit t('save'), class: 'btn btn-default'

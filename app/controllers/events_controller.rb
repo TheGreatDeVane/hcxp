@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   impressionist actions: [:show], unique: [:impressionable_type, :impressionable_id, :session_hash]
   load_and_authorize_resource :event, except: [:toggle, :edit_bands]
 
-  layout 'event', only: [:show]
+  layout 'single', only: [:show]
 
   # GET /events
   # GET /events.json
@@ -13,49 +13,19 @@ class EventsController < ApplicationController
   end
 
   def browse
-    @events = Event.all
-    @events = @events.search(params[:q]) if params[:q]
+    q = params[:q]
+    params.merge!(q: {}) unless params[:q].present?
+    params[:q][:from_the] = 'future' unless params[:q][:from_the].present?
 
-    if params[:when] && %w(future past).include?(params[:when])
-      @events = @events.send("from_the_#{params[:when]}")
-    end
+    @q = Event.visible.search(params[:q])
 
-    if params[:locations]
-      locations = params[:locations]
-      locations_arr = []
-
-      # Convert incoming params to array format
-      locations.keys.each { |key| locations_arr << locations[key] }
-
-      @events = @events.from_locations(locations_arr)
-    end
-
-    if params[:band_ids]
-      @events = @events.joins(:bands).where('bands.id IN (?)', params[:band_ids].map(&:to_i))
-    end
-
-    if params[:venue_ids]
-      @events = @events.where(venue_id: params[:venue_ids])
-    end
-
-    # Pagination
-    @events = @events.page(params[:page])
-
+    @events = @q.result.includes(:bands).includes(:venue).page(params[:page])
     @event_months = @events.group_by { |e| e.beginning_at.beginning_of_day }
-
-    # Format filter params for filters widget
-    @filter_params = params.slice(:when, :locations, :band_ids, :venue_ids)
-    if @filter_params[:locations]
-      locations = []
-      @filter_params[:locations].keys.each { |key| locations << @filter_params[:locations][key] }
-      @filter_params[:locations] = locations
-    end
   end
 
   # GET /events/1
   # GET /events/1.json
   def show
-    @event_presenter = EventPresenter.new(@event)
     redirect_to @event.path if @event.slug != params[:slug]
   end
 
@@ -67,7 +37,9 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    @event = Event.new
+    @event = Event.new \
+      is_private: true,
+      beginning_at_time: '19:00'
   end
 
   # GET /events/1/edit
@@ -121,7 +93,7 @@ class EventsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_event
-      @event = Event.find(params[:id])
+      @event = Event.find(params[:id]).decorate
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

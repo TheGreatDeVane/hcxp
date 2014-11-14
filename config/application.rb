@@ -27,6 +27,8 @@ module Khcpl
 
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += %W(#{config.root}/app/presenters)
+    config.autoload_paths += %W(#{config.root}/app/services)
+    config.autoload_paths += %W(#{config.root}/engines/hcxp_players/app/overrides)
     config.eager_load_paths += %W(#{config.root}/lib)
 
     RailsConfig.load_and_set_settings(

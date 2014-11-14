@@ -54,7 +54,6 @@
 //= require bootstrap/alert
 // require bootstrap/affix
 //
-//= require epiceditor
 //= require ./application/hcxpApp
 
 $(document).on('ready page:load', function() {
@@ -188,4 +187,12 @@ var ngRefresh = function() {
 
   compile($("body").contents())(scope);
   scope.$apply();
+}
+
+var isLoading = function(isIt) {
+  if (isIt == true || isIt == null) {
+    $('.pjax-container').addClass('pjax-container-loading')
+  } else {
+    $('.pjax-container').removeClass('pjax-container-loading')
+  }
 }

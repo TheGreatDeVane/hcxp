@@ -7,6 +7,20 @@ module EventsHelper
     title
   end
 
+  def time_scope_filter_link(search, label, value)
+    q = params['q'] || {}
+    q['from_the'] = value.to_s
+
+    href  = request.original_url.split('?').first
+    href += '?' << {q: q}.to_query
+
+    is_current = (search.from_the == value.to_s)
+
+    content_tag :li, class: (is_current ? 'active' : '') do
+      content_tag :a, label, href: href
+    end
+  end
+
   def event_date_to_words(date, format = '%d.%m.%Y')
     # Make sure that date is a type of DateTime
     date = DateTime.parse(date.to_s) if date.is_a? Date

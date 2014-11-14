@@ -1,0 +1,17 @@
+.result-scopes
+  ul.nav.nav-tabs
+    li class=('active' if tab == :future)
+      a.pjax href=band_path(@band)
+        = t('future_events')
+
+    li class=('active' if tab == :past)
+      a.pjax href=events_past_band_path(@band)
+        = t('past_events')
+
+    li class=('active' if tab == :stories)
+      a.pjax href=band_stories_path(@band)
+        = t('stories')
+
+    a.pjax.pull-right.btn.btn-success.btn-sm href=new_band_story_path(@band)
+      i.glyphicon.glyphicon-plus>
+      = t('add_story')
