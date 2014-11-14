@@ -10,11 +10,13 @@ en:
   at: 'at'
   band: 'Band'
   bands: 'Bands'
+  back: 'Back'
   cancel: 'Cancel'
   canceled: 'Canceled'
   change_venue: 'Change venue'
   create_a_new_band: 'Create a new Band'
   crowd: 'Crowd'
+  delete: 'Delete'
 
   devise:
     failure:
@@ -24,7 +26,7 @@ en:
       signed_in_with_fhcpl: 'Use your credentials from <a href="http://forum.hard-core.pl">forum.hard-core.pl</a> to sign in to hcxp.'
 
   edit: 'Edit'
-  events: 'Events'
+  editing_event: 'Editing Event'
   events: 'Events'
   future: 'Future'
   future_events: 'Future events'
@@ -39,6 +41,7 @@ en:
   price: 'Price'
   private: 'Private'
   publish: 'Publish'
+  remove: 'Remove'
   removed: 'Removed'
   set_city: 'Set city'
   set_venue: 'Set venue'
@@ -77,9 +80,11 @@ en:
     you_can_leave_it_blank: 'You can leave it blank'
     search_band_to_add_to_event: 'Search for a band to add it to this event'
     search_venue_for_event: 'Search for a venue to assign it to that event'
-    canceled_full: 'This event has been canceled.'
+    canceled_full: 'This event was canceled.'
     private_full: 'This event is private.'
-    removed_full: 'This event has been removed.'
+    removed_full: 'This event was removed.'
+    event_created: 'Event was successfully created.'
+    event_updated: 'Event was successfully updated.'
 
   sessions:
     new:
@@ -100,6 +105,7 @@ en:
         name: 'Name'
 
       event:
+        title: 'Title'
         is_private: 'Private'
         is_private_help: 'Only event host is able to view that event'
         is_canceled: 'Canceled'
@@ -114,6 +120,7 @@ en:
         description: 'Description'
         price: 'Price'
         beginning_at_time: 'Time'
+        poster: 'Poster'
 
       story:
         url: 'Link'

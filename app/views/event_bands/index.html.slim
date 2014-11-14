@@ -23,7 +23,7 @@
 
                   input.hidden type="checkbox" ng-model="event_band.destroy" name="event[event_bands_attributes][{{ event_band.id }}][_destroy]"
                   a.btn.btn-default.btn-xs.pull-right ng-click="event_band.destroy = true"
-                    | Remove
+                    = t('remove')
 
                   input.form-control type="hidden" value="{{ event_band.id }}" ng-model="event_band.id" name="event[event_bands_attributes][{{ event_band.id }}][id]"
                   input.form-control type="hidden" value="{{ $index + 1 }}" name="event[event_bands_attributes][{{ event_band.id }}][position]"

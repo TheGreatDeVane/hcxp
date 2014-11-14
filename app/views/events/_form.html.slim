@@ -106,11 +106,11 @@
             data-confirm=t('are_you_sure')
             data-method="put"
           )
-            = t('.delete')
+            = t('delete')
 
     hr
 
   - if @event.persisted?
-    = link_to t('.back'), @event.path, class: 'btn btn-link'
+    = link_to t('back'), @event.path, class: 'btn btn-link'
 
-  = f.submit t('.save_event'), class: 'btn btn-default pull-right'
+  = f.submit t('save'), class: 'btn btn-default pull-right'

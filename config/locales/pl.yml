@@ -1,8 +1,90 @@
 pl:
+  about: 'Info'
+  api: 'API'
+  contact: 'Kontakt'
+  add_band: 'Dodaj zespół'
+  add_story: 'Dodaj zasób'
+  adding_band_to_event: 'Dodawanie zespołu do wydarzenia'
+  additional: 'Dodatkowe'
+  are_you_sure: 'Na pewno chcesz to zrobić?'
+  at: 'o godz.'
+  band: 'Zespół'
+  bands: 'Zespoły'
+  back: 'Cofnij'
+  cancel: 'Anuluj'
+  canceled: 'Anulowany'
+  change_venue: 'Zmień miejscę'
+  create_a_new_band: 'Stwórz nowy zespół'
+  crowd: 'Ludzie'
+  delete: 'Skasuj'
+
+  devise:
+    failure:
+      invalid: ''
+    sessions:
+      signed_in: ''
+      signed_in_with_fhcpl: 'Aby zalogować się w hcxp, możesz użyć swoich danych z <a href="http://forum.hard-core.pl">forum.hard-core.pl</a>.'
+
+  edit: 'Edytuj'
+  editing_event: 'Edycja wydarzenia'
+  events: 'Wydarzenia'
+  future: 'Nadchodzące'
+  future_events: 'Nadchodzące'
+  general: 'Ogólne'
+  language: 'Język'
+  location: 'Lokalizacja'
+  name: 'Nazwa'
+  new_event: 'Nowe wydarzenie'
+  none: 'Brak'
+  past: 'Minione'
+  past_events: 'Minione'
+  price: 'Cena'
+  private: 'Prywatne'
+  publish: 'Opublikuj'
+  remove: 'Skasuj'
+  removed: 'Skasowane'
+  set_city: 'Ustaw miasto'
+  set_venue: 'Ustaw klub'
+  settings: 'Ustawienia'
+  sign_in: 'Zaloguj się'
+  sign_out: 'Wyloguj się'
+  stories: 'Zasoby'
+
   time:
     yesterday: 'Wczoraj'
     today: 'Dzisiaj'
     tomorrow: 'Jutro'
+
+  undo: 'Cofnij'
+  unset: 'Skasuj'
+  username: 'Nazwa użytkownika'
+  users: 'Użytkownicy'
+  venue: 'Klub'
+
+  hosted_by: 'Host'
+  save: 'Zapisz'
+  unsave: 'Unsave'
+  save_band: 'Zapisz zespół'
+  save_changes: 'Zapisz zmiany'
+
+  no_results: 'Brak wyników.'
+
+  search: 'Szukaj'
+  search_placeholder: 'Szukaj...'
+  search_for_city: 'Szukaj miasta...'
+
+  validation_error_heading: 'Ups! Coś poszło nie tak:'
+  your_events: 'Twoje wydarzenia'
+
+  long:
+    you_can_leave_it_blank: 'Możesz pozostawić to pole puste'
+    search_band_to_add_to_event: 'Szukaj zespołu aby dodać go do tego wydarzenia'
+    search_venue_for_event: 'Szukaj klubu aby przypisać do niego to wydarzenie'
+    canceled_full: 'Wydarzenie zostało odwołane.'
+    private_full: 'Wydarzenie jest prywatne.'
+    removed_full: 'Wydarzenie zostało skasowane.'
+    event_created: 'Wydarzenie zostało utworzone pomyślnie.'
+    event_updated: 'Wydarzenie zostało zaktualizowane.'
 
   sessions:
     new:
@@ -13,3 +95,33 @@ pl:
       fhcpl:
         # description: 'Use your credentials from forum.hard-core.pl to sign in to hcxp.'
         description: 'Aby zalogować się w hcxp, możesz użyć swoich danych z <a href="http://forum.hard-core.pl">forum.hard-core.pl</a>.'
+
+  activerecord:
+    attributes:
+      user:
+        user_name: 'Login'
+        password: 'Hasło'
+
+      venue:
+        name: 'Nazwa'
+
+      event:
+        title: 'Tytuł'
+        is_private: 'Prywatne'
+        is_private_help: 'Tylko host może zobaczyć to wydarzenie'
+        is_canceled: 'Anulowane'
+        is_canceled_help: 'Wydarzenie jest anulowane'
+        is_removed: 'Skasowane'
+        is_removed_help: 'Kliknij przycisk poniżej jeśli chcesz skasować to wydarzenie.'
+        social_link_fb: 'Facebook link'
+        social_link_fb_help: 'Link do wydarzenia na facebooku'
+        social_link_lfm: 'Last.fm link'
+        social_link_lfm_help: 'Link do wydarzenia na last.fm'
+        beginning_at: 'Start'
+        description: 'Opis'
+        price: 'Godzina'
+        beginning_at_time: 'Czas'
+        poster: 'Plakat'
+
+      story:
+        url: 'Link'

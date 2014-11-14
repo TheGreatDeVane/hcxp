@@ -6,9 +6,9 @@
 
     .col-md-4
       ul.list-inline
-        li: a =t('about')
-        li: a =t('api')
-        li: a =t('contact')
+        li: a =t('about').downcase
+        li: a =t('api').downcase
+        li: a =t('contact').downcase
         li = "/"
         li: a href="http://github.com/hcxp/hcxp" github
         li: a href="http://twitter.com/hcxphq" twitter
